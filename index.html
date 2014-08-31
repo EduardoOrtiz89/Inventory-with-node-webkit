@@ -2,6 +2,17 @@
 <html>
   <head>
     <title>Hello World!</title>
+	<script>
+	var Datastore = require('nedb');  
+	var db = new Datastore({  
+	  filename : getUserDataPath() + '/dudes.db',
+	  autoload: true
+	});
+	function getUserDataPath() {  
+		var path = require('path');
+		return path.dirname(process.execPath);
+	}
+	</script>
   </head>
   <body>
     <h1>Hello World!</h1>
