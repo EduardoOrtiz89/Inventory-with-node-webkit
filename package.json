@@ -3,8 +3,8 @@
   "main": "index.html",
   "window": {
     "title": "Demo app",
-    "toolbar": false,
-    "frame": false,
+    //"toolbar": false,
+    //"frame": false,
     "position": "center",
     "fullscreen": true,
     "resizable": true,

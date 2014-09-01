@@ -1,14 +1,16 @@
 var
   express = require("express"),
   path = require("path"),
+  crypto = require('crypto'),
+
   nedb = require('nedb');
 
 var db={};
-var tables=["users","shirts"];
+var tables=["users","shirts","sessions"];
 for(var i=0; i<tables.length; i++){
   db[tables[i]]=new nedb({filename: "db/"+tables[i]+".db",autoload:true});
 }
-
+db.users.ensureIndex({fieldName:"username",unique: true} );
 var app = express();
 
 app.configure(function () {
@@ -17,15 +19,31 @@ app.configure(function () {
   app.use(express.bodyParser()),
   app.use(express.static(path.join(__dirname, 'public/build')));
 });
-
+app.post('/login',function(req,res){
+  //res.send(JSON.stringify(req.body)); return;
+    db.users.find({username: req.body.username,password: req.body.password },function(err,result){
+      if(result && result[0] && result[0].username){
+          db.sessions.insert({username: result[0].username});
+          res.send(result[0]._id);
+      }else{
+        res.send('{"response":false}');
+      }
+      }
+    );
+});
 app.get('/api', function (req, res) {
   res.send('API is running');
 });
 
  app.get('/users', function (req, res) {
-      db.users.find({}, function(err, result) {
+ var shasum = crypto.createHash('sha1');
+ shasum.update("eduardo");
+db.users.insert({username:"eduardo",password:  shasum.digest("hex")}, function (err, newDoc) {   // Callback is optional
+    db.users.find({}, function(err, result) {
         res.send(result);
       });
+});
+
     });
 
     app.post('/users', function (req, res) {
