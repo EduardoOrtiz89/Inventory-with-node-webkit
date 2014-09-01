@@ -1,7 +1,17 @@
 {
   "name": "nw-demo",
   "main": "index.html",
+  "window": {
+    "title": "Demo app",
+    "toolbar": false,
+    "frame": true,
+    "position": "center",
+    "fullscreen": true,
+    "resizable": true
+  },
+  "node-remote": "<local>",
   "dependencies": {
-    "nedb": "~0.11.0"
+    "nedb": "~0.11.0",
+    "express": "~3.16.9"
   }
 }

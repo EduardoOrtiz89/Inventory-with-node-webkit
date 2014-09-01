@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hello World!</title>
-	<script>
-	var Datastore = require('nedb');  
-	var db = new Datastore({  
-	  filename : getUserDataPath() + '/dudes.db',
-	  autoload: true
-	});
-	function getUserDataPath() {  
-		var path = require('path');
-		return path.dirname(process.execPath);
-	}
-	</script>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using node.js <script>document.write(process.version)</script>.
-  </body>
+<head>
+  <style>
+    html {
+      background: linear-gradient(to bottom, #FFF 0%,#F9F9F9 100%);
+      min-height: 100%;
+    }
+  </style>
+  <script>
+    function bodyOnLoad(){
+      require('./server.js');
+      window.location.assign('http://localhost:3000/');
+    }
+  </script>
+</head>
+<body onload="bodyOnLoad()">
+<div class="loading"></div>
+</body>
 </html>
