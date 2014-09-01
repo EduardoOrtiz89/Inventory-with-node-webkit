@@ -1,23 +1,23 @@
-angular.module( 'ngBoilerplate.about', [
+angular.module( 'ngBoilerplate.ventas', [
   'ui.router',
   'placeholders',
   'ui.bootstrap'
 ])
 
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'about', {
-    url: '/about',
+  $stateProvider.state( 'ventas', {
+    url: '/ventas',
     views: {
       "main": {
-        controller: 'AboutCtrl',
-        templateUrl: 'about/about.tpl.html'
+        controller: 'VentasCtrl',
+        templateUrl: 'ventas/ventas.tpl.html'
       }
     },
-    data:{ pageTitle: 'What is It?' }
+    data:{ pageTitle: 'Ventas' }
   });
 })
 
-.controller( 'AboutCtrl', function AboutCtrl( $scope ) {
+.controller( 'VentasCtrl', function VentasCtrl( $scope ) {
   // This is simple a demo for UI Boostrap.
   $scope.dropdownDemoItems = [
     "The first choice!",
