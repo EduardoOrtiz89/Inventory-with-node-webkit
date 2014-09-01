@@ -13,8 +13,7 @@
  * specified, as shown below.
  */
 angular.module( 'ngBoilerplate.rentas', [
-  'ui.router',
-  'plusOne'
+  'ui.router'
 ])
 
 /**

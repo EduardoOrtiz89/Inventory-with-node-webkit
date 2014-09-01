@@ -1,6 +1,5 @@
 angular.module( 'ngBoilerplate.ventas', [
   'ui.router',
-  'placeholders',
   'ui.bootstrap'
 ])
 
