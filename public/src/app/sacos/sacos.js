@@ -46,6 +46,16 @@ angular.module( 'ngBoilerplate.sacos', [
                 "class": "fa fa-sort",
                 "text": "Talla",
                 "sort_by":"talla"
+            },
+             {
+                "class": "fa fa-sort",
+                "text": "Nuevos",
+                "sort_by":"nuevos"
+            },
+             {
+                "class": "fa fa-sort",
+                "text": "Usados",
+                "sort_by":"usados"
             }
         ];
    TableSearch.search($scope);

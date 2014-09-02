@@ -1,35 +1,86 @@
-<h3>{{title}}</h3><form class="form-horizontal" role="form" ng-submit="guardar()">
+<h3>{{title}}</h3>
+<div >
+<form class="form "  role="form" class="col-sm-12" ng-submit="guardar()">
+
+  <div class="form-group col-sm-4" >
+    <label for="codigo" class="col-sm-4 control-label">Código</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="codigo" ng-model="prenda.codigo" placeholder="Código" required>
+    </div>
+  </div> 
+ 
+    <div class="form-group  col-sm-4">
+    <label for="estilo" class="col-sm-4 control-label">Estilo</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="estilo" ng-model="prenda.estilo" placeholder="Estilo" required>
+    </div>
+  </div>
+
+    <div class="form-group  col-sm-4">
+    <label for="talla" class="col-sm-4 control-label">Talla</label>
+    <div class="col-sm-8">
+      <input type="text" class="form-control" id="talla" ng-model="prenda.talla" placeholder="Talla" required>
+    </div>
+  </div>
+
+   
+
+    <div class="form-group  col-sm-6">
+    <label for="talla" class="col-sm-6 control-label">Cantidad Nuevos</label>
+    <div class="col-sm-6">
+      <input type="number" class="form-control numeric" id="talla" ng-model="prenda.nuevos" required>
+    </div>
+  </div>
+
+
+
+    <div class="form-group  col-sm-6">
+    <label for="talla" class="col-sm-6 control-label">Cantidad Usados</label>
+    <div class="col-sm-6">
+      <input type="number" class="form-control numeric"  id="talla" ng-model="prenda.usados" required >
+    </div>
+  </div>
+
+      <div class="form-group  col-sm-6">
+    <label for="talla" class="col-sm-6 control-label">Costo de venta nuevo</label>
+    <div class="col-sm-6">
+      <input type="number" class="form-control numeric" id="talla" ng-model="prenda.costo_nuevo" required >
+    </div>
+  </div>
+
+      <div class="form-group  col-sm-6">
+    <label for="talla" class="col-sm-6 control-label">Costo de venta usado</label>
+    <div class="col-sm-6">
+      <input type="number" class="form-control numeric" id="talla" ng-model="prenda.costo_usado" required>
+    </div>
+  </div>
+
+ <div class="form-group col-sm-6">
+    <label for="talla" class="col-sm-6 control-label">Costo de renta</label>
+    <div class="col-sm-6">
+      <input type="number" class="form-control numeric" id="talla" ng-model="prenda.costo_renta" required>
+    </div>
+  </div>
+
+
+
+
+
+
+
   <div class="form-group">
-    <label for="codigo" class="col-sm-2 control-label">Código</label>
-    <div class="col-sm-10">
-      <input type="codigo" class="form-control" id="codigo" ng-model="prenda.codigo" placeholder="Código" required>
-    </div>
-  </div>
-
-    <div class="form-group">
-    <label for="estilo" class="col-sm-2 control-label">Estilo</label>
-    <div class="col-sm-10">
-      <input type="estilo" class="form-control" id="estilo" ng-model="prenda.estilo" placeholder="Estilo">
-    </div>
-  </div>
-
-    <div class="form-group">
-    <label for="talla" class="col-sm-2 control-label">Talla</label>
-    <div class="col-sm-10">
-      <input type="talla" class="form-control" id="talla" ng-model="prenda.talla" placeholder="Talla">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-sm-12">
       <button type="submit" class="btn btn-primary">Guardar</button>
-      <button ng-if="prenda._id" type="button" ng-click="cancelar()" class="btn btn-default">Cancelar</button>
+      <button ng-show="prenda._id" type="button" ng-click="cancelar()" class="btn btn-default">Cancelar</button>
     </div>
 
   </div>
-</form>
 
-<div class="input-group">
+</form>
+</div>
+
+
+<div class="input-group col-sm-12" style="padding-top:20px">
   <span class="input-group-addon">
   <i style="font-size: 20px;" class="fa fa-search"></i></span>
   <input class="form-control" ng-model="query" ng-change="search()" id="search"  type="text" >
@@ -69,6 +120,8 @@
 			<td>{{item.codigo}}</td>
 			<td>{{item.estilo}}</td>
 			<td>{{item.talla}}</td>
+      <td>{{item.nuevos}}</td>
+      <td>{{item.usados}}</td>
 			<td class="text-center" style="width:30px;"><button ng-click="edit(item)" class="btn btn-primary edit-button"><i class="fa fa-pencil edit-button"></i></button></td>
 			<td  class="text-center" style="width:30px;"><button ng-click="remove(item)" class="btn btn-danger edit-button"><i class="fa fa-trash-o edit-button"></i></button></td>
 		</tr>

@@ -105,7 +105,12 @@ body{
     }
   }
 }
-
+.numeric{
+  text-align: right;
+}
+form{
+  padding-bottom: 10px;
+}
 button,a,.btn {
   -webkit-app-region: no-drag;
 }
@@ -120,3 +125,12 @@ button,a,.btn {
 @import '../app/rentas/rentas.less';
 @import '../app/login/login.less';
 
+ form input.ng-invalid.ng-dirty {
+    border-color: #E6B8B8;
+    border-width: 2px;
+  }
+
+ form input.ng-valid.ng-dirty {
+    border-color: #76D6AB;
+    border-width: 2px;
+  }
