@@ -40,25 +40,14 @@ angular.module( 'ngBoilerplate.pantalones', [
 .controller( 'pantalonesCtrl', function pantalonesController( $scope ) {
 
 
-$scope.pantalon={
 
 
 
-codigo: 123,
-estilo: "cholo",
-talla: "Extra Smalville"
-
-
-};
-
-
-
-
-/**$scope.pantalon={};
+$scope.pantalon={};
 $scope.pantalon.codigo=123;
 $scope.pantalon.estilo="cholo";
 $scope.pantalon.talla="Extra Smalville";
-*/
+
 
 
 
