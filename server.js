@@ -6,7 +6,7 @@ var
   nedb = require('nedb');
 
 var db={};
-var tables=["users","shirts","sessions","jackets"];
+var tables=["users","shirts","jackets"];
 for(var i=0; i<tables.length; i++){
   db[tables[i]]=new nedb({filename: "db/"+tables[i]+".json",autoload:true});
 }
@@ -23,7 +23,6 @@ app.post('/login',function(req,res){
   //res.send(JSON.stringify(req.body)); return;
     db.users.find({username: req.body.username,password: req.body.password },function(err,result){
       if(result && result[0] && result[0].username){
-          db.sessions.insert({username: result[0].username});
           res.send(result[0]._id);
       }else{
         res.send('{"response":false}');

@@ -43,9 +43,15 @@ angular.module( 'ngBoilerplate.sacos', [
     );
   })
 .controller( 'sacosCtrl', function sacosController( $scope ) {
-  $scope.guardar=function(){
-    
-  };
+
+
+$scope.saco={
+  codigo: 123,
+  estilo: "Cholo",
+  talla: "Extra Smallville"
+};
+
+
 })
 
 ;
