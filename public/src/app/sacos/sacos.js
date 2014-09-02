@@ -33,11 +33,19 @@ angular.module( 'ngBoilerplate.sacos', [
     data:{ pageTitle: 'sacos' }
   });
 })
-
-/**
- * And of course we define a controller for our route.
- */
+  .factory('Sacos', function($resource) {
+    return $resource('/sacos/:id',
+      {id: '@id'}, {
+        "get": {method: 'GET', isArray: true },
+        "add": {method: 'POST'},
+        "delete": {method: 'DELETE'}
+      }
+    );
+  })
 .controller( 'sacosCtrl', function sacosController( $scope ) {
+  $scope.guardar=function(){
+    
+  };
 })
 
 ;
