@@ -6,7 +6,7 @@ var
   nedb = require('nedb');
 
 var db={};
-var tables=["users","shirts","sessions","jackets"];
+var tables=["users","shirts","jackets","sacos"];
 for(var i=0; i<tables.length; i++){
   db[tables[i]]=new nedb({filename: "db/"+tables[i]+".json",autoload:true});
 }
@@ -23,7 +23,6 @@ app.post('/login',function(req,res){
   //res.send(JSON.stringify(req.body)); return;
     db.users.find({username: req.body.username,password: req.body.password },function(err,result){
       if(result && result[0] && result[0].username){
-          db.sessions.insert({username: result[0].username});
           res.send(result[0]._id);
       }else{
         res.send('{"response":false}');
@@ -69,6 +68,41 @@ l        }
         }
       });
     });
+
+
+
+
+
+     app.get('/sacos', function (req, res) {
+     db.sacos.find({}, function(err, result) {
+        res.send(result);
+      });
+    });
+
+    app.post('/sacos', function (req, res) {
+      var item = req.body;
+      db.sacos.insert(item, function (err, result) {
+        if (err) {
+          res.send({'error':'An error has occurred'});
+        } else {
+          console.log('Success: ' + JSON.stringify(result));
+          res.send(result);
+        }
+      });
+    });
+
+    app.delete('/sacos/:id', function (req, res) {
+      var id = req.params.id;
+      db.sacos.remove({_id: id}, {}, function (err, result) {
+        if (err) {
+          res.send({'error':'An error has occurred - ' + err});
+        } else {
+          console.log('' + result + ' document(s) deleted');
+          res.send(req.body);
+        }
+      });
+    });
+
 
 app.listen(app.get('port'));
 console.log('Server listening on port ' + app.get('port'));

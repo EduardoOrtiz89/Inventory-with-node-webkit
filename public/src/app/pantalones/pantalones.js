@@ -41,13 +41,22 @@ angular.module( 'ngBoilerplate.pantalones', [
 
 
 
+$scope.guardar=function(){
 
 
-$scope.pantalon={};
+
+  
+}
+
+
+
+
+
+/*$scope.pantalon={};
 $scope.pantalon.codigo=123;
 $scope.pantalon.estilo="cholo";
 $scope.pantalon.talla="Extra Smalville";
-
+*/
 
 
 
