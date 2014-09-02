@@ -6,9 +6,9 @@ var
   nedb = require('nedb');
 
 var db={};
-var tables=["users","shirts","sessions"];
+var tables=["users","shirts","sessions","jackets"];
 for(var i=0; i<tables.length; i++){
-  db[tables[i]]=new nedb({filename: "db/"+tables[i]+".db",autoload:true});
+  db[tables[i]]=new nedb({filename: "db/"+tables[i]+".json",autoload:true});
 }
 db.users.ensureIndex({fieldName:"username",unique: true} );
 var app = express();

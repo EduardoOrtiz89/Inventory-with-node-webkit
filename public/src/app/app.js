@@ -4,6 +4,7 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.rentas',
   'ngBoilerplate.ventas',
   'ngBoilerplate.login',
+  'ngBoilerplate.sacos',
   'ngBoilerplate.ejemplo',
   'ui.router',
   'ngResource',
@@ -52,4 +53,5 @@ angular.module( 'ngBoilerplate', [
 })
 
 ;
+
 
