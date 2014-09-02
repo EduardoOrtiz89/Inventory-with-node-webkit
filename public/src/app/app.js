@@ -6,6 +6,7 @@ angular.module( 'ngBoilerplate', [
   'ngBoilerplate.login',
   'ngBoilerplate.sacos',
   'ngBoilerplate.ejemplo',
+  'ngBoilerplate.pantalones',
   'ui.router',
   'ngResource',
   'ngCookies'
