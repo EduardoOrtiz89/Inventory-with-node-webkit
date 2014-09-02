@@ -6,7 +6,7 @@ var
   nedb = require('nedb');
 
 var db={};
-var tables=["users","sacos"];
+var tables=["users","sacos","pantalones"];
 for(var i=0; i<tables.length; i++){
   db[tables[i]]=new nedb({filename: "db/"+tables[i]+".json",autoload:true});
 }
@@ -105,6 +105,38 @@ l        }
     app.delete('/sacos/:id', function (req, res) {
       var id = req.params.id;
       db.sacos.remove({_id: id}, {}, function (err, result) {
+        if (err) {
+          res.send({'error':'An error has occurred - ' + err});
+        } else {
+          console.log('' + result + ' document(s) deleted');
+          res.send(req.body);
+        }
+      });
+    });
+
+
+
+app.get('/pantalones', function (req, res) {
+     db.pantalones.find({}, function(err, result) {
+        res.send(result);
+      });
+    });
+
+    app.post('/pantalones', function (req, res) {
+      var item = req.body;
+      db.pantalones.insert(item, function (err, result) {
+        if (err) {
+          res.send({'error':'An error has occurred'});
+        } else {
+          console.log('Success: ' + JSON.stringify(result));
+          res.send(result);
+        }
+      });
+    });
+
+    app.delete('/pantalones/:id', function (req, res) {
+      var id = req.params.id;
+      db.pantalones.remove({_id: id}, {}, function (err, result) {
         if (err) {
           res.send({'error':'An error has occurred - ' + err});
         } else {
