@@ -1,29 +1,77 @@
-<h2>Agregar Saco</h2>
-<form class="form-horizontal" role="form" ng-submit="guardar()">
+<h3>{{title}}</h3><form class="form-horizontal" role="form" ng-submit="guardar()">
   <div class="form-group">
     <label for="codigo" class="col-sm-2 control-label">Código</label>
     <div class="col-sm-10">
-      <input type="codigo" class="form-control" id="codigo" ng-model="saco.codigo" placeholder="Código">
+      <input type="codigo" class="form-control" id="codigo" ng-model="prenda.codigo" placeholder="Código" required>
     </div>
   </div>
 
     <div class="form-group">
     <label for="estilo" class="col-sm-2 control-label">Estilo</label>
     <div class="col-sm-10">
-      <input type="estilo" class="form-control" id="estilo" ng-model="saco.estilo" placeholder="Estilo">
+      <input type="estilo" class="form-control" id="estilo" ng-model="prenda.estilo" placeholder="Estilo">
     </div>
   </div>
 
     <div class="form-group">
     <label for="talla" class="col-sm-2 control-label">Talla</label>
     <div class="col-sm-10">
-      <input type="talla" class="form-control" id="talla" ng-model="saco.talla" placeholder="Talla">
+      <input type="talla" class="form-control" id="talla" ng-model="prenda.talla" placeholder="Talla">
     </div>
   </div>
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Guardar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <button ng-if="prenda._id" type="button" ng-click="cancelar()" class="btn btn-default">Cancelar</button>
     </div>
+
   </div>
 </form>
+
+<div class="input-group">
+  <span class="input-group-addon">
+  <i style="font-size: 20px;" class="fa fa-search"></i></span>
+  <input class="form-control" ng-model="query" ng-change="search()" id="search"  type="text" >
+</div>
+
+	<div class="content-table">
+	<table class="table table-striped table-condensed table-hover">
+	<thead>
+	<tr>
+		<th  ng-repeat="item in headers"><a ng-click="sort_by(item)"><i class="{{item.class}}"></i></a> {{item.text}}</th>
+           <th>Editar</th>
+        <th>Eliminar</th>
+	</tr>
+	</thead>
+	  <tfoot>
+                    <td colspan="6">
+                        <div class="pull-right">
+                            <ul class="pagination">
+                                <li ng-class="{disabled: currentPage == 0}">
+                                    <a href ng-click="prevPage()">« Anterior</a>
+                                </li>
+                                <li ng-repeat="n in range(pagedItems.length)"
+                                    ng-class="{active: n == currentPage}"
+                                ng-click="setPage()">
+                                    <a href ng-bind="n + 1">1</a>
+                                </li>
+                                <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+                                    <a href ng-click="nextPage()">Siguiente »</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tfoot>
+ 
+	<tbody>
+		<tr  ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
+			<td>{{item.codigo}}</td>
+			<td>{{item.estilo}}</td>
+			<td>{{item.talla}}</td>
+			<td class="text-center" style="width:30px;"><button ng-click="edit(item)" class="btn btn-primary edit-button"><i class="fa fa-pencil edit-button"></i></button></td>
+			<td  class="text-center" style="width:30px;"><button ng-click="remove(item)" class="btn btn-danger edit-button"><i class="fa fa-trash-o edit-button"></i></button></td>
+		</tr>
+	</tbody>
+	</table>
+</div>

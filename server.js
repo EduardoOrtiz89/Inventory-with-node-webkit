@@ -6,7 +6,7 @@ var
   nedb = require('nedb');
 
 var db={};
-var tables=["users","shirts","jackets","sacos"];
+var tables=["users","sacos"];
 for(var i=0; i<tables.length; i++){
   db[tables[i]]=new nedb({filename: "db/"+tables[i]+".json",autoload:true});
 }
@@ -81,6 +81,17 @@ l        }
 
     app.post('/sacos', function (req, res) {
       var item = req.body;
+      if(item._id){
+        db.sacos.update({_id: item._id},{$set: item},{},function(err,result){
+          if (err) {
+            res.send({'error':'An error has occurred'});
+          } else {
+            console.log('Success: ' + JSON.stringify(result));
+            res.send(JSON.stringify(result));
+          }
+        });
+        return;
+      }
       db.sacos.insert(item, function (err, result) {
         if (err) {
           res.send({'error':'An error has occurred'});
