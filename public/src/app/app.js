@@ -7,6 +7,7 @@ angular.module('ngBoilerplate', [
   'ngBoilerplate.sacos',
   'ngBoilerplate.camisas',
   'ngBoilerplate.chalecos',
+  'ngBoilerplate.togas',
   'ngBoilerplate.pantalones',
   'ui.router',
   'ngResource',
