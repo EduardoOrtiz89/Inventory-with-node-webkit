@@ -1,3 +1,7 @@
 {"codigo":"123","estilo":"eduardo","talla":"123","_id":"PlXbtxidzr3cJVRA"}
 {"codigo":"misaco","estilo":"miestilo","talla":"mitalla","_id":"kC2kUUOaDmZyNuO6"}
 {"codigo":"123","estilo":"nose","talla":"chica","_id":"uOs0J28hG2xaFqmY"}
+{"$$indexCreated":{"fieldName":"codigo","unique":true}}
+{"$$indexCreated":{"fieldName":"codigo","unique":true}}
+{"$$indexCreated":{"fieldName":"codigo","unique":true}}
+{"$$indexCreated":{"fieldName":"codigo","unique":true}}

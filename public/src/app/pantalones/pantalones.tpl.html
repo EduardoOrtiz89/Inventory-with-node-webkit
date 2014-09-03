@@ -1,6 +1,6 @@
 <h3>{{title}}</h3>
 <div >
-<form class="form "  role="form" class="col-sm-12" ng-submit="guardar()">
+<form class="form " name="form" role="form" class="col-sm-12" ng-submit="guardar()">
 
   <div class="form-group col-sm-4" >
     <label for="codigo" class="col-sm-4 control-label">Código</label>
@@ -28,37 +28,37 @@
     <div class="form-group  col-sm-6">
     <label for="talla" class="col-sm-6 control-label">Cantidad Nuevos</label>
     <div class="col-sm-6">
-      <input type="number" class="form-control numeric" id="talla" ng-model="prenda.nuevos" required>
+      <input type="text" ng-pattern="/^(0|[1-9][0-9]*)$/"  pattern="^(0|[1-9][0-9]*)$" name="nuevos"   class="form-control numeric" id="talla" ng-model="prenda.nuevos" required>
     </div>
   </div>
-
 
 
     <div class="form-group  col-sm-6">
     <label for="talla" class="col-sm-6 control-label">Cantidad Usados</label>
     <div class="col-sm-6">
-      <input type="number" class="form-control numeric"  id="talla" ng-model="prenda.usados" required >
+      <input type="text" ng-pattern="/^(0|[1-9][0-9]*)$/" name="usados"  pattern="^(0|[1-9][0-9]*)$" class="form-control numeric"  id="talla" ng-model="prenda.usados" required >
     </div>
   </div>
 
       <div class="form-group  col-sm-6">
     <label for="talla" class="col-sm-6 control-label">Costo de venta nuevo</label>
     <div class="col-sm-6">
-      <input type="number" class="form-control numeric" id="talla" ng-model="prenda.costo_nuevo" required >
+      <input type="text" ng-pattern="/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/"   pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$" class="form-control numeric" id="talla" ng-model="prenda.costo_nuevo" required >
+      
     </div>
   </div>
 
       <div class="form-group  col-sm-6">
     <label for="talla" class="col-sm-6 control-label">Costo de venta usado</label>
     <div class="col-sm-6">
-      <input type="number" class="form-control numeric" id="talla" ng-model="prenda.costo_usado" required>
+      <input type="text" ng-pattern="/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/" name="costo_usado" pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$" class="form-control numeric" id="talla" ng-model="prenda.costo_usado" required>
     </div>
   </div>
 
  <div class="form-group col-sm-6">
     <label for="talla" class="col-sm-6 control-label">Costo de renta</label>
     <div class="col-sm-6">
-      <input type="number" class="form-control numeric" id="talla" ng-model="prenda.costo_renta" required>
+      <input type="text" ng-pattern="/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/"  pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$" class="form-control numeric" id="talla" ng-model="prenda.costo_renta" required>
     </div>
   </div>
 
