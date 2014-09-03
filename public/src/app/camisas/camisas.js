@@ -1,23 +1,23 @@
-angular.module( 'ngBoilerplate.sacos', [
+angular.module( 'ngBoilerplate.camisas', [
   'ui.router',
   'ngResource'
 ])
 
 
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'sacos', {
-    url: '/sacos',
+  $stateProvider.state( 'camisas', {
+    url: '/camisas',
     views: {
       "main": {
-        controller: 'sacosCtrl',
-        templateUrl: 'sacos/sacos.tpl.html'
+        controller: 'camisasCtrl',
+        templateUrl: 'camisas/camisas.tpl.html'
       }
     },
-    data:{ pageTitle: 'Sacos' }
+    data:{ pageTitle: 'camisas' }
   });
 })
-  .factory('Sacos', function($resource) {
-    return $resource('/sacos/:id',{id: '@id'},
+  .factory('camisas', function($resource) {
+    return $resource('/camisas/:id',{id: '@id'},
         {
          get: {method: 'GET', isArray: true },
          add: {method: 'POST'},
@@ -27,25 +27,15 @@ angular.module( 'ngBoilerplate.sacos', [
         }
     );
   })
-.controller( 'sacosCtrl', function sacosController( $scope,Sacos,$location,TableSearch,FormFactory ){
+.controller( 'camisasCtrl', function camisasController( $scope,camisas,$location,TableSearch,FormFactory ){
  $scope.items=[];
         var sortingOrder = 'codigo';
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
             {
                 "class": "fa fa-sort",
-                "text": "Código",
-                "sort_by":"codigo"
-            },
-               {
-                "class": "fa fa-sort",
-                "text": "Estilo",
-                "sort_by":"estilo"
-            },
-               {
-                "class": "fa fa-sort",
-                "text": "Talla",
-                "sort_by":"talla"
+                "text": "Cuello",
+                "sort_by":"cuello"
             },
                 {
                 "class": "fa fa-sort",
@@ -63,10 +53,10 @@ angular.module( 'ngBoilerplate.sacos', [
                 "sort_by":"usados"
             }
         ];
-   TableSearch.search($scope);
-   FormFactory.init($scope,Sacos);
+  TableSearch.search($scope);
+  FormFactory.init($scope,camisas);
   $scope.init();
-  $scope.title="Sacos";
+  $scope.title="Camisas";
 
 })
 

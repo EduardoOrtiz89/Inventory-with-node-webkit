@@ -1,29 +1,14 @@
-<h3>{{title}}</h3>
+<h3>Camisas</h3>
 <div >
 <form class="form " name="form" role="form" class="col-sm-12" ng-submit="guardar()">
  
-  <div class="form-group col-sm-4" >
-    <label for="codigo" class="col-sm-4 control-label">Código</label>
+  <div class="form-group col-sm-12" >
+    <label for="cuello" class="col-sm-4 control-label">Cuello</label>
     <div class="col-sm-8">
-      <input type="text" class="form-control" id="codigo" ng-blur="buscar('sacos')" ng-model="prenda.codigo" placeholder="Código" required>
+      <input type="text" class="form-control" id="cuello" ng-blur="buscar('cuello')" ng-model="prenda.cuello" placeholder="Cuelllo" required>
     </div>
   </div> 
- 
-    <div class="form-group  col-sm-4">
-    <label for="estilo" class="col-sm-4 control-label">Estilo</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" id="estilo" ng-model="prenda.estilo" placeholder="Estilo" required>
-    </div>
-  </div>
 
-    <div class="form-group  col-sm-4">
-    <label for="talla" class="col-sm-4 control-label">Talla</label>
-    <div class="col-sm-8">
-      <input type="text" class="form-control" id="talla" ng-model="prenda.talla" placeholder="Talla" required>
-    </div>
-  </div>
-
-   
 
     <div class="form-group  col-sm-6">
     <label for="talla" class="col-sm-6 control-label">Cantidad Nuevos</label>
@@ -125,12 +110,10 @@
  
 	<tbody> 
 		<tr  ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
-			<td>{{item.codigo}}</td>
-			<td>{{item.estilo}}</td>
-			<td>{{item.talla}}</td>
-      <td>{{item.color}}</td>
-      <td>{{item.nuevos}}</td>
-      <td>{{item.usados}}</td>
+			<td>{{item.cuello}}</td>
+		      <td>{{item.color}}</td>
+		      <td>{{item.nuevos}}</td>
+		      <td>{{item.usados}}</td>
 			<td class="text-center" style="width:30px;"><button ng-click="edit(item)" class="btn btn-primary edit-button"><i class="fa fa-pencil edit-button"></i></button></td>
 			<td  class="text-center" style="width:30px;"><button ng-click="remove(item)" class="btn btn-danger edit-button"><i class="fa fa-trash-o edit-button"></i></button></td>
 		</tr>

@@ -5,7 +5,7 @@ angular.module('ngBoilerplate', [
   'ngBoilerplate.ventas',
   'ngBoilerplate.login',
   'ngBoilerplate.sacos',
-  'ngBoilerplate.ejemplo',
+  'ngBoilerplate.camisas',
   'ngBoilerplate.pantalones',
   'ui.router',
   'ngResource',
@@ -30,6 +30,50 @@ angular.module('ngBoilerplate', [
   .factory('Window', function() {
     var gui = require('nw.gui');
     return gui.Window.get();
+  })
+  .factory('FormFactory',function(){
+    return {
+   init: function($scope,Resource){
+       $scope.init=function(){
+          Resource.get(function(data){
+            $scope.items=data;
+            $scope.search();
+          });
+        };
+        $scope.guardar=function(){
+            Resource.add($scope.prenda,function(item){
+               $scope.init();
+               $scope.prenda={};
+            });
+        };
+        $scope.cancelar=function(){
+            $scope.prenda={};
+        };
+        $scope.remove=function(item){
+          if(confirm("¿Seguro que desea eliminar este elmento?")){
+            Resource.remove({id:item._id},function(){
+               $scope.items.splice($scope.items.indexOf(item), 1);
+               $scope.search();
+            });
+          }
+        };
+        $scope.buscar=function(field){
+          var search={};
+          search[field]=$scope.prenda[field];
+           Resource.search(search,function(items){
+            var field=$scope.prenda[field];
+            if(items && items[0]){
+              $scope.prenda=items[0];
+            }else{
+              $scope.prenda._id=false;
+            }
+            $scope.prenda[field]=field;
+           });
+        };
+        $scope.edit=function(item){
+          $scope.prenda=angular.copy(item);
+        };
+      }};
   })
   .factory('TableSearch', function($filter) {
    return { search: function($scope) {

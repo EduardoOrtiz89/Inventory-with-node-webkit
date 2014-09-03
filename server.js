@@ -6,11 +6,13 @@ var
   nedb = require('nedb');
 
 var db={};
-var tables=["users","sacos","pantalones"];
+var tables=["users","sacos","pantalones","camisas","chalecos","togas","corbatas","gasnes","corbatines","monios","zapatos"];
 for(var i=0; i<tables.length; i++){
   db[tables[i]]=new nedb({filename: "db/"+tables[i]+".json",autoload:true});
 }
 db.users.ensureIndex({fieldName:"username",unique: true} );
+db.sacos.ensureIndex({fieldName:"codigo",unique: true} );
+db.pantalones.ensureIndex({fieldName:"codigo",unique: true} );
 var app = express();
 
 app.configure(function () {
@@ -34,117 +36,51 @@ app.get('/api', function (req, res) {
   res.send('API is running');
 });
 
- app.get('/users', function (req, res) {
- var shasum = crypto.createHash('sha1');
- shasum.update("eduardo");
-db.users.insert({username:"eduardo",password:  shasum.digest("hex")}, function (err, newDoc) {   // Callback is optional
-    db.users.find({}, function(err, result) {
+for(var i=0; i<tables.length; i++){
+  (function(table){
+
+   app.get('/'+table, function (req, res) {
+     db[table].find(req.query, function(err, result) {
         res.send(result);
       });
-});
-
     });
 
-    app.post('/users', function (req, res) {
-      var item = req.body;
-      db.users.insert(item, function (err, result) {
-        if (err) {
-          res.send({'error':'An error has occurred'});
-        } else {
-          console.log('Success: ' + JSON.stringify(result));
-          res.send(result);
-l        }
-      });
-    });
-
-    app.delete('/users/:id', function (req, res) {
-      var id = req.params.id;
-      db.users.remove({_id: id}, {}, function (err, result) {
-        if (err) {
-          res.send({'error':'An error has occurred - ' + err});
-        } else {
-          console.log('' + result + ' document(s) deleted');
-          res.send(req.body);
+  app.post('/'+table, function (req, res) {
+        var item = req.body;
+        if(item._id){
+          db[table].update({_id: item._id},{$set: item},{},function(err,result){
+            if (err) {
+              res.send({'error':'An error has occurred'});
+            } else {
+              console.log('Success: ' + JSON.stringify(result));
+              res.send(JSON.stringify(result));
+            }
+          });
+          return;
         }
-      });
-    });
-
-
-
-
-
-     app.get('/sacos', function (req, res) {
-     db.sacos.find({}, function(err, result) {
-        res.send(result);
-      });
-    });
-
-    app.post('/sacos', function (req, res) {
-      var item = req.body;
-      if(item._id){
-        db.sacos.update({_id: item._id},{$set: item},{},function(err,result){
+        db[table].insert(item, function (err, result) {
           if (err) {
             res.send({'error':'An error has occurred'});
           } else {
             console.log('Success: ' + JSON.stringify(result));
-            res.send(JSON.stringify(result));
+            res.send(result);
           }
         });
-        return;
-      }
-      db.sacos.insert(item, function (err, result) {
-        if (err) {
-          res.send({'error':'An error has occurred'});
-        } else {
-          console.log('Success: ' + JSON.stringify(result));
-          res.send(result);
-        }
       });
-    });
 
-    app.delete('/sacos/:id', function (req, res) {
-      var id = req.params.id;
-      db.sacos.remove({_id: id}, {}, function (err, result) {
-        if (err) {
-          res.send({'error':'An error has occurred - ' + err});
-        } else {
-          console.log('' + result + ' document(s) deleted');
-          res.send(req.body);
-        }
+      app.delete('/'+table+'/:id', function (req, res) {
+        var id = req.params.id;
+        db[table].remove({_id: id}, {}, function (err, result) {
+          if (err) {
+            res.send({'error':'An error has occurred - ' + err});
+          } else {
+            console.log('' + result + ' document(s) deleted');
+            res.send(req.body);
+          }
+        });
       });
-    });
-
-
-
-app.get('/pantalones', function (req, res) {
-     db.pantalones.find({}, function(err, result) {
-        res.send(result);
-      });
-    });
-
-    app.post('/pantalones', function (req, res) {
-      var item = req.body;
-      db.pantalones.insert(item, function (err, result) {
-        if (err) {
-          res.send({'error':'An error has occurred'});
-        } else {
-          console.log('Success: ' + JSON.stringify(result));
-          res.send(result);
-        }
-      });
-    });
-
-    app.delete('/pantalones/:id', function (req, res) {
-      var id = req.params.id;
-      db.pantalones.remove({_id: id}, {}, function (err, result) {
-        if (err) {
-          res.send({'error':'An error has occurred - ' + err});
-        } else {
-          console.log('' + result + ' document(s) deleted');
-          res.send(req.body);
-        }
-      });
-    });
+  })(tables[i]);
+}
 
 
 app.listen(app.get('port'));
