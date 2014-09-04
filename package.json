@@ -8,7 +8,7 @@
     "position": "center",
     "fullscreen": true,
     "resizable": true,
-     "min_width": 1000,
+     "min_width": 1100,
     "min_height": 600
   },
   "node-remote": "<local>",

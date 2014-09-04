@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="collapse navbar-collapse" collapse="menuCollapsed">
-      <ul ng-if="access" class="nav navbar-nav">
+      <ul ng-if="access&&false" class="nav navbar-nav">
         <li ui-sref-active="active">
           <a href ui-sref="rentas">
             <i class="fa fa-book"></i>
@@ -75,7 +75,7 @@
 
       </ul>
 
-
+ 
       <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
         <li><a style="cursor:pointer"  ng-click="windowMinimize()"><i class="fa fa-minus"></i></a></li>
         <li><a  style="cursor:pointer" ng-click="windowToggleFullscreen()"><i class="fa fa-square"></i></a></li>
@@ -83,23 +83,50 @@
       </ul>
 
 
-
-    </div>   
-  </div> 
+    </div> 
+  </div>
 </div>
-<div class="sidebar col-md-3 col-lg-2" style="margin-top: -70px; padding-top: 70px; color:#989dac">
+<div class="sidebar col-md-3 col-lg-2" style="">
 
 
 
 
 <div>
-
-  <accordion close-others="oneAtATime">
-    <accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+  <accordion >
+    <accordion-group heading="Rentas" is-open="true">
       This content is straight in the template.
     </accordion-group>
   </accordion>
 </div>
+
+<div>
+  <accordion >
+    <accordion-group heading="Ventas" is-open="true">
+      This content is straight in the template.
+    </accordion-group>
+  </accordion>
+</div>
+
+
+<div>
+  <accordion >
+    <accordion-group heading="Prendas" is-open="true" >
+            <ul  role="menu">
+            <li ui-sref-active="active"><a  ui-sref="sacos">Sacos</a></li>
+            <li ui-sref-active="active"><a ui-sref="camisas">Camisas</a></li>
+            <li ui-sref-active="active"><a ui-sref="pantalones">Pantalones</a></li> 
+            <li ui-sref-active="active"><a ui-sref="chalecos">Chalecos</a></li>
+            <li ui-sref-active="active"><a ui-sref="togas">Togas</a></li>
+            <li ui-sref-active="active"><a ui-sref="corbatas">Corbatas</a></li>
+            <li ui-sref-active="active"><a ui-sref="gaznes">Gaznes</a></li>
+            <li ui-sref-active="active"><a ui-sref="corbatines">Corbatines</a></li>
+            <li ui-sref-active="active"><a ui-sref="monios">Moños</a></li>
+          </ul>
+    </accordion-group>
+  </accordion>
+</div>
+
+
 
 
 
