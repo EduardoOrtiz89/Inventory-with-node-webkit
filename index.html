@@ -3,7 +3,7 @@
 <head>
   <style>
     html {
-      background: linear-gradient(to bottom, #FFF 0%,#F9F9F9 100%);
+      background: #3D4A5D;
       min-height: 100%;
     }
   
@@ -11,6 +11,12 @@
 
   <script>
     function bodyOnLoad(){
+    //  var ngui = require('nw.gui');
+
+    // Get the current window
+  //  var nwin = ngui.Window.get();
+//    nwin.show();
+  //  nwin.maximize();
       require('./server.js');
       window.location.assign('http://localhost:3000/');
     }

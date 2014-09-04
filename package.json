@@ -5,7 +5,7 @@
     "title": "Demo app",
     //"toolbar": false,
     //"frame": false,
-    "position": "center",
+    "position": null,
     "fullscreen": true,
     "resizable": true,
      "min_width": 1100,
