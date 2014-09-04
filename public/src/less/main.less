@@ -68,8 +68,9 @@ h2 {
   color: #666;
 }
 @border:3px;
+@azul:#1C9EFE;
 html{
-  border: @border solid #1C9EFE;
+  border: @border solid @azul;
 }
 body{
   padding-top: 70px;
@@ -155,11 +156,15 @@ button,a,.btn {
     background: #2B303E;
     height: 800px;
     margin-top: -70px; padding-top: 70px; 
+     li.active{
+          background: #3B3F4D;
+          border-left: 5px solid @azul;
+        }
     li{
         margin-bottom: 2px;
         display: block;
        position: relative;
-       padding: 8px 5px 8px 5px;
+       height: 35px;
        -webkit-transition: all 0.5s ease; /* For Safari 3.1 to 6.0 */
             transition: all 0.5s ease;
         i{
@@ -168,8 +173,9 @@ button,a,.btn {
         &:hover{
           background: #3B3F4D;
             margin-left: 10px;
-            border-left: 5px solid #1C9EFE;
+            border-left: 5px solid @azul;
         }
+
         a{
           color:#989dac;
           with:100%;
@@ -178,11 +184,12 @@ button,a,.btn {
           font-size: 14px;
           font-weight: 500;
           line-height: 20px;
+          margin-top:10px;
           margin: 0;
           display: block;
           box-sizing: border-box;
           position:relative;
-          padding: 8px 5px 8px 5;
+          padding: 8px 5px 8px 5px;
           text-shadow: inherit;
            
           &:hover{
@@ -199,11 +206,19 @@ button,a,.btn {
       .panel-heading{
         background: transparent;
         border:0 !important;
-        padding: 0;
         margin: 0;
         a{
           color:white;
           font-size: 13px;
+          display: block;
+          box-sizing: border-box;
+          position:relative;
+          padding: 8px 5px 8px 5px;
+          text-shadow: inherit;
+          &:hover{
+            text-decoration: none;
+            background: @azul;
+          }
         }
       }
       .panel{
@@ -223,15 +238,23 @@ button,a,.btn {
     border-left-width: @border;
     border-right-width: @border;
     border-bottom:0;
-    border-color: #1C9EFE;
+    border-color: @azul;
     a{
       color:white !important;
+      width: 45px;
+      text-align: center;
+
+    }
+    #close-window{
+      background: red;
+      width: 60px !important; 
     }
   }
   .navbar-brand{
     color:white !important;
     font-size: 40px;
     font-family: sans-serif;
+    padding-right: 0;
   }
 @font-face {
   font-family: "Flaticon";
@@ -294,3 +317,10 @@ margin-left: 20px;
 .flaticon-tshirt:before {
   content: "\e00e";
 }
+/*
+.btn{
+  border-radius: 0;
+}
+input{
+  border-radius: 0 !important;
+}*/

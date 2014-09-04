@@ -10,7 +10,7 @@ angular.module( 'ngBoilerplate.corbatines', [
     views: {
       "main": {
         controller: 'corbatinesCtrl',
-        templateUrl: 'corbatines/corbatines.tpl.html'
+        templateUrl: 'corbatas/corbatas.tpl.html'
       }
     },
     data:{ pageTitle: 'corbatines' }
@@ -52,7 +52,7 @@ angular.module( 'ngBoilerplate.corbatines', [
    TableSearch.search($scope);
    FormFactory.init($scope,corbatines);
   $scope.init();
-  $scope.title="corbatines";
+  $scope.title="Corbatines";
 
 })
 

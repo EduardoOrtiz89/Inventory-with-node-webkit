@@ -69,28 +69,22 @@
             <li ui-sref-active="active"><a ui-sref="corbatines">Corbatines</a></li>
             <li ui-sref-active="active"><a ui-sref="monios">Moños</a></li>
              <li ui-sref-active="active"><a ui-sref="zapatos">Zapatos</a></li>
-            
           </ul>
         </li>
 
       </ul>
 
- 
-      <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
+      <ul class="nav navbar-nav navbar-right">
         <li><a style="cursor:pointer"  ng-click="windowMinimize()"><i class="fa fa-minus"></i></a></li>
         <li><a  style="cursor:pointer" ng-click="windowToggleFullscreen()"><i class="fa fa-square"></i></a></li>
-        <li><a  style="cursor:pointer" ng-click="windowClose()"><i class="fa fa-times"></i></a></li>
+        <li id="close-window"><a  style="cursor:pointer" ng-click="windowClose()"><i class="fa fa-times"></i></a></li>
       </ul>
 
 
-    </div> 
+    </div>
   </div>
 </div>
 <div class="sidebar col-md-3 col-lg-2" style="">
-
-
-
-
 <div>
   <accordion >
     <accordion-group heading="Rentas" is-open="true">

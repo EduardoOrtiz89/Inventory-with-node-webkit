@@ -10,7 +10,7 @@ angular.module( 'ngBoilerplate.gaznes', [
     views: {
       "main": {
         controller: 'gaznesCtrl',
-        templateUrl: 'gaznes/gaznes.tpl.html'
+        templateUrl: 'corbatas/corbatas.tpl.html'
       }
     },
     data:{ pageTitle: 'gaznes' }
@@ -52,7 +52,7 @@ angular.module( 'ngBoilerplate.gaznes', [
    TableSearch.search($scope);
    FormFactory.init($scope,gaznes);
   $scope.init();
-  $scope.title="gaznes";
+  $scope.title="Gaznes";
 
 })
 

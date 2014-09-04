@@ -40,7 +40,7 @@ for(var i=0; i<tables.length; i++){
   (function(table){
 
    app.get('/'+table, function (req, res) {
-     db[table].find(req.query, function(err, result) {
+      db[table].find(req.query, function(err, result) {
         res.send(result);
       });
     });

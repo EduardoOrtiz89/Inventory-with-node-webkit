@@ -10,7 +10,7 @@ angular.module( 'ngBoilerplate.monios', [
     views: {
       "main": {
         controller: 'moniosCtrl',
-        templateUrl: 'monios/monios.tpl.html'
+        templateUrl: 'corbatas/corbatas.tpl.html'
       }
     },
     data:{ pageTitle: 'Moños' }
