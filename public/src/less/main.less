@@ -61,15 +61,19 @@ h2 {
   margin: 20px 0;
   color: #666;
 }
-
+@border:3px;
+html{
+  border: @border solid #1C9EFE;
+}
 body{
   padding-top: 70px;
+  background: #EEEFF2;
 }
 /**
  * Navigation
  */
 
-
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 /**
  * Footer
@@ -135,4 +139,16 @@ button,a,.btn {
  form input.ng-valid.ng-dirty {
     border-color: #76D6AB;
     border-width: 2px;
+  }
+
+  .sidebar{
+    background: #2B303E;
+    height: 800px;
+  }
+  .navbar{
+    border-top-width: @border;
+    border-left-width: @border;
+    border-right-width: @border;
+    border-bottom:0;
+    border-color: #1C9EFE;
   }

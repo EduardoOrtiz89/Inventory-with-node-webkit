@@ -1,52 +1,57 @@
 <!DOCTYPE html>
 <html ng-app="ngBoilerplate" ng-controller="AppCtrl">
-  <head>
-    <title ng-bind="pageTitle"></title>
+<head>
+  <title ng-bind="pageTitle"></title>
 
-    <!-- social media tags -->
-    
+  <!-- social media tags -->
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- font awesome from BootstrapCDN -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
-    <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+  <!-- font awesome from BootstrapCDN -->
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
 
-    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
-    <script type="text/javascript" src="<%= file %>"></script><% }); %>
-  </head>
-  <body>
-    <div class="container">
-      <div class="navbar navbar-inverse navbar-fixed-top"  style="-webkit-app-region: drag">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" ng-init="menuCollapsed = true"
-            ng-click="menuCollapsed = ! menuCollapsed">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <div class="navbar-brand">
-            Catzzo
-          </div>
-        </div>
-        <div class="collapse navbar-collapse" collapse="menuCollapsed">
-          <ul ng-if="access" class="nav navbar-nav">
-            <li ui-sref-active="active">
-              <a href ui-sref="rentas">
-                <i class="fa fa-book"></i>
-                Rentas
-              </a>
-            </li>
+  <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+  <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
 
-            <li ui-sref-active="active">
-              <a href ui-sref="ventas">
-                <i class="fa fa-shopping-cart"></i>
-                Ventas
-              </a>
-            </li>
+  <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+  <script type="text/javascript" src="<%= file %>"></script><% }); %>
+</head>
+<body>
+
+
+
+  <div class="container">
+
+
+    <div class="navbar navbar-inverse navbar-fixed-top"  style="-webkit-app-region: drag">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" ng-init="menuCollapsed = true"
+        ng-click="menuCollapsed = ! menuCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="navbar-brand">
+        Catzzo
+      </div>
+    </div>
+    <div class="collapse navbar-collapse" collapse="menuCollapsed">
+      <ul ng-if="access" class="nav navbar-nav">
+        <li ui-sref-active="active">
+          <a href ui-sref="rentas">
+            <i class="fa fa-book"></i>
+            Rentas
+          </a>
+        </li>
+
+        <li ui-sref-active="active">
+          <a href ui-sref="ventas">
+            <i class="fa fa-shopping-cart"></i>
+            Ventas
+          </a>
+        </li>
 
 
 
@@ -67,28 +72,45 @@
           </ul>
         </li>
 
-          </ul>
+      </ul>
 
 
-  <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
-        <li><a  ng-click="windowMinimize()"><i class="fa fa-minus"></i></a></li>
-        <li><a ng-click="windowToggleFullscreen()"><i class="fa fa-square"></i></a></li>
-        <li><a ng-click="windowClose()"><i class="fa fa-times"></i></a></li>
+      <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
+        <li><a style="cursor:pointer"  ng-click="windowMinimize()"><i class="fa fa-minus"></i></a></li>
+        <li><a  style="cursor:pointer" ng-click="windowToggleFullscreen()"><i class="fa fa-square"></i></a></li>
+        <li><a  style="cursor:pointer" ng-click="windowClose()"><i class="fa fa-times"></i></a></li>
       </ul>
 
 
 
-        </div>
-      </div>
-    </div>
-
-    <div class="container" ui-view="main"></div>
-
-    <footer class="footer">
-     
-    </footer>
+    </div>   
+  </div> 
+</div>
+<div class="sidebar col-md-3 col-lg-2" style="margin-top: -70px; padding-top: 70px; color:#989dac">
 
 
 
-  </body>
+
+<div>
+
+  <accordion close-others="oneAtATime">
+    <accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+      This content is straight in the template.
+    </accordion-group>
+  </accordion>
+</div>
+
+
+
+
+</div>
+<div class="col-md-9 col-lg-10" ui-view="main" style="padding-left: 30px;"></div>
+
+<footer class="footer">
+
+</footer>
+
+
+
+</body>
 </html>
