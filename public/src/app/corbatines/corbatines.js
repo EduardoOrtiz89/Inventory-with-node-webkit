@@ -1,23 +1,23 @@
-angular.module( 'ngBoilerplate.togas', [
+angular.module( 'ngBoilerplate.corbatines', [
   'ui.router',
   'ngResource'
 ])
 
 
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'togas', {
-    url: '/togas',
+  $stateProvider.state( 'corbatines', {
+    url: '/corbatines',
     views: {
       "main": {
-        controller: 'togasCtrl',
-        templateUrl: 'togas/togas.tpl.html'
+        controller: 'corbatinesCtrl',
+        templateUrl: 'corbatines/corbatines.tpl.html'
       }
     },
-    data:{ pageTitle: 'togas' }
+    data:{ pageTitle: 'corbatines' }
   });
 })
-  .factory('togas', function($resource) {
-    return $resource('/togas/:id',{id: '@id'},
+  .factory('corbatines', function($resource) {
+    return $resource('/corbatines/:id',{id: '@id'},
         {
          get: {method: 'GET', isArray: true },
          add: {method: 'POST'},
@@ -27,16 +27,12 @@ angular.module( 'ngBoilerplate.togas', [
         }
     );
   })
-.controller( 'togasCtrl', function togasController( $scope,togas,$location,TableSearch,FormFactory ){
+.controller( 'corbatinesCtrl', function corbatinesController( $scope,corbatines,$location,TableSearch,FormFactory ){
  $scope.items=[];
-        var sortingOrder = 'talla';
+        var sortingOrder = 'codigo';
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
-               {
-                "class": "fa fa-sort",
-                "text": "Talla",
-                "sort_by":"talla"
-            },
+   
                 {
                 "class": "fa fa-sort",
                 "text": "Color",
@@ -54,9 +50,9 @@ angular.module( 'ngBoilerplate.togas', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,togas);
+   FormFactory.init($scope,corbatines);
   $scope.init();
-  $scope.title="Togas";
+  $scope.title="corbatines";
 
 })
 
