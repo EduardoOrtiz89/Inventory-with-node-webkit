@@ -9,6 +9,10 @@ angular.module('ngBoilerplate', [
   'ngBoilerplate.chalecos',
   'ngBoilerplate.togas',
   'ngBoilerplate.pantalones',
+  'ngBoilerplate.moños',
+  'ngBoilerplate.corbatas',
+  'ngBoilerplate.corbatines',
+  'ngBoilerplate.gaznes',
   'ui.router',
   'ngResource',
   'ngCookies'
@@ -43,6 +47,7 @@ angular.module('ngBoilerplate', [
           });
         };
         $scope.guardar=function(){
+          console.log($scope.prenda);
             Resource.add($scope.prenda,function(item){
                $scope.init();
                $scope.prenda={};

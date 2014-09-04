@@ -29,7 +29,7 @@ angular.module( 'ngBoilerplate.togas', [
   })
 .controller( 'togasCtrl', function togasController( $scope,togas,$location,TableSearch,FormFactory ){
  $scope.items=[];
-        var sortingOrder = 'codigo';
+        var sortingOrder = 'talla';
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
                {
