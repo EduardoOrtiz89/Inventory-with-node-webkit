@@ -1,23 +1,23 @@
-angular.module( 'ngBoilerplate.moños', [
+angular.module( 'ngBoilerplate.monios', [
   'ui.router',
   'ngResource'
 ])
 
 
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'moños', {
-    url: '/moños',
+  $stateProvider.state( 'monios', {
+    url: '/monios',
     views: {
       "main": {
-        controller: 'moñosCtrl',
-        templateUrl: 'moños/moños.tpl.html'
+        controller: 'moniosCtrl',
+        templateUrl: 'monios/monios.tpl.html'
       }
     },
-    data:{ pageTitle: 'moños' }
+    data:{ pageTitle: 'Moños' }
   });
 })
-  .factory('moños', function($resource) {
-    return $resource('/moños/:id',{id: '@id'},
+  .factory('monios', function($resource) {
+    return $resource('/monios/:id',{id: '@id'},
         {
          get: {method: 'GET', isArray: true },
          add: {method: 'POST'},
@@ -27,9 +27,9 @@ angular.module( 'ngBoilerplate.moños', [
         }
     );
   })
-.controller( 'moñosCtrl', function moñosController( $scope,moños,$location,TableSearch,FormFactory ){
+.controller( 'moniosCtrl', function moniosController( $scope,monios,$location,TableSearch,FormFactory ){
  $scope.items=[];
-        var sortingOrder = 'codigo';
+        var sortingOrder = 'color';
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
    
@@ -50,9 +50,9 @@ angular.module( 'ngBoilerplate.moños', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,moños);
+   FormFactory.init($scope,monios);
   $scope.init();
-  $scope.title="moños";
+  $scope.title="Moños";
 
 })
 

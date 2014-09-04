@@ -9,7 +9,7 @@ angular.module('ngBoilerplate', [
   'ngBoilerplate.chalecos',
   'ngBoilerplate.togas',
   'ngBoilerplate.pantalones',
-  'ngBoilerplate.moños',
+  'ngBoilerplate.monios',
   'ngBoilerplate.corbatas',
   'ngBoilerplate.corbatines',
   'ngBoilerplate.gaznes',

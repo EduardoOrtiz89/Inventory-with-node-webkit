@@ -29,7 +29,7 @@ angular.module( 'ngBoilerplate.corbatas', [
   })
 .controller( 'corbatasCtrl', function corbatasController( $scope,corbatas,$location,TableSearch,FormFactory ){
  $scope.items=[];
-        var sortingOrder = 'codigo';
+        var sortingOrder = 'color';
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
    

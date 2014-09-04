@@ -29,7 +29,7 @@ angular.module( 'ngBoilerplate.gaznes', [
   })
 .controller( 'gaznesCtrl', function gaznesController( $scope,gaznes,$location,TableSearch,FormFactory ){
  $scope.items=[];
-        var sortingOrder = 'codigo';
+        var sortingOrder = 'color';
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
    

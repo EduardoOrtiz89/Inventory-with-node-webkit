@@ -6,7 +6,7 @@ var
   nedb = require('nedb');
 
 var db={};
-var tables=["users","sacos","pantalones","camisas","chalecos","togas","corbatas","gasnes","corbatines","monios","zapatos"];
+var tables=["users","sacos","pantalones","camisas","chalecos","togas","corbatas","gaznes","corbatines","monios","zapatos"];
 for(var i=0; i<tables.length; i++){
   db[tables[i]]=new nedb({filename: "db/"+tables[i]+".json",autoload:true});
 }
