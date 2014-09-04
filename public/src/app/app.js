@@ -13,6 +13,7 @@ angular.module('ngBoilerplate', [
   'ngBoilerplate.corbatas',
   'ngBoilerplate.corbatines',
   'ngBoilerplate.gaznes',
+   'ngBoilerplate.zapatos',
   'ui.router',
   'ui.bootstrap',
   'ngResource',
