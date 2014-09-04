@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- font awesome from BootstrapCDN -->
-  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
+  <link href="assets/font-awesome.min.css" rel="stylesheet">
 
   <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
   <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
@@ -24,7 +24,7 @@
   <div class="container">
 
 
-    <div class="navbar navbar-inverse navbar-fixed-top"  style="-webkit-app-region: drag">
+    <div class="navbar navbar-inverse navbar-fixed-top"  >
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" ng-init="menuCollapsed = true"
         ng-click="menuCollapsed = ! menuCollapsed">
@@ -38,41 +38,6 @@
       </div>
     </div>
     <div class="collapse navbar-collapse" collapse="menuCollapsed">
-      <ul ng-if="access&&false" class="nav navbar-nav">
-        <li ui-sref-active="active">
-          <a href ui-sref="rentas">
-            <i class="fa fa-book"></i>
-            Rentas
-          </a>
-        </li>
-
-        <li ui-sref-active="active">
-          <a href ui-sref="ventas">
-            <i class="fa fa-shopping-cart"></i>
-            Ventas
-          </a>
-        </li>
-
-
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">    <i class="fa fa-suitcase"></i> Prendas <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li ui-sref-active="active"><a  ui-sref="sacos">Sacos</a></li>
-            <li ui-sref-active="active"><a ui-sref="camisas">Camisas</a></li>
-            <li ui-sref-active="active"><a ui-sref="pantalones">Pantalones</a></li>
-            <li class="divider"></li>
-            <li ui-sref-active="active"><a ui-sref="chalecos">Chalecos</a></li>
-            <li ui-sref-active="active"><a ui-sref="togas"> Togas</a></li>
-            <li ui-sref-active="active"><a ui-sref="corbatas">Corbatas</a></li>
-            <li ui-sref-active="active"><a ui-sref="gaznes">Gaznes</a></li>
-            <li ui-sref-active="active"><a ui-sref="corbatines">Corbatines</a></li>
-            <li ui-sref-active="active"><a ui-sref="monios">Moños</a></li>
-             <li ui-sref-active="active"><a ui-sref="zapatos">Zapatos</a></li>
-          </ul>
-        </li>
-
-      </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <li><a style="cursor:pointer"  ng-click="windowMinimize()"><i class="fa fa-minus"></i></a></li>
@@ -84,10 +49,10 @@
     </div>
   </div>
 </div>
-<div class="sidebar col-md-3 col-lg-2" style="">
+<div ng-if="access" class="sidebar col-md-3 col-lg-2" style="">
 <div>
   <accordion >
-    <accordion-group heading="Rentas" is-open="true">
+    <accordion-group heading="Rentas" is-open="false">
       This content is straight in the template.
     </accordion-group>
   </accordion>
@@ -95,7 +60,7 @@
 
 <div>
   <accordion >
-    <accordion-group heading="Ventas" is-open="true">
+    <accordion-group heading="Ventas" is-open="false">
       This content is straight in the template.
     </accordion-group>
   </accordion>
@@ -104,7 +69,7 @@
 
 <div>
   <accordion >
-    <accordion-group heading="Prendas" is-open="true" >
+    <accordion-group heading="Prendas" is-open="false" >
             <ul  role="menu">
             <li ui-sref-active="active"><a  ui-sref="sacos"><i class="flaticon-coat2"></i> Sacos</a></li>
             <li ui-sref-active="active"><a ui-sref="camisas"><i class="flaticon-tshirt"></i> Camisas</a></li>
@@ -122,6 +87,18 @@
 </div>
 
 
+
+<div> 
+  <accordion >
+    <accordion-group heading="Administrar" is-open="false" >
+            <ul  role="menu">
+            <li ui-sref-active="active"><a  ui-sref="sacos"><i class="fa fa-users"></i> Usuarios</a></li>
+            <li ui-sref-active="active"><a ui-sref="camisas"><i class="fa fa-paint-brush"></i> Colores</a></li>
+            <li ui-sref-active="active"><a ui-sref="pantalones"><i class="fa fa-adjust"></i> Estilos</a></li>
+          </ul>
+    </accordion-group>
+  </accordion>
+</div>
 
 
 
