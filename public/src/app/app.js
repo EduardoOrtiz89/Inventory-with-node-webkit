@@ -14,14 +14,18 @@ angular.module('ngBoilerplate', [
   'ngBoilerplate.corbatines',
   'ngBoilerplate.gaznes',
    'ngBoilerplate.zapatos',
+   'ngBoilerplate.apartados',
   'ui.router',
+  'ngSanitize',
+  'ui.select',
   'ui.bootstrap',
   'ngResource',
   'ngCookies'
 ])
 
-.config(function myAppConfig($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/rentas');
+.config(function myAppConfig($stateProvider, $urlRouterProvider,uiSelectConfig) {
+  uiSelectConfig.theme = 'bootstrap';
+  $urlRouterProvider.otherwise('/apartados');
 })
 
 .run(function run($cookies, $location, $rootScope) {

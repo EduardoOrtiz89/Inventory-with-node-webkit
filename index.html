@@ -6,7 +6,7 @@
       background: #3D4A5D;
       min-height: 100%;
     }
-  
+
   </style>
 
   <script>
@@ -21,13 +21,13 @@
       window.location.assign('http://localhost:3000/');
     }
   </script>
-</head> 
+</head>
 <body onload="bodyOnLoad()">
 <div class="loading"></div>
- 
+
 
           <script>
-  var path = './public/build/';
+  var path = './public/build';
   var fs = require('fs');
   fs.watch(path, function() {
     if (window.location){

@@ -15,7 +15,6 @@ angular.module( 'ngBoilerplate.ventas', [
     data:{ pageTitle: 'Ventas' }
   });
 })
-
 .controller( 'VentasCtrl', function VentasCtrl( $scope ) {
   // This is simple a demo for UI Boostrap.
   $scope.dropdownDemoItems = [
