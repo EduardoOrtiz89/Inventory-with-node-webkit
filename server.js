@@ -6,7 +6,7 @@ var
   nedb = require('nedb');
 
 var db={};
-var tables=["users","sacos","pantalones","camisas","chalecos","togas","corbatas","gaznes","corbatines","monios","zapatos"];
+var tables=["users","sacos","pantalones","camisas","chalecos","togas","corbatas","gaznes","corbatines","monios","zapatos","colores","estilos"];
 for(var i=0; i<tables.length; i++){
   db[tables[i]]=new nedb({filename: "db/"+tables[i]+".json",autoload:true});
 }
@@ -18,7 +18,7 @@ var app = express();
 app.configure(function () {
   app.set('port', process.env.PORT || 3000);
   app.use(express.logger('dev'));
-  app.use(express.bodyParser()),
+  app.use(express.bodyParser());
   app.use(express.static(path.join(__dirname, 'public/build')));
 });
 app.post('/login',function(req,res){
