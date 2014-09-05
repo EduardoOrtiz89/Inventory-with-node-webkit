@@ -35,53 +35,50 @@ app.post('/login',function(req,res){
 app.get('/api', function (req, res) {
   res.send('API is running');
 });
-
-for(var i=0; i<tables.length; i++){
-  (function(table){
-
-   app.get('/'+table, function (req, res) {
-      db[table].find(req.query, function(err, result) {
-        res.send(result);
-      });
-    });
+var createFunctions=function(table){
+  app.get('/'+table, function (req, res) {
+   db[table].find(req.query, function(err, result) {
+     res.send(result);
+   });
+  });
 
   app.post('/'+table, function (req, res) {
-        var item = req.body;
-        if(item._id){
-          db[table].update({_id: item._id},{$set: item},{},function(err,result){
-            if (err) {
-              res.send({'error':'An error has occurred'});
-            } else {
-              console.log('Success: ' + JSON.stringify(result));
-              res.send(JSON.stringify(result));
-            }
-          });
-          return;
-        }
-        db[table].insert(item, function (err, result) {
-          if (err) {
-            res.send({'error':'An error has occurred'});
-          } else {
-            console.log('Success: ' + JSON.stringify(result));
-            res.send(result);
-          }
-        });
-      });
+     var item = req.body;
+     if(item._id){
+       db[table].update({_id: item._id},{$set: item},{},function(err,result){
+         if (err) {
+           res.send({'error':'An error has occurred'});
+         } else {
+           console.log('Success: ' + JSON.stringify(result));
+           res.send(JSON.stringify(result));
+         }
+       });
+       return;
+     }
+     db[table].insert(item, function (err, result) {
+       if (err) {
+         res.send({'error':'An error has occurred'});
+       } else {
+         console.log('Success: ' + JSON.stringify(result));
+         res.send(result);
+       }
+     });
+   });
 
-      app.delete('/'+table+'/:id', function (req, res) {
-        var id = req.params.id;
-        db[table].remove({_id: id}, {}, function (err, result) {
-          if (err) {
-            res.send({'error':'An error has occurred - ' + err});
-          } else {
-            console.log('' + result + ' document(s) deleted');
-            res.send(req.body);
-          }
-        });
-      });
-  })(tables[i]);
+   app.delete('/'+table+'/:id', function (req, res) {
+     var id = req.params.id;
+     db[table].remove({_id: id}, {}, function (err, result) {
+       if (err) {
+         res.send({'error':'An error has occurred - ' + err});
+       } else {
+         console.log('' + result + ' document(s) deleted');
+         res.send(req.body);
+       }
+     });
+   });
+};
+for(var i=0; i<tables.length; i++){
+  createFunctions(tables[i]);
 }
-
-
 app.listen(app.get('port'));
 console.log('Server listening on port ' + app.get('port'));

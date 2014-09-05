@@ -32,7 +32,7 @@ angular.module( 'ngBoilerplate.estilos', [
         var sortingOrder = 'talla';
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
-        
+
              {
                 "class": "fa fa-sort",
                 "text": "Estilo",
@@ -47,4 +47,3 @@ angular.module( 'ngBoilerplate.estilos', [
 })
 
 ;
-

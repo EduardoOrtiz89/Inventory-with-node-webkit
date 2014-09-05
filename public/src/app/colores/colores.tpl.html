@@ -58,13 +58,10 @@
                         </div>
                     </td>
                 </tfoot>
- 
+
 	<tbody>
 		<tr  ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
-			<td>{{item.talla}}</td>
       <td>{{item.color}}</td>
-      <td>{{item.cantidad}}</td>
-      <td>{{item.costo_renta}}</td>
 			<td class="text-center" style="width:30px;"><button ng-click="edit(item)" class="btn btn-primary edit-button"><i class="fa fa-pencil edit-button"></i></button></td>
 			<td  class="text-center" style="width:30px;"><button ng-click="remove(item)" class="btn btn-danger edit-button"><i class="fa fa-trash-o edit-button"></i></button></td>
 		</tr>
