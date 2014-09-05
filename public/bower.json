@@ -9,9 +9,10 @@
     "angular-ui-router": "~0.2",
     "angular-resource": "~1.2.23",
     "angular-cookies": "~1.2.23",
-    "angular-ui-select": "~0.6.0"
+    "angular-ui-select": "~0.6.0",
+    "angular-sanitize": "~1.2.23"
   },
   "dependencies": {
-  
+
   }
 }
