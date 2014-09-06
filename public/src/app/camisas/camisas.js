@@ -16,20 +16,10 @@ angular.module( 'ngBoilerplate.camisas', [
     data:{ pageTitle: 'camisas' }
   });
 })
-  .factory('camisas', function($resource) {
-    return $resource('/camisas/:id',{id: '@id'},
-        {
-         get: {method: 'GET', isArray: true },
-         add: {method: 'POST'},
-         remove: {method: 'DELETE'},
-         update: {method: 'POST'},
-         search: {method: 'GET', isArray: true}
-        }
-    );
-  })
-.controller( 'camisasCtrl', function camisasController( $scope,camisas,$location,TableSearch,FormFactory ){
+.controller( 'camisasCtrl', function camisasController( $scope,$location,TableSearch,FormFactory,colores,tables ){
  $scope.items=[];
         var sortingOrder = 'codigo';
+        $scope.colores=colores.get();
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
             {
@@ -54,11 +44,10 @@ angular.module( 'ngBoilerplate.camisas', [
             }
         ];
   TableSearch.search($scope);
-  FormFactory.init($scope,camisas);
+  FormFactory.init($scope,tables.camisas);
   $scope.init();
   $scope.title="Camisas";
 
 })
 
 ;
-

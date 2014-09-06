@@ -16,23 +16,13 @@ angular.module( 'ngBoilerplate.monios', [
     data:{ pageTitle: 'Moños' }
   });
 })
-  .factory('monios', function($resource) {
-    return $resource('/monios/:id',{id: '@id'},
-        {
-         get: {method: 'GET', isArray: true },
-         add: {method: 'POST'},
-         remove: {method: 'DELETE'},
-         update: {method: 'POST'},
-         search: {method: 'GET', isArray: true}
-        }
-    );
-  })
-.controller( 'moniosCtrl', function moniosController( $scope,monios,$location,TableSearch,FormFactory ){
+.controller( 'moniosCtrl', function moniosController( $scope,tables,$location,TableSearch,FormFactory,colores ){
  $scope.items=[];
         var sortingOrder = 'color';
         $scope.sortingOrder = sortingOrder;
+        $scope.colores=colores.get(); 
         $scope.headers=[
-   
+
                 {
                 "class": "fa fa-sort",
                 "text": "Color",
@@ -50,11 +40,10 @@ angular.module( 'ngBoilerplate.monios', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,monios);
+   FormFactory.init($scope,tables.monios);
   $scope.init();
   $scope.title="Moños";
 
 })
 
 ;
-

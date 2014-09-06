@@ -1,26 +1,49 @@
+
 var
   express = require("express"),
   path = require("path"),
   crypto = require('crypto'),
+  nedb = require('nedb'),
+  sqlite3 = require('sqlite3'),
+  db= new sqlite3.Database('database.db');
+/*db.serialize(function() {
+  db.run("CREATE TABLE users (info TEXT)");
 
-  nedb = require('nedb');
+  var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+  for (var i = 0; i < 10; i++) {
+      stmt.run("Ipsum " + i);
+  }
+  stmt.finalize();
 
+  db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
+      console.log(row.id + ": " + row.info);
+  });
+});
+
+db.close();*/
+/*
 var db={};
-var tables=["users","sacos","pantalones","camisas","chalecos","togas","corbatas","gaznes","corbatines","monios","zapatos","colores","estilos"];
+
 for(var i=0; i<tables.length; i++){
   db[tables[i]]=new nedb({filename: "db/"+tables[i]+".json",autoload:true});
 }
 db.users.ensureIndex({fieldName:"username",unique: true} );
 db.sacos.ensureIndex({fieldName:"codigo",unique: true} );
-db.pantalones.ensureIndex({fieldName:"codigo",unique: true} );
+db.pantalones.ensureIndex({fieldName:"codigo",unique: true} );*/
 var app = express();
-
+var tables=["users","sacos","pantalones","camisas","chalecos","togas","corbatas","gaznes","corbatines","monios","zapatos","colores","estilos"];
 app.configure(function () {
   app.set('port', process.env.PORT || 3000);
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.static(path.join(__dirname, 'public/build')));
 });
+
+router=require('./server/crud.js');
+for(var i=0; i<tables.length; i++){
+  router.add(app,db,tables[i]);
+}
+
 app.post('/login',function(req,res){
   //res.send(JSON.stringify(req.body)); return;
     db.users.find({username: req.body.username,password: req.body.password },function(err,result){
@@ -36,11 +59,6 @@ app.get('/api', function (req, res) {
   res.send('API is running');
 });
 var createFunctions=function(table){
-  app.get('/'+table, function (req, res) {
-   db[table].find(req.query, function(err, result) {
-     res.send(result);
-   });
-  });
 
   app.post('/'+table, function (req, res) {
      var item = req.body;
@@ -77,8 +95,8 @@ var createFunctions=function(table){
      });
    });
 };
-for(var i=0; i<tables.length; i++){
-  createFunctions(tables[i]);
-}
+//for(var i=0; i<tables.length; i++){
+  //createFunctions(tables[i]);
+//}
 app.listen(app.get('port'));
 console.log('Server listening on port ' + app.get('port'));

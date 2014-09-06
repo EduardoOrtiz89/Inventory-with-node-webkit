@@ -2,8 +2,6 @@ angular.module( 'ngBoilerplate.sacos', [
   'ui.router',
   'ngResource'
 ])
-
-
 .config(function config( $stateProvider ) {
   $stateProvider.state( 'sacos', {
     url: '/sacos',
@@ -16,20 +14,11 @@ angular.module( 'ngBoilerplate.sacos', [
     data:{ pageTitle: 'Sacos' }
   });
 })
-  .factory('Sacos', function($resource) {
-    return $resource('/sacos/:id',{id: '@id'},
-        {
-         get: {method: 'GET', isArray: true },
-         add: {method: 'POST'},
-         remove: {method: 'DELETE'},
-         update: {method: 'POST'},
-         search: {method: 'GET', isArray: true}
-        }
-    );
-  })
-.controller( 'sacosCtrl', function sacosController( $scope,Sacos,$location,TableSearch,FormFactory ){
+.controller( 'sacosCtrl', function sacosController( $scope,$location,TableSearch,FormFactory,tables,colores,estilos){
  $scope.items=[];
         var sortingOrder = 'codigo';
+        $scope.colores=colores.get();
+        $scope.estilos=estilos.get();
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
             {
@@ -64,11 +53,10 @@ angular.module( 'ngBoilerplate.sacos', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,Sacos);
+   FormFactory.init($scope,tables.sacos);
   $scope.init();
   $scope.title="Sacos";
 
 })
 
 ;
-

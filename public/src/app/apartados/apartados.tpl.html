@@ -39,45 +39,58 @@
       </div>
     </div>
     </fieldset>
-
     <fieldset>
     	<legend>Artículos Rentados</legend>
     </fieldset>
        <div class="form-group">
       <div class="col-sm-12">
-      	<button type="submit" class="btn btn-default"><i class="fa fa-plus"></i> Agregar artículo</button>
+      	<button type="submit" ng-click="agregarArticulo()" class="btn btn-default"><i class="fa fa-plus"></i> Agregar artículo</button>
         <button type="submit" ng-show="items.length>0" class="btn btn-primary">Guardar</button>
       </div>
-      <table ng-show="items.length>0" class="table table-striped table-condensed table-hover">
-      <thead>
-    	  <tr>
-		      <th style="width: 10%">Cantidad</th>
-		      <th style="width: 20%">Tipo de artículo</th>
-		      <th style="width: 20%">Código</th>
-		      <th style="width: 20%">Estilo</th>
-		      <th style="width: 20%">Color</th>
-		      <th style="width: 10%">Talla</th>
-	      </tr>
-      </thead>
-      <tbody>
-      <tr ng-repeat="item in items">
-      	<td><input type="text" class="form-control"></td>
-      	<td>
-      		<ui-select  name="tipo" ng-model="articulo.tipo">
-      		 <ui-select-match placeholder="Tipo de prenda">{{$select.selected.description}}</ui-select-match>
+
+      <div  ng-repeat="item in items" class="col-sm-12">
+
+
+      <div class="col-sm-1"><button type="button" class="btn btn-sm btn-danger"><i class="fa fa-minus"></i></button></div>
+      <div class="col-sm-1"><input type="text" class="form-control"></div>
+
+      	<div class="col-sm-3">
+      		<ui-select  ng-change="buscarPrenda(item,articulos[$index],$index)" name="tipo" ng-model="articulos[$index].tipo">
+      		 <ui-select-match placeholder="Tipo de artículo">{{$select.selected.description}}</ui-select-match>
       		  <ui-select-choices repeat="item in prendas | filter: $select.search">
 				<small>{{item.description}}</small>
 				</ui-select-choices>
       		</ui-select>
-      	</td>
-      	<td><select ng-disabled="articulo.tipo!='Sacos'" class="form-control" name="codigo"></select></td>
-      	<td><select class="form-control" name="estilo"></select></td>
-      	<td><select class="form-control" name="color"></select></td>
-      	<td><select class="form-control" name="talla"></select></td>
-      </tr>
-      </tbody>
-      </table>
-      {{articulo.tipo}}
+      	</div>
+
+
+      	<div class="col-sm-2" ng-show="codigos[$index].length">
+            <ui-select  name="codigo"  ng-model="articulos[$index].codigo">
+                <ui-select-match placeholder="Código">{{$select.selected.codigo}}</ui-select-match>
+                <ui-select-choices repeat="item in codigos[$index] | filter: $select.search">
+            <small>{{item.codigo}}</small>
+            </ui-select-choices>
+      	    </ui-select>
+        </div>
+      	<div class="col-sm-2" ng-show="estilos[$index].length">
+            <ui-select  name="estilo"  ng-model="articulos[$index].estilo">
+                <ui-select-match placeholder="Estilo">{{$select.selected.estilo}}</ui-select-match>
+                <ui-select-choices repeat="item in estilos[$index] | filter: $select.search">
+            <small>{{item.estilo}}</small>
+            </ui-select-choices>
+            </ui-select>
+        </div>
+      	<div class="col-sm-2" ng-show="colores[$index].length">
+      	<ui-select  name="color"  ng-model="articulos[$index].color">
+                <ui-select-match placeholder="Color">{{$select.selected.color}}</ui-select-match>
+                <ui-select-choices repeat="item in colores[$index] | filter: $select.search">
+            <small>{{item.color}}</small>
+            </ui-select-choices>
+      	    </ui-select>
+      	</div>
+      	<div class="col-sm-2" ng-show="tallas[$i].length"><select class="form-control" name="talla"></select></div>
+
+
     </div>
   </form>
 </div>

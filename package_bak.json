@@ -3,9 +3,9 @@
   "main": "index.html",
   "window": {
     "title": "Demo app",
+    //"toolbar": false,
+    //"frame": false,
     "position": null,
-    "toolbar": true,
-    "frame": true,
     "fullscreen": true,
     "resizable": true,
     "min_width": 1100,

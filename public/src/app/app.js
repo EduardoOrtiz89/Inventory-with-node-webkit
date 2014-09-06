@@ -41,13 +41,101 @@ angular.module('ngBoilerplate', [
     }
   });
 })
+
+.factory('Prendas',function(){
+  return  [{
+    name: "sacos",
+    description: "Sacos"
+  }, {
+    name: "pantalones",
+    description: "Pantalones"
+  }, {
+    name: "camisas",
+    description: "Camisas"
+  },
+
+  {
+    name: "chalecos",
+    description: "Chalecos"
+  },
+  {
+    name: "togas",
+    description: "Togas"
+  }, {
+    name: "corbatas",
+    description: "Corbatas"
+  }, {
+    name: "corbatines",
+    description: "Corbatines"
+  }, {
+    name: "gaznes",
+    description: "Gaznes"
+  }, {
+    name: "monios",
+    description: "Moños"
+  }, {
+    name: "zapatos",
+    description: "Zapatos"
+  }];
+})
+.factory('colores', function($resource) {
+  return $resource('/colores/:_id',{id: '@_id'},
+      {
+       get: {method: 'GET', isArray: true },
+       add: {method: 'POST'},
+       remove: {method: 'DELETE'},
+       update: {method: 'POST'},
+       search: {method: 'GET', isArray: true}
+      }
+  );
+})
+.factory('estilos', function($resource) {
+  return $resource('/estilos/:_id',{id: '@_id'},
+      {
+       get: {method: 'GET', isArray: true },
+       add: {method: 'POST'},
+       remove: {method: 'DELETE'},
+       update: {method: 'POST'},
+       search: {method: 'GET', isArray: true}
+      }
+  );
+})
+.factory('tables',function($resource,Prendas){
+
+  var tables={};
+for(var i=0; i<Prendas.length; i++){
+     tables[Prendas[i].name]=$resource('/'+Prendas[i].name+'/:_id',{
+       id: '@_id'
+     }, {
+       get: {
+         method: 'GET',
+         isArray: true
+       },
+       add: {
+         method: 'POST'
+       },
+       remove: {
+         method: 'DELETE'
+       },
+       update: {
+         method: 'POST'
+       },
+       search: {
+         method: 'GET',
+         isArray: true
+       }
+     });
+}
+  return tables;
+})
   .factory('Window', function() {
     var gui = require('nw.gui');
     return gui.Window.get();
   })
   .factory('FormFactory',function(){
     return {
-   init: function($scope,Resource){
+   init: function($scope,Resource,Prendas){
+     $scope.prendas=Prendas;
        $scope.init=function(){
           Resource.get(function(data){
             $scope.items=data;
@@ -55,7 +143,10 @@ angular.module('ngBoilerplate', [
           });
         };
         $scope.guardar=function(){
-          console.log($scope.prenda);
+
+          delete $scope.prenda.color_desc;
+          delete $scope.prenda.estilo_desc;
+          //console.log($scope.prenda);
             Resource.add($scope.prenda,function(item){
                $scope.init();
                $scope.prenda={};
@@ -66,27 +157,40 @@ angular.module('ngBoilerplate', [
         };
         $scope.remove=function(item){
           if(confirm("¿Seguro que desea eliminar este elmento?")){
-            Resource.remove({id:item._id},function(){
+            Resource.remove({_id:item.id},function(){
                $scope.items.splice($scope.items.indexOf(item), 1);
                $scope.search();
             });
           }
         };
-        $scope.buscar=function(field){
+        $scope.buscar=function(field,item){
           var search={};
-          search[field]=$scope.prenda[field];
+          if(item){
+              search[field]=item[field];
+          }else{
+            search[field]=$scope.prenda[field];
+          }
            Resource.search(search,function(items){
-            var field=$scope.prenda[field];
+             var field=null;
+             if(!item){
+              field=$scope.prenda[field];
+            }
+
             if(items && items[0]){
               $scope.prenda=items[0];
             }else{
-              $scope.prenda._id=false;
+              $scope.prenda.id=false;
             }
-            $scope.prenda[field]=field;
+
+            if(!item){
+              $scope.prenda[field]=field;
+            }
            });
         };
         $scope.edit=function(item){
-          $scope.prenda=angular.copy(item);
+          $scope.buscar('id',item);
+
+          //$scope.prenda=angular.copy(item);
         };
       }};
   })

@@ -16,20 +16,12 @@ angular.module( 'ngBoilerplate.chalecos', [
     data:{ pageTitle: 'chalecos' }
   });
 })
-  .factory('chalecos', function($resource) {
-    return $resource('/chalecos/:id',{id: '@id'},
-        {
-         get: {method: 'GET', isArray: true },
-         add: {method: 'POST'},
-         remove: {method: 'DELETE'},
-         update: {method: 'POST'},
-         search: {method: 'GET', isArray: true}
-        }
-    );
-  })
-.controller( 'chalecosCtrl', function chalecosController( $scope,chalecos,$location,TableSearch,FormFactory ){
+
+.controller( 'chalecosCtrl', function chalecosController( $scope,tables,$location,TableSearch,FormFactory,colores,estilos ){
         $scope.items=[];
         var sortingOrder = 'codigo';
+        $scope.colores=colores.get();
+        $scope.estilos=estilos.get();
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
             {
@@ -64,11 +56,10 @@ angular.module( 'ngBoilerplate.chalecos', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,chalecos);
+   FormFactory.init($scope,tables.chalecos);
   $scope.init();
   $scope.title="Chalecos";
 
 })
 
 ;
-

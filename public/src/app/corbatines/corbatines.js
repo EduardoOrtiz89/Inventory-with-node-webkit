@@ -16,23 +16,14 @@ angular.module( 'ngBoilerplate.corbatines', [
     data:{ pageTitle: 'corbatines' }
   });
 })
-  .factory('corbatines', function($resource) {
-    return $resource('/corbatines/:id',{id: '@id'},
-        {
-         get: {method: 'GET', isArray: true },
-         add: {method: 'POST'},
-         remove: {method: 'DELETE'},
-         update: {method: 'POST'},
-         search: {method: 'GET', isArray: true}
-        }
-    );
-  })
-.controller( 'corbatinesCtrl', function corbatinesController( $scope,corbatines,$location,TableSearch,FormFactory ){
+
+.controller( 'corbatinesCtrl', function corbatinesController( $scope,$location,TableSearch,FormFactory,colores,tables ){
  $scope.items=[];
         var sortingOrder = 'color';
+        $scope.colores=colores.get();
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
-   
+
                 {
                 "class": "fa fa-sort",
                 "text": "Color",
@@ -50,11 +41,10 @@ angular.module( 'ngBoilerplate.corbatines', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,corbatines);
+   FormFactory.init($scope,tables.corbatines);
   $scope.init();
   $scope.title="Corbatines";
 
 })
 
 ;
-

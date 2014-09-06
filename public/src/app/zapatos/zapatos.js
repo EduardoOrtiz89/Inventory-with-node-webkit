@@ -16,18 +16,7 @@ angular.module( 'ngBoilerplate.zapatos', [
     data:{ pageTitle: 'zapatos' }
   });
 })
-  .factory('zapatos', function($resource) {
-    return $resource('/zapatos/:id',{id: '@id'},
-        {
-         get: {method: 'GET', isArray: true },
-         add: {method: 'POST'},
-         remove: {method: 'DELETE'},
-         update: {method: 'POST'},
-         search: {method: 'GET', isArray: true}
-        }
-    );
-  })
-.controller( 'zapatosCtrl', function zapatosController( $scope,zapatos,$location,TableSearch,FormFactory ){
+.controller( 'zapatosCtrl', function zapatosController( $scope,tables,$location,TableSearch,FormFactory ){
  $scope.items=[];
         var sortingOrder = 'talla';
         $scope.sortingOrder = sortingOrder;
@@ -37,7 +26,7 @@ angular.module( 'ngBoilerplate.zapatos', [
                 "text": "Talla",
                 "sort_by":"talla"
             },
- 
+
              {
                 "class": "fa fa-sort",
                 "text": "Cantidad",
@@ -50,11 +39,10 @@ angular.module( 'ngBoilerplate.zapatos', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,zapatos);
+   FormFactory.init($scope,tables.zapatos);
   $scope.init();
   $scope.title="Zapatos";
 
 })
 
 ;
-

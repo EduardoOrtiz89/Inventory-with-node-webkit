@@ -31,7 +31,7 @@
   <div class="form-group">
     <div class="col-sm-12">
       <button type="submit" class="btn btn-primary">Guardar</button>
-      <button ng-show="prenda._id" type="button" ng-click="cancelar()" class="btn btn-default">Cancelar</button>
+      <button ng-show="prenda.id" type="button" ng-click="cancelar()" class="btn btn-default">Cancelar</button>
     </div>
 
   </div>
@@ -74,11 +74,10 @@
                         </div>
                     </td>
                 </tfoot>
- 
+
 	<tbody>
 		<tr  ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
 			<td>{{item.talla}}</td>
-   
       <td>{{item.cantidad}}</td>
       <td>{{item.costo_renta}}</td>
 			<td class="text-center" style="width:30px;"><button ng-click="edit(item)" class="btn btn-primary edit-button"><i class="fa fa-pencil edit-button"></i></button></td>

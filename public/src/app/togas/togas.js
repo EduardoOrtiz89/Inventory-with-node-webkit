@@ -16,20 +16,11 @@ angular.module( 'ngBoilerplate.togas', [
     data:{ pageTitle: 'togas' }
   });
 })
-  .factory('togas', function($resource) {
-    return $resource('/togas/:id',{id: '@id'},
-        {
-         get: {method: 'GET', isArray: true },
-         add: {method: 'POST'},
-         remove: {method: 'DELETE'},
-         update: {method: 'POST'},
-         search: {method: 'GET', isArray: true}
-        }
-    );
-  })
-.controller( 'togasCtrl', function togasController( $scope,togas,$location,TableSearch,FormFactory ){
+
+.controller( 'togasCtrl', function togasController( $scope,tables,$location,TableSearch,FormFactory,colores ){
  $scope.items=[];
         var sortingOrder = 'talla';
+        $scope.colores=colores.get();
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
                {
@@ -54,11 +45,10 @@ angular.module( 'ngBoilerplate.togas', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,togas);
+   FormFactory.init($scope,tables.togas);
   $scope.init();
   $scope.title="Togas";
 
 })
 
 ;
-

@@ -11,29 +11,18 @@ angular.module( 'ngBoilerplate.pantalones', [
     views: {
       "main": {
         controller: 'pantalonesCtrl',
-        templateUrl: 'pantalones/pantalones.tpl.html'
+        templateUrl: 'sacos/sacos.tpl.html'
       }
     },
     data:{ pageTitle: 'Pantalones' }
   });
 })
-
-.factory('Pantalones', function($resource) {
-     return $resource('/pantalones/:id',{id: '@id'},
-        {
-        get: {method: 'GET', isArray: true },
-         add: {method: 'POST'},
-         remove: {method: 'DELETE'},
-         update: {method: 'POST'}
-        }
-    );
-  })
-
-
-.controller( 'pantalonesCtrl', function ( $scope,Pantalones,$location,TableSearch) {
+.controller( 'pantalonesCtrl', function ( $scope,tables,$location,FormFactory,TableSearch,colores,estilos) {
  $scope.items=[];
 /*table ordered*/
         var sortingOrder = 'codigo';
+        $scope.colores=colores.get();
+        $scope.estilos=estilos.get();
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
             {
@@ -63,33 +52,8 @@ angular.module( 'ngBoilerplate.pantalones', [
             }
         ];
    TableSearch.search($scope);
-    var init=function(){
-      Pantalones.get(function(data){
-        $scope.items=data;
-        $scope.search();
-      });
-    };
-  init();
-  $scope.guardar=function(){
-      Pantalones.add($scope.prenda,function(item){
-         init();
-         $scope.prenda={};
-      });
-  };
-  $scope.cancelar=function(){
-      $scope.prenda={};
-  };
-  $scope.remove=function(item){
-    if(confirm("¿Seguro que desea eliminar este elmento?")){
-      Pantalones.remove({id:item._id},function(){
-         $scope.items.splice($scope.items.indexOf(item), 1);
-         $scope.search();
-      });
-    }
-  };
-  $scope.edit=function(item){
-    $scope.prenda=angular.copy(item);
-  };
+   FormFactory.init($scope,tables.pantalones);
+  $scope.init();
   $scope.title="Pantalones";
 
 
@@ -98,4 +62,3 @@ angular.module( 'ngBoilerplate.pantalones', [
 })
 
 ;
-

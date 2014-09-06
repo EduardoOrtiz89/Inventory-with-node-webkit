@@ -16,17 +16,7 @@ angular.module( 'ngBoilerplate.estilos', [
     data:{ pageTitle: 'estilos' }
   });
 })
-  .factory('estilos', function($resource) {
-    return $resource('/estilos/:id',{id: '@id'},
-        {
-         get: {method: 'GET', isArray: true },
-         add: {method: 'POST'},
-         remove: {method: 'DELETE'},
-         update: {method: 'POST'},
-         search: {method: 'GET', isArray: true}
-        }
-    );
-  })
+
 .controller( 'estilosCtrl', function estilosController( $scope,estilos,$location,TableSearch,FormFactory ){
  $scope.items=[];
         var sortingOrder = 'talla';

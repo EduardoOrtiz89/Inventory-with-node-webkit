@@ -16,23 +16,14 @@ angular.module( 'ngBoilerplate.corbatas', [
     data:{ pageTitle: 'corbatas' }
   });
 })
-  .factory('corbatas', function($resource) {
-    return $resource('/corbatas/:id',{id: '@id'},
-        {
-         get: {method: 'GET', isArray: true },
-         add: {method: 'POST'},
-         remove: {method: 'DELETE'},
-         update: {method: 'POST'},
-         search: {method: 'GET', isArray: true}
-        }
-    );
-  })
-.controller( 'corbatasCtrl', function corbatasController( $scope,corbatas,$location,TableSearch,FormFactory ){
+
+.controller( 'corbatasCtrl', function corbatasController( $scope,$location,TableSearch,FormFactory,colores,tables ){
  $scope.items=[];
         var sortingOrder = 'color';
+        $scope.colores=colores.get();
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
-   
+
                 {
                 "class": "fa fa-sort",
                 "text": "Color",
@@ -50,11 +41,10 @@ angular.module( 'ngBoilerplate.corbatas', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,corbatas);
+   FormFactory.init($scope,tables.corbatas);
   $scope.init();
   $scope.title="Corbatas";
 
 })
 
 ;
-

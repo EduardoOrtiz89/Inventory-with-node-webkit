@@ -1,6 +1,7 @@
 angular.module('ngBoilerplate.apartados', [
   'ui.router',
-  'ngResource'
+  'ngResource',
+  'ui.select'
 ])
 
 
@@ -18,6 +19,7 @@ angular.module('ngBoilerplate.apartados', [
     }
   });
 })
+
   .factory('apartados', function($resource) {
     return $resource('/apartados/:id', {
       id: '@id'
@@ -42,41 +44,48 @@ angular.module('ngBoilerplate.apartados', [
     });
   })
   .controller('apartadosCtrl', function apartadosController($scope, apartados,
-    $location, TableSearch, FormFactory) {
-    $scope.items = [1];
-    $scope.articulo = {};
-    $scope.prendasCodigo = ["Sacos", "Pantalones", "Camisas", "Chalecos"];
-    $scope.prendasEstilo = ["Sacos", "Pantalones", "Camisas", "Chalecos"];
+    $location, tables,Prendas) {
+    $scope.items = [];
+    $scope.agregarArticulo=function(){
+      $scope.items.push({});
+    };
+    $scope.codigos=[];
+    $scope.colores=[];
+    $scope.estilos=[];
+    $scope.prendasCodigo = ["sacos", "pantalones", "chalecos"];
+    $scope.prendasEstilo = ["sacos", "pantalones", "chalecos"];
+    $scope.prendasColor=["sacos", "pantalones", "chalecos","camisas","togas","corbatas","gaznes","corbatines","monios","zapatos"];
+    $scope.buscarPrenda=function(item,articulo,$index){
+      tables[articulo.tipo.name].get(function(items){
+        $scope.articulos[$index].codigo=null;
+        $scope.articulos[$index].color=null;
+        $scope.articulos[$index].estilo=null;
+        $scope.codigos[$index]=[];
+        $scope.estilos[$index]=[];
+        $scope.colores[$index]=[];
 
-    $scope.prendas = [{
-      name: "sacos",
-      description: "Sacos"
-    }, {
-      name: "pantalones",
-      description: "Pantalones"
-    }, {
-      name: "camisas",
-      description: "Camisas"
-    }, {
-      name: "togas",
-      description: "Togas"
-    }, {
-      name: "corbatas",
-      description: "Corbatas"
-    }, {
-      name: "corbatines",
-      description: "Corbatines"
-    }, {
-      name: "gazne",
-      description: "Gazne"
-    }, {
-      name: "monios",
-      description: "Moños"
-    }, {
-      name: "zapatos",
-      description: "Zapatos"
-    }];
 
+        if($scope.prendasCodigo.indexOf(articulo.tipo.name)!==-1){
+          $scope.codigos[$index]=items;
+        }else{
+          $scope.codigos[$index]=[];
+        }
+        if($scope.prendasEstilo.indexOf(articulo.tipo.name)!==-1){
+          $scope.estilos[$index]=items;
+        }else{
+          $scope.estilos[$index]=[];
+        }
+        if($scope.prendasColor.indexOf(articulo.tipo.name)!==-1){
+          $scope.colores[$index]=items;
+        }else{
+          $scope.colores[$index]=[];
+        }
+
+      });
+    };
+    $scope.articulos = [];
+
+    $scope.prendas = Prendas;
 
   })
 

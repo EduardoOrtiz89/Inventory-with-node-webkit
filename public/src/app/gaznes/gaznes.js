@@ -16,23 +16,13 @@ angular.module( 'ngBoilerplate.gaznes', [
     data:{ pageTitle: 'gaznes' }
   });
 })
-  .factory('gaznes', function($resource) {
-    return $resource('/gaznes/:id',{id: '@id'},
-        {
-         get: {method: 'GET', isArray: true },
-         add: {method: 'POST'},
-         remove: {method: 'DELETE'},
-         update: {method: 'POST'},
-         search: {method: 'GET', isArray: true}
-        }
-    );
-  })
-.controller( 'gaznesCtrl', function gaznesController( $scope,gaznes,$location,TableSearch,FormFactory ){
+.controller( 'gaznesCtrl', function gaznesController( $scope,$location,TableSearch,FormFactory,colores,tables  ){
  $scope.items=[];
         var sortingOrder = 'color';
+        $scope.colores=colores.get();
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
-   
+
                 {
                 "class": "fa fa-sort",
                 "text": "Color",
@@ -50,11 +40,10 @@ angular.module( 'ngBoilerplate.gaznes', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,gaznes);
+   FormFactory.init($scope,tables.gaznes);
   $scope.init();
   $scope.title="Gaznes";
 
 })
 
 ;
-

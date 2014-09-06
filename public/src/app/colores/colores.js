@@ -16,29 +16,19 @@ angular.module( 'ngBoilerplate.colores', [
     data:{ pageTitle: 'colores' }
   });
 })
-  .factory('colores', function($resource) {
-    return $resource('/colores/:id',{id: '@id'},
-        {
-         get: {method: 'GET', isArray: true },
-         add: {method: 'POST'},
-         remove: {method: 'DELETE'},
-         update: {method: 'POST'},
-         search: {method: 'GET', isArray: true}
-        }
-    );
-  })
+
 .controller( 'coloresCtrl', function coloresController( $scope,colores,$location,TableSearch,FormFactory ){
  $scope.items=[];
         var sortingOrder = 'talla';
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
-   
+
                 {
                 "class": "fa fa-sort",
                 "text": "Color",
                 "sort_by":"color"
             }
-            
+
         ];
    TableSearch.search($scope);
    FormFactory.init($scope,colores);
@@ -48,4 +38,3 @@ angular.module( 'ngBoilerplate.colores', [
 })
 
 ;
-
