@@ -7,7 +7,7 @@
           <div class="form-group">
           <label for="cantidad" class="col-sm-1">Cantidad</label>
           <div class="col-sm-1">
-            <input type="text" name="cantidad" id="cantidad" class="form-control text-right">
+            <input type="text" ng-model="$parent.cantidad" name="cantidad" id="cantidad" class="form-control text-right">
           </div>
           </div>
         <div class="input-group col-sm-12" style="padding-top:20px">
@@ -20,7 +20,7 @@
           <table class="table table-striped table-condensed table-hover">
           <thead>
           <tr>
-            <th  ng-repeat="item in headers"><a ng-click="sort_by(item)"><i class="{{item.class}}"></i></a> {{item.text}}</th>
+            <th  ng-repeat="item in headers" ><a ng-click="sort_by(item)"><i class="{{item.class}}"></i></a> {{item.text}}</th>
                    <th>Agregar</th>
           </tr>
           </thead>
@@ -46,10 +46,7 @@
 
           <tbody>
             <tr  ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
-                 <td>{{item.codigo}}</td>
-                  <td>{{item.color_desc}}</td>
-                  <td>{{item.nuevos}}</td>
-                  <td>{{item.usados}}</td>
+                 <td ng-repeat="column in columns">{{item[column]}}</td>
               <td class="text-center" style="width:30px;"><button ng-click="add(item)" class="btn btn-primary edit-button"><i class="fa fa-plus"></i></button></td>
             </tr>
           </tbody>
@@ -118,7 +115,24 @@
         <button type="submit" ng-show="items.length>0" class="btn btn-primary">Guardar</button>
       </div>
 
-
+<table ng-show="articulos.length" class="table table-striped table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Cantidad</th>
+      <th>Descripción</th>
+      <th>Costo unitario</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="articulo in articulos">
+      <td >{{articulo.cantidadElegida}}</td>
+      <td> {{articulo.completeDescription}}</td>
+      <td>{{articulo.costo_renta}}</td>
+      <td>{{articulo.subtotal}}</td>
+    </tr>
+  </tbody>
+</table>
 
     </div>
   </form>

@@ -15,13 +15,16 @@ module.exports.add =  function(app,db,tableName){
   app.get('/'+tableName, function (req, res) {
     var query=req.query,stmt=null;
     var result=[];
+    var noUsados=["togas","corbatas","corbatines","gaznes","monios","zapatos"];
+
+    var disponibles=noUsados.indexOf(tableName)!==-1? "(cantidad-rentados) as disponibles":  "(usados-rentados) as disponibles";
     var q="SELECT * from "+tableName;
     if(tablesColor.indexOf(tableName)!==-1 && tablesEstilos.indexOf(tableName)===-1){
-      q="select "+tableName+".*,colores.color as color_desc, colores.id as color from "+tableName+" left join colores on colores.id="+tableName+".color";
+      q="select "+tableName+".*,colores.color as color_desc, colores.id as color, "+disponibles+"   from "+tableName+" left join colores on colores.id="+tableName+".color";
     }else if(tablesColor.indexOf(tableName)===-1 && tablesEstilos.indexOf(tableName)!==-1){
-      q="select "+tableName+".*,estilos.estilo as estilo_desc, estilos.id as estilo from "+tableName+" left join estilos on estilos.id="+tableName+".estilo";
+      q="select "+tableName+".*,estilos.estilo as estilo_desc, estilos.id as estilo, "+disponibles+" from "+tableName+" left join estilos on estilos.id="+tableName+".estilo";
     }else if(tablesColor.indexOf(tableName)!==-1 && tablesEstilos.indexOf(tableName)!==-1){
-      q="select "+tableName+".*,estilos.estilo as estilo_desc, colores.color as color_desc, colores.id as color, estilos.id as estilo from "+tableName+" left join estilos on estilos.id="+tableName+".estilo left join colores on colores.id="+tableName+".color";
+      q="select "+tableName+".*,estilos.estilo as estilo_desc, colores.color as color_desc, colores.id as color, estilos.id as estilo, "+disponibles+" from "+tableName+" left join estilos on estilos.id="+tableName+".estilo left join colores on colores.id="+tableName+".color";
     }
     //res.send(q); return;
     var params={};
@@ -51,6 +54,7 @@ module.exports.add =  function(app,db,tableName){
      var query="";
      var q=[];
      var params={};
+     delete item.disponibles;
      if(item.id && item.id!==0){  //UPDATE
        Object.keys(item).forEach(function(key) {
              if(key!=="id"){

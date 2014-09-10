@@ -33,6 +33,7 @@ CREATE TABLE "sacos" (
     "talla" TEXT,
     "nuevos" INTEGER,
     "usados" INTEGER,
+    "rentados" INTEGER default 0,
     "costo_nuevo" REAL,
     "costo_usado" REAL,
     "costo_renta" REAL
@@ -47,6 +48,7 @@ CREATE TABLE "pantalones" (
     "talla" TEXT,
     "nuevos" INTEGER,
     "usados" INTEGER,
+    "rentados" INTEGER default 0,
     "costo_nuevo" REAL,
     "costo_usado" REAL,
     "costo_renta" REAL
@@ -60,6 +62,7 @@ CREATE TABLE "chalecos" (
     "talla" TEXT,
     "nuevos" INTEGER,
     "usados" INTEGER,
+    "rentados" INTEGER default 0,
     "costo_nuevo" REAL,
     "costo_usado" REAL,
     "costo_renta" REAL
@@ -73,6 +76,7 @@ CREATE TABLE "camisas" (
     "cuello" TEXT,
     "nuevos" INTEGER,
     "usados" INTEGER,
+    "rentados" INTEGER default 0,
     "costo_nuevo" REAL,
     "costo_usado" REAL,
     "costo_renta" REAL
@@ -83,6 +87,7 @@ CREATE TABLE "togas" (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "color" INTEGER REFERENCES "colores"("id") ON DELETE SET NULL  ON UPDATE SET NULL,
     "talla" TEXT,
+    "rentados" INTEGER default 0,
     "cantidad" INTEGER,
     "costo_renta" REAL
 );
@@ -92,6 +97,7 @@ CREATE TABLE "corbatas" (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "color" INTEGER REFERENCES "colores"("id") ON DELETE SET NULL  ON UPDATE SET NULL,
     "cantidad" INTEGER,
+    "rentados" INTEGER default 0,
     "costo_renta" REAL
 );
 
@@ -101,6 +107,7 @@ CREATE TABLE "corbatines" (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "color" INTEGER REFERENCES "colores"("id") ON DELETE SET NULL  ON UPDATE SET NULL,
     "cantidad" INTEGER,
+    "rentados" INTEGER default 0,
     "costo_renta" REAL
 );
 
@@ -112,6 +119,7 @@ CREATE TABLE "gaznes" (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "color" INTEGER REFERENCES "colores"("id") ON DELETE SET NULL  ON UPDATE SET NULL,
     "cantidad" INTEGER,
+    "rentados" INTEGER default 0,
     "costo_renta" REAL
 );
 
@@ -121,6 +129,7 @@ CREATE TABLE "monios" (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "color" INTEGER REFERENCES "colores"("id") ON DELETE SET NULL  ON UPDATE SET NULL,
     "cantidad" INTEGER,
+    "rentados" INTEGER default 0,
     "costo_renta" REAL
 );
 
@@ -129,5 +138,6 @@ CREATE TABLE "zapatos" (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "talla" TEXT,
     "cantidad" INTEGER,
+    "rentados" INTEGER default 0,
     "costo_renta" REAL
 );
