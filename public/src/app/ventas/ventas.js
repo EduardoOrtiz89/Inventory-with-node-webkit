@@ -1,27 +1,124 @@
-angular.module( 'ngBoilerplate.ventas', [
+angular.module('ngBoilerplate.ventas', [
   'ui.router',
-  'ui.bootstrap'
+  'ngResource',
+  'ui.select'
 ])
 
-.config(function config( $stateProvider ) {
-  $stateProvider.state( 'ventas', {
+
+.config(function config($stateProvider) {
+  $stateProvider.state('ventas', {
     url: '/ventas',
     views: {
       "main": {
-        controller: 'VentasCtrl',
+        controller: 'ventasCtrl',
         templateUrl: 'ventas/ventas.tpl.html'
       }
     },
-    data:{ pageTitle: 'Ventas' }
+    data: {
+      pageTitle: 'ventas'
+    }
   });
 })
-.controller( 'VentasCtrl', function VentasCtrl( $scope ) {
-  // This is simple a demo for UI Boostrap.
-  $scope.dropdownDemoItems = [
-    "The first choice!",
-    "And another choice for you.",
-    "but wait! A third!"
-  ];
-})
+
+  .factory('ventas', function($resource) {
+    return $resource('/ventas/:id', {
+      id: '@id'
+    }, {
+      get: {
+        method: 'GET',
+        isArray: true
+      },
+      add: {
+        method: 'POST'
+      },
+      remove: {
+        method: 'DELETE'
+      },
+      update: {
+        method: 'POST'
+      },
+      search: {
+        method: 'GET',
+        isArray: true
+      }
+    });
+  })
+    .controller('modalController',function($scope,$filter,$modalInstance,tables,FormFactory,TableSearch,prenda){
+
+
+        var sortingOrder = 'codigo';
+        $scope.sortingOrder = sortingOrder;
+        $scope.headers=[
+            {
+                "class": "fa fa-sort",
+                "text": "codigo",
+                "sort_by":"codigo"
+            },
+                {
+                "class": "fa fa-sort",
+                "text": "Color",
+                "sort_by":"color"
+            },
+             {
+                "class": "fa fa-sort",
+                "text": "Nuevos",
+                "sort_by":"nuevos"
+            },
+             {
+                "class": "fa fa-sort",
+                "text": "Usados",
+                "sort_by":"usados"
+            }
+        ];
+        tables[prenda.name].get(function(data){
+           $scope.items=data;
+           $scope.search();
+         });
+          TableSearch.search($scope);
+          $scope.ok = function () {
+            $modalInstance.close($scope.selected.item);
+          };
+
+          $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+          };
+    })
+  .controller('ventasCtrl', function ventasController($scope, $log,$filter, $modal,ventas,
+    $location, tables,Prendas) {
+    $scope.agregarArticulo=function(){
+      if(!$scope.articulo.tipoPrenda){ return;}
+       var modalInstance = $modal.open({
+      templateUrl: 'myModalContent.html',
+      controller: 'modalController',
+      size: "lg",
+      resolve: {
+        prenda: function () {
+          return $scope.articulo.tipoPrenda;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+      console.log(selectedItem);
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+
+      //$scope.popup
+      //$scope.items.push({});
+    };
+    $scope.codigos=[];
+    $scope.colores=[];
+    $scope.estilos=[];
+    $scope.prendasCodigo = ["sacos", "pantalones", "chalecos"];
+    $scope.prendasEstilo = ["sacos", "pantalones", "chalecos"];
+    $scope.prendasColor=["sacos", "pantalones", "chalecos","camisas","togas","corbatas","gaznes","corbatines","monios","zapatos"];
+
+    $scope.articulo = {};
+
+    $scope.prendas = Prendas;
+
+  })
 
 ;
