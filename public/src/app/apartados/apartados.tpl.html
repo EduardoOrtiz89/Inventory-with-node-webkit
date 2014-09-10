@@ -74,17 +74,17 @@
         </div>
       	<div class="col-sm-2" ng-show="estilos[$index].length">
             <ui-select  name="estilo"  ng-model="articulos[$index].estilo">
-                <ui-select-match placeholder="Estilo">{{$select.selected.estilo}}</ui-select-match>
+                <ui-select-match placeholder="Estilo">{{$select.selected.estilo_desc }}</ui-select-match>
                 <ui-select-choices repeat="item in estilos[$index] | filter: $select.search">
-            <small>{{item.estilo}}</small>
+            <small>{{item.estilo_desc || item.estilo}}</small>
             </ui-select-choices>
             </ui-select>
         </div>
       	<div class="col-sm-2" ng-show="colores[$index].length">
       	<ui-select  name="color"  ng-model="articulos[$index].color">
-                <ui-select-match placeholder="Color">{{$select.selected.color}}</ui-select-match>
-                <ui-select-choices repeat="item in colores[$index] | filter: $select.search">
-            <small>{{item.color}}</small>
+                <ui-select-match placeholder="Color">{{$select.selected.color_desc  }}</ui-select-match>
+                <ui-select-choices  repeat="item in colores[$index] | filter:{color_desc: $select.search}">
+            <small>{{item.color_desc || item.color}}</small>
             </ui-select-choices>
       	    </ui-select>
       	</div>

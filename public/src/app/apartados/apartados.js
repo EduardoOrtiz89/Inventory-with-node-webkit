@@ -42,8 +42,21 @@ angular.module('ngBoilerplate.apartados', [
         isArray: true
       }
     });
-  })
-  .controller('apartadosCtrl', function apartadosController($scope, apartados,
+  }).
+  filter('unique', function() {
+
+    return function (arr, field) {
+        var o = {}, i, l = arr.length, r = [];
+        for(i=0; i<l;i+=1) {
+          o[arr[i][field]] = arr[i];
+        }
+        for(i in o) {
+          r.push(o[i]);
+        }
+        return r;
+    };
+    })
+  .controller('apartadosCtrl', function apartadosController($scope, $filter,apartados,
     $location, tables,Prendas) {
     $scope.items = [];
     $scope.agregarArticulo=function(){
@@ -63,7 +76,7 @@ angular.module('ngBoilerplate.apartados', [
         $scope.codigos[$index]=[];
         $scope.estilos[$index]=[];
         $scope.colores[$index]=[];
-
+        console.log(items);
 
         if($scope.prendasCodigo.indexOf(articulo.tipo.name)!==-1){
           $scope.codigos[$index]=items;
@@ -71,12 +84,12 @@ angular.module('ngBoilerplate.apartados', [
           $scope.codigos[$index]=[];
         }
         if($scope.prendasEstilo.indexOf(articulo.tipo.name)!==-1){
-          $scope.estilos[$index]=items;
+          $scope.estilos[$index]=$filter('unique')(items,"estilo_desc");
         }else{
           $scope.estilos[$index]=[];
         }
         if($scope.prendasColor.indexOf(articulo.tipo.name)!==-1){
-          $scope.colores[$index]=items;
+          $scope.colores[$index]=$filter('unique')(items,"color_desc");
         }else{
           $scope.colores[$index]=[];
         }
