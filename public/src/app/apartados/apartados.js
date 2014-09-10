@@ -42,25 +42,71 @@ angular.module('ngBoilerplate.apartados', [
         isArray: true
       }
     });
-  }).
-  filter('unique', function() {
+  })
+    .controller('modalController',function($scope,$filter,$modalInstance,tables,FormFactory,TableSearch,prenda){
 
-    return function (arr, field) {
-        var o = {}, i, l = arr.length, r = [];
-        for(i=0; i<l;i+=1) {
-          o[arr[i][field]] = arr[i];
-        }
-        for(i in o) {
-          r.push(o[i]);
-        }
-        return r;
-    };
+
+        var sortingOrder = 'codigo';
+        $scope.sortingOrder = sortingOrder;
+        $scope.headers=[
+            {
+                "class": "fa fa-sort",
+                "text": "codigo",
+                "sort_by":"codigo"
+            },
+                {
+                "class": "fa fa-sort",
+                "text": "Color",
+                "sort_by":"color"
+            },
+             {
+                "class": "fa fa-sort",
+                "text": "Nuevos",
+                "sort_by":"nuevos"
+            },
+             {
+                "class": "fa fa-sort",
+                "text": "Usados",
+                "sort_by":"usados"
+            }
+        ];
+        tables[prenda.name].get(function(data){
+           $scope.items=data;
+           $scope.search();
+         });
+          TableSearch.search($scope);
+          $scope.ok = function () {
+            $modalInstance.close($scope.selected.item);
+          };
+
+          $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+          };
     })
-  .controller('apartadosCtrl', function apartadosController($scope, $filter,apartados,
+  .controller('apartadosCtrl', function apartadosController($scope, $log,$filter, $modal,apartados,
     $location, tables,Prendas) {
-    $scope.items = [];
     $scope.agregarArticulo=function(){
-      $scope.items.push({});
+      if(!$scope.articulo.tipoPrenda){ return;}
+       var modalInstance = $modal.open({
+      templateUrl: 'myModalContent.html',
+      controller: 'modalController',
+      size: "lg",
+      resolve: {
+        prenda: function () {
+          return $scope.articulo.tipoPrenda;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+      console.log(selectedItem);
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+
+      //$scope.popup
+      //$scope.items.push({});
     };
     $scope.codigos=[];
     $scope.colores=[];
@@ -68,35 +114,8 @@ angular.module('ngBoilerplate.apartados', [
     $scope.prendasCodigo = ["sacos", "pantalones", "chalecos"];
     $scope.prendasEstilo = ["sacos", "pantalones", "chalecos"];
     $scope.prendasColor=["sacos", "pantalones", "chalecos","camisas","togas","corbatas","gaznes","corbatines","monios","zapatos"];
-    $scope.buscarPrenda=function(item,articulo,$index){
-      tables[articulo.tipo.name].get(function(items){
-        $scope.articulos[$index].codigo=null;
-        $scope.articulos[$index].color=null;
-        $scope.articulos[$index].estilo=null;
-        $scope.codigos[$index]=[];
-        $scope.estilos[$index]=[];
-        $scope.colores[$index]=[];
-        console.log(items);
 
-        if($scope.prendasCodigo.indexOf(articulo.tipo.name)!==-1){
-          $scope.codigos[$index]=items;
-        }else{
-          $scope.codigos[$index]=[];
-        }
-        if($scope.prendasEstilo.indexOf(articulo.tipo.name)!==-1){
-          $scope.estilos[$index]=$filter('unique')(items,"estilo_desc");
-        }else{
-          $scope.estilos[$index]=[];
-        }
-        if($scope.prendasColor.indexOf(articulo.tipo.name)!==-1){
-          $scope.colores[$index]=$filter('unique')(items,"color_desc");
-        }else{
-          $scope.colores[$index]=[];
-        }
-
-      });
-    };
-    $scope.articulos = [];
+    $scope.articulo = {};
 
     $scope.prendas = Prendas;
 

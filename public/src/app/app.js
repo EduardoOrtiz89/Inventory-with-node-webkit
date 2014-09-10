@@ -202,7 +202,7 @@ for(var i=0; i<Prendas.length; i++){
         $scope.itemsPerPage = 10;
         $scope.pagedItems = [];
         $scope.currentPage = 0;
-      $scope.items = [];
+
       $scope.searchMatch = function(haystack, needle) {
         if (!needle) {
           return true;

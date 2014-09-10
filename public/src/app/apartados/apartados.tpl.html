@@ -1,3 +1,65 @@
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Seleccione prenda</h3>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+          <label for="cantidad" class="col-sm-1">Cantidad</label>
+          <div class="col-sm-1">
+            <input type="text" name="cantidad" id="cantidad" class="form-control text-right">
+          </div>
+          </div>
+        <div class="input-group col-sm-12" style="padding-top:20px">
+          <span class="input-group-addon">
+          <i style="font-size: 20px;" class="fa fa-search"></i></span>
+          <input class="form-control" ng-model="$parent.query" ng-change="search()" id="search"  type="text" >
+        </div>
+
+          <div class="content-table">
+          <table class="table table-striped table-condensed table-hover">
+          <thead>
+          <tr>
+            <th  ng-repeat="item in headers"><a ng-click="sort_by(item)"><i class="{{item.class}}"></i></a> {{item.text}}</th>
+                   <th>Agregar</th>
+          </tr>
+          </thead>
+            <tfoot>
+                            <td colspan="6">
+                                <div class="pull-right">
+                                    <ul class="pagination">
+                                        <li ng-class="{disabled: currentPage == 0}">
+                                            <a href ng-click="prevPage()">« Anterior</a>
+                                        </li>
+                                        <li ng-repeat="n in range(pagedItems.length)"
+                                            ng-class="{active: n == currentPage}"
+                                        ng-click="setPage()">
+                                            <a href ng-bind="n + 1">1</a>
+                                        </li>
+                                        <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+                                            <a href ng-click="nextPage()">Siguiente »</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tfoot>
+
+          <tbody>
+            <tr  ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
+                 <td>{{item.codigo}}</td>
+                  <td>{{item.color_desc}}</td>
+                  <td>{{item.nuevos}}</td>
+                  <td>{{item.usados}}</td>
+              <td class="text-center" style="width:30px;"><button ng-click="add(item)" class="btn btn-primary edit-button"><i class="fa fa-plus"></i></button></td>
+            </tr>
+          </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" ng-click="cancel()">Cancelar</button>
+        </div>
+     </script>
+
 <div >
   <form class="form " name="form" role="form" class="col-sm-12">
   <fieldset>
@@ -44,51 +106,18 @@
     </fieldset>
        <div class="form-group">
       <div class="col-sm-12">
+        <div class="col-sm-3">
+          <ui-select   name="tipo" ng-model="articulo.tipoPrenda">
+           <ui-select-match placeholder="Tipo de artículo">{{$select.selected.description}}</ui-select-match>
+            <ui-select-choices repeat="item in prendas | filter: $select.search">
+        <small>{{item.description}}</small>
+        </ui-select-choices>
+          </ui-select>
+        </div>
       	<button type="submit" ng-click="agregarArticulo()" class="btn btn-default"><i class="fa fa-plus"></i> Agregar artículo</button>
         <button type="submit" ng-show="items.length>0" class="btn btn-primary">Guardar</button>
       </div>
 
-      <div  ng-repeat="item in items" class="col-sm-12">
-
-
-      <div class="col-sm-1"><button type="button" class="btn btn-sm btn-danger"><i class="fa fa-minus"></i></button></div>
-      <div class="col-sm-1"><input type="text" class="form-control"></div>
-
-      	<div class="col-sm-3">
-      		<ui-select  ng-change="buscarPrenda(item,articulos[$index],$index)" name="tipo" ng-model="articulos[$index].tipo">
-      		 <ui-select-match placeholder="Tipo de artículo">{{$select.selected.description}}</ui-select-match>
-      		  <ui-select-choices repeat="item in prendas | filter: $select.search">
-				<small>{{item.description}}</small>
-				</ui-select-choices>
-      		</ui-select>
-      	</div>
-
-
-      	<div class="col-sm-2" ng-show="codigos[$index].length">
-            <ui-select  name="codigo"  ng-model="articulos[$index].codigo">
-                <ui-select-match placeholder="Código">{{$select.selected.codigo}}</ui-select-match>
-                <ui-select-choices repeat="item in codigos[$index] | filter: $select.search">
-            <small>{{item.codigo}}</small>
-            </ui-select-choices>
-      	    </ui-select>
-        </div>
-      	<div class="col-sm-2" ng-show="estilos[$index].length">
-            <ui-select  name="estilo"  ng-model="articulos[$index].estilo">
-                <ui-select-match placeholder="Estilo">{{$select.selected.estilo_desc }}</ui-select-match>
-                <ui-select-choices repeat="item in estilos[$index] | filter: $select.search">
-            <small>{{item.estilo_desc || item.estilo}}</small>
-            </ui-select-choices>
-            </ui-select>
-        </div>
-      	<div class="col-sm-2" ng-show="colores[$index].length">
-      	<ui-select  name="color"  ng-model="articulos[$index].color">
-                <ui-select-match placeholder="Color">{{$select.selected.color_desc  }}</ui-select-match>
-                <ui-select-choices  repeat="item in colores[$index] | filter:{color_desc: $select.search}">
-            <small>{{item.color_desc || item.color}}</small>
-            </ui-select-choices>
-      	    </ui-select>
-      	</div>
-      	<div class="col-sm-2" ng-show="tallas[$i].length"><select class="form-control" name="talla"></select></div>
 
 
     </div>
