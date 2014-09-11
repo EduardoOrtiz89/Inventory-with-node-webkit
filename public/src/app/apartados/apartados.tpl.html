@@ -3,11 +3,11 @@
             <h3 class="modal-title">Seleccione prenda</h3>
         </div>
         <div class="modal-body">
-
+        <alert ng-show="$parent.message_error" type="danger" >{{$parent.message_error}}</alert>
           <div class="form-group">
           <label for="cantidad" class="col-sm-1">Cantidad</label>
           <div class="col-sm-1">
-            <input type="text" ng-model="$parent.cantidad" name="cantidad" id="cantidad" class="form-control text-right">
+            <input type="number" ng-model="$parent.cantidad" name="cantidad" id="cantidad" class="form-control text-right">
           </div>
           </div>
         <div class="input-group col-sm-12" style="padding-top:20px">
@@ -58,7 +58,7 @@
      </script>
 
 <div >
-  <form class="form " name="form" role="form" class="col-sm-12">
+  <form class="form " ng-submit="imprimeTicket()" name="form" role="form" class="col-sm-12">
   <fieldset>
   <legend>Datos del cliente</legend>
     <div class="form-group col-sm-6" >
@@ -111,27 +111,50 @@
         </ui-select-choices>
           </ui-select>
         </div>
-      	<button type="submit" ng-click="agregarArticulo()" class="btn btn-default"><i class="fa fa-plus"></i> Agregar artículo</button>
-        <button type="submit" ng-show="items.length>0" class="btn btn-primary">Guardar</button>
+      	<button type="button" ng-click="agregarArticulo()" class="btn btn-default"><i class="fa fa-plus"></i> Agregar artículo</button>
+        <button type="submit" ng-show="articulos.length" class="btn btn-primary">Imprimir Ticket</button>
       </div>
 
-<table ng-show="articulos.length" class="table table-striped table-condensed table-hover">
+<table ng-show="articulos.length" class="table table-striped table-condensed table-hover table-ticket">
   <thead>
     <tr>
-      <th>Cantidad</th>
+      <th></th>
+      <th style="width:10%">Nombre</th>
+      <th style="width:10%">Descuento (%)</th>
+      <th style="width:10%">Cantidad</th>
       <th>Descripción</th>
+      <th>Observaciones</th>
       <th>Costo unitario</th>
       <th>Subtotal</th>
+      <th>Subtotal con descuento</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="articulo in articulos">
+    <tr ng-repeat="articulo in articulos track by $index">
+      <td><button type="button" class="btn btn-xs btn-danger fa fa-times" ng-click="borrarArticulo($index)"></button></td>
+      <td ><input type="text" value="" class="form-control"  ng-model="articulo.nombre"></td>
+      <td ><input type="number" value="" class="form-control"  min="0" max="100" ng-model="articulo.descuento" ng-change="calculaDescuento(articulo)"></td>
       <td >{{articulo.cantidadElegida}}</td>
       <td> {{articulo.completeDescription}}</td>
+      <td><textarea class="form-control " ng-model="articulo.observaciones"></textarea></td>
       <td>{{articulo.costo_renta}}</td>
       <td>{{articulo.subtotal}}</td>
+      <td>{{articulo.sub_desc}}</td>
     </tr>
   </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Total</td>
+      <td>{{total}}</td>
+      <td>{{total_desc}}</td>
+    </tr>
+  </tfoot>
 </table>
 
     </div>

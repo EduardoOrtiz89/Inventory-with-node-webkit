@@ -43,7 +43,7 @@ angular.module('ngBoilerplate.apartados', [
       }
     });
   })
-    .controller('modalController',function($scope,$filter,$modalInstance,tables,FormFactory,TableSearch,prenda){
+    .controller('modalController',function($scope,$filter,$modalInstance,tables,FormFactory,TableSearch,prenda,articulos){
 
 
         var sortingOrder = 'codigo';
@@ -154,14 +154,34 @@ angular.module('ngBoilerplate.apartados', [
         tables[prenda.name].get(function(data){
            $scope.items=data;
            $scope.search();
+           articulos.forEach(function(art){
+              if(prenda.name===art.prenda){
+                 data.forEach(function(item){
+                   if(item.id===art.id){
+                      item.disponibles=item.disponibles-art.cantidadElegida;
+                   }
+                 });
+              }
+           });
          });
           TableSearch.search($scope);
           $scope.add=function(item){
-            if(parseInt($scope.cantidad,10)<=0){  return;}
+            var cantidad=parseInt($scope.cantidad,10);
+            if(cantidad<=0 || typeof cantidad !== 'number' || isNaN(cantidad) || !isFinite(cantidad)){
+               $scope.message_error="Cantidad inválida";
+               return;
+            }
+            if(cantidad>item.disponibles){
+              $scope.message_error="Cantidad de artículos no disponibles";
+              return;
+            }
             item.cantidadElegida=$scope.cantidad;
             item.tipoPrenda=prenda.description;
+            item.prenda=prenda.name;
             item.completeDescription=getDescription(item);
             item.subtotal=parseFloat($scope.cantidad)* parseFloat(item.costo_renta);
+            item.descuento=0;
+            item.sub_desc=item.subtotal;
             $modalInstance.close(item);
           };
 
@@ -182,7 +202,11 @@ angular.module('ngBoilerplate.apartados', [
         resolve: {
           prenda: function () {
             return $scope.articulo.tipoPrenda;
+          },
+          articulos: function(){
+            return $scope.articulos;
           }
+
         }
       });
 
@@ -194,8 +218,35 @@ angular.module('ngBoilerplate.apartados', [
       });
     };
 
-
+    $scope.borrarArticulo=function($index){
+      $scope.articulos.splice($index,1);
+    };
+    $scope.imprimeTicket=function(){
+      var ventimp=window.open('');
+      ventimp.document.write("asdasd");
+      ventimp.document.close();
+      ventimp.print();
+      ventimp.close();
+      //window.print();
+    };
     $scope.articulo = {};
+    $scope.$watch(function(){
+      var sum=0,sum2=0;
+
+        $scope.articulos.forEach(function(art){
+            if(art.subtotal){
+              sum=sum+art.subtotal;
+            }
+            if(art.sub_desc){
+              sum2=sum2+art.sub_desc;
+            }
+        });
+        $scope.total=sum;
+        $scope.total_desc=sum2;
+    });
+    $scope.calculaDescuento=function(articulo){
+      articulo.sub_desc=articulo.subtotal-(articulo.subtotal*articulo.descuento)/100;
+    };
 
     $scope.prendas = Prendas;
 
