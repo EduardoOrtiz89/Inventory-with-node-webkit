@@ -6,30 +6,6 @@ var
   nedb = require('nedb'),
   sqlite3 = require('sqlite3'),
   db= new sqlite3.Database('database.db');
-/*db.serialize(function() {
-  db.run("CREATE TABLE users (info TEXT)");
-
-  var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-  for (var i = 0; i < 10; i++) {
-      stmt.run("Ipsum " + i);
-  }
-  stmt.finalize();
-
-  db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-      console.log(row.id + ": " + row.info);
-  });
-});
-
-db.close();*/
-/*
-var db={};
-
-for(var i=0; i<tables.length; i++){
-  db[tables[i]]=new nedb({filename: "db/"+tables[i]+".json",autoload:true});
-}
-db.users.ensureIndex({fieldName:"username",unique: true} );
-db.sacos.ensureIndex({fieldName:"codigo",unique: true} );
-db.pantalones.ensureIndex({fieldName:"codigo",unique: true} );*/
 var app = express();
 var tables=["users","sacos","pantalones","camisas","chalecos","togas","corbatas","gaznes","corbatines","monios","zapatos","colores","estilos"];
 app.configure(function () {
@@ -44,6 +20,30 @@ for(var i=0; i<tables.length; i++){
   router.add(app,db,tables[i]);
 }
 
+
+app.get('/print-formats',function(req,res){
+    var printer = require("printer"),
+    util = require('util');
+    console.log("supported formats are:\n"+util.inspect(printer.getSupportedPrintFormats(), {colors:true, depth:10}));
+    console.log("supported job commands:\n"+util.inspect(printer.getSupportedJobCommands(), {colors:true, depth:10}));
+});
+
+
+app.get('/print',function(req,res){
+    var printer = require("./node_modules/printer/lib/");
+    printer.printDirect({data:"print from Node.JS buffer",
+    printer:'Foxit Reader PDF Printer',
+    docname:"prueba",
+    type: 'RAW',
+
+    success:function(jobID){
+       //printer.setJob('Foxit Reader PDF Printer',jobID,'SENT-TO-PRINTER');
+       //console.log(util.inspect(printer.getPrinters(), {colors:true, depth:10}));
+       res.send("sent to printer with ID: "+jobID);
+      },
+    error:function(err){res.send(err);}
+});
+});
 app.post('/login',function(req,res){
   //res.send(JSON.stringify(req.body)); return;
     db.users.find({username: req.body.username,password: req.body.password },function(err,result){
@@ -58,45 +58,6 @@ app.post('/login',function(req,res){
 app.get('/api', function (req, res) {
   res.send('API is running');
 });
-var createFunctions=function(table){
 
-  app.post('/'+table, function (req, res) {
-     var item = req.body;
-     if(item._id){
-       db[table].update({_id: item._id},{$set: item},{},function(err,result){
-         if (err) {
-           res.send({'error':'An error has occurred'});
-         } else {
-           console.log('Success: ' + JSON.stringify(result));
-           res.send(JSON.stringify(result));
-         }
-       });
-       return;
-     }
-     db[table].insert(item, function (err, result) {
-       if (err) {
-         res.send({'error':'An error has occurred'});
-       } else {
-         console.log('Success: ' + JSON.stringify(result));
-         res.send(result);
-       }
-     });
-   });
-
-   app.delete('/'+table+'/:id', function (req, res) {
-     var id = req.params.id;
-     db[table].remove({_id: id}, {}, function (err, result) {
-       if (err) {
-         res.send({'error':'An error has occurred - ' + err});
-       } else {
-         console.log('' + result + ' document(s) deleted');
-         res.send(req.body);
-       }
-     });
-   });
-};
-//for(var i=0; i<tables.length; i++){
-  //createFunctions(tables[i]);
-//}
 app.listen(app.get('port'));
 console.log('Server listening on port ' + app.get('port'));

@@ -10,8 +10,10 @@ var consultaID=function(db,tableName,_id,res){
 var tablesColor=["sacos","camisas","pantalones","chalecos","gaznes","monios","corbatines","corbatas","togas"];
 var tablesEstilos=["sacos","pantalones","chalecos"];
 
+
 module.exports.add =  function(app,db,tableName){
   /**SEARCH*/
+
   app.get('/'+tableName, function (req, res) {
     var query=req.query,stmt=null;
     var result=[];

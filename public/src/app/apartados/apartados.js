@@ -43,7 +43,7 @@ angular.module('ngBoilerplate.apartados', [
       }
     });
   })
-    .controller('modalController',function($scope,$filter,$modalInstance,tables,FormFactory,TableSearch,prenda,articulos){
+    .controller('modalController',function($scope,$compile,$filter,$modalInstance,tables,FormFactory,TableSearch,prenda,articulos){
 
 
         var sortingOrder = 'codigo';
@@ -66,13 +66,13 @@ angular.module('ngBoilerplate.apartados', [
                   desc+=" estilo "+item.estilo_desc;
                 }
                 if(prendasColor.indexOf(prenda.name)!==-1){
-                  desc+=" color "+item.color_desc;
+                  desc+=" c. "+item.color_desc;
                 }
                 if(prendasCuello.indexOf(prenda.name)!==-1){
                   desc+=" cuello "+item.cuello;
                 }
                 if(prendasTalla.indexOf(prenda.name)!==-1){
-                  desc+=" talla "+item.talla;
+                  desc+=" t. "+item.talla;
                 }
                 return desc;
         };
@@ -179,7 +179,9 @@ angular.module('ngBoilerplate.apartados', [
             item.tipoPrenda=prenda.description;
             item.prenda=prenda.name;
             item.completeDescription=getDescription(item);
+            item.costo_renta=item.costo_renta.toFixed(2);
             item.subtotal=parseFloat($scope.cantidad)* parseFloat(item.costo_renta);
+            item.subtotal=item.subtotal.toFixed(2);
             item.descuento=0;
             item.sub_desc=item.subtotal;
             $modalInstance.close(item);
@@ -190,8 +192,9 @@ angular.module('ngBoilerplate.apartados', [
             $modalInstance.dismiss('cancel');
           };
     })
-  .controller('apartadosCtrl', function apartadosController($scope, $log,$filter, $modal,apartados,
+  .controller('apartadosCtrl', function apartadosController($scope,$window,$templateCache,$compile, $cookies,$log,$filter, $modal,apartados,
     $location, tables,Prendas) {
+
       $scope.articulos=[];
     $scope.agregarArticulo=function(){
         if(!$scope.articulo.tipoPrenda){ return;}
@@ -222,11 +225,16 @@ angular.module('ngBoilerplate.apartados', [
       $scope.articulos.splice($index,1);
     };
     $scope.imprimeTicket=function(){
+      $scope.data={};
+      $scope.data.name="hola";
       var ventimp=window.open('');
-      ventimp.document.write("asdasd");
-      ventimp.document.close();
+      var tpl=($compile($templateCache.get('tickets/rentas.tpl.html'))($scope));
+      ventimp.document.body.appendChild(tpl[0]);
       ventimp.print();
-      ventimp.close();
+      //ventimp.close();
+      //ventimp.document.close();
+      //
+      //
       //window.print();
     };
     $scope.articulo = {};
@@ -235,20 +243,33 @@ angular.module('ngBoilerplate.apartados', [
 
         $scope.articulos.forEach(function(art){
             if(art.subtotal){
-              sum=sum+art.subtotal;
+              sum=parseFloat(sum)+parseFloat(art.subtotal);
             }
             if(art.sub_desc){
-              sum2=sum2+art.sub_desc;
+              sum2=parseFloat(sum2)+parseFloat(art.sub_desc);
             }
         });
+        console.log(sum); 
+        console.log(sum2);
         $scope.total=sum;
+        $scope.total=$scope.total.toFixed(2);
         $scope.total_desc=sum2;
+        $scope.total_desc=$scope.total_desc.toFixed(2);
     });
     $scope.calculaDescuento=function(articulo){
       articulo.sub_desc=articulo.subtotal-(articulo.subtotal*articulo.descuento)/100;
+      articulo.sub_desc=articulo.sub_desc.toFixed(2);
     };
 
-    $scope.prendas = Prendas;
+     $scope.prendas = Prendas;
+     $scope.cliente={};
+     $scope.cliente.nombre="Eduardo Ortiz Alvarado";
+      $scope.cliente.calle="5 de mayo no. 81";
+      $scope.cliente.colonia="La Victoria";
+      $scope.cliente.ciudad="Guadalupe";
+      $scope.cliente.telefono="4921466019";
+      $scope.cliente.anticipo="100";
+
 
   })
 

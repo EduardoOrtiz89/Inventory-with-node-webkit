@@ -137,9 +137,9 @@
       <td >{{articulo.cantidadElegida}}</td>
       <td> {{articulo.completeDescription}}</td>
       <td><textarea class="form-control " ng-model="articulo.observaciones"></textarea></td>
-      <td>{{articulo.costo_renta}}</td>
-      <td>{{articulo.subtotal}}</td>
-      <td>{{articulo.sub_desc}}</td>
+      <td style="text-align:right">{{articulo.costo_renta}}</td>
+      <td style="text-align:right">{{articulo.subtotal}}</td>
+      <td style="text-align:right">{{articulo.sub_desc}}</td>
     </tr>
   </tbody>
   <tfoot>
@@ -151,8 +151,8 @@
       <td></td>
       <td></td>
       <td>Total</td>
-      <td>{{total}}</td>
-      <td>{{total_desc}}</td>
+      <td style="text-align:right">{{total}}</td>
+      <td style="text-align:right">{{total_desc}}</td>
     </tr>
   </tfoot>
 </table>

@@ -2,19 +2,20 @@
   "name": "nw-demo",
   "main": "index.html",
   "window": {
-    "title": "Demo app",
+    "title": "Catzzo",
     "position": null,
     "toolbar": true,
     "frame": true,
-    "fullscreen": true,
+    "fullscreen": false,
     "resizable": true,
-    "min_width": 1100,
+    "min_width": 0,
     "min_height": 600
   },
   "node-remote": "<local>",
   "dependencies": {
     "nedb": "~0.11.0",
     "express": "~3.16.9",
-    "sqlite3": "~2.2.7"
+    "sqlite3": "~2.2.7",
+    "printer": "0.0.2"
   }
 }

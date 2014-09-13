@@ -127,6 +127,7 @@ button,a,.btn {
 @import '../app/rentas/rentas.less';
 @import '../app/login/login.less';
 @import '../app/apartados/apartados.less';
+@import '../app/tickets/rentas.less';
 
  form input.ng-invalid.ng-dirty {
     border-color: #E6B8B8;
@@ -254,6 +255,13 @@ button,a,.btn {
     font-family: sans-serif;
     padding-right: 0;
   }
+
+@media print
+{
+.noprint {display:none;}
+}
+
+  
 @font-face {
   font-family: "Flaticon";
   src: url("flaticon.eot");
