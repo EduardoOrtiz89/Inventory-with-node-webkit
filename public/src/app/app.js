@@ -17,6 +17,7 @@ angular.module('ngBoilerplate', [
    'ngBoilerplate.apartados',
    'ngBoilerplate.estilos',
    'ngBoilerplate.colores',
+   'ngBoilerplate.usuarios',
   'ui.router',
   'ngSanitize',
   'ui.select',
