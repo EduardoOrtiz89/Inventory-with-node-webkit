@@ -141,3 +141,36 @@ CREATE TABLE "zapatos" (
     "rentados" INTEGER default 0,
     "costo_renta" REAL
 );
+
+
+
+
+DROP TABLE IF EXISTS "tickets";
+CREATE TABLE "tickets" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "nombre" TEXT,
+    "calle" TEXT,
+    "colonia" TEXT,
+    "ciudad" TEXT,
+    "telefono" TEXT,
+    "anticipo" REAL,
+    "fecha_apartado" INTEGER,
+    "fecha_entrega" INTEGER,
+    "fecha_devolución" INTEGER
+
+);
+
+DROP TABLE IF EXISTS "rentas";
+CREATE TABLE "rentas" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "ticket_id" INTEGER,
+    "prenda_id" INTEGER,
+    "nombre" TEXT,
+    "cantidad" INTEGER,
+    "descuento" REAL,
+    "observaciones" TEXT,
+    "costo_unitario" REAL,
+    "subtotal" REAL,
+    "subtotal_desc" REAL,
+    "tipo_prenda" TEXT
+);

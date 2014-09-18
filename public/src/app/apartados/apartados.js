@@ -249,8 +249,6 @@ angular.module('ngBoilerplate.apartados', [
               sum2=parseFloat(sum2)+parseFloat(art.sub_desc);
             }
         });
-        console.log(sum); 
-        console.log(sum2);
         $scope.total=sum;
         $scope.total=$scope.total.toFixed(2);
         $scope.total_desc=sum2;
@@ -269,6 +267,38 @@ angular.module('ngBoilerplate.apartados', [
       $scope.cliente.ciudad="Guadalupe";
       $scope.cliente.telefono="4921466019";
       $scope.cliente.anticipo="100";
+ $scope.open = function($event,opened) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope[opened] = true;
+  };
+    $scope.initDate = new Date();
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'shortDate'];
+  $scope.format = $scope.formats[2];
+   $scope.minDate = new Date();
+     $scope.disabled = function(date, mode) {
+  //  return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+   };
+   $scope.today = function() {
+    if(!$scope.cliente){
+      $scope.cliente={};
+    }
+    $scope.cliente.fecha_apartado = new Date();
+    $scope.cliente.fecha_devolucion = new Date();
+    $scope.cliente.fecha_apartado = new Date();
+
+  };
+  $scope.today();
+   $scope.clear = function () {
+    $scope.dt = null;
+  };
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+
+
 
 
   })

@@ -38,6 +38,7 @@
   </tfoot>
 </table>
 <h3 style="text-align:center">Pendiente de pago ${{(total_desc-cliente.anticipo).toFixed(2)}}</h3>
-<h4>Día de apartado: </h4>
-<h4>Día de entrega: </h4>
+<h4>Día de apartado: {{cliente.fecha_apartado}}</h4>
+<h4>Día de entrega: {{cliente.fecha_entrega}}</h4>
+<h4>Día de devolución: {{cliente.fecha_devolucion}}</h4>
 </div>

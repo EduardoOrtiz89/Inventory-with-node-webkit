@@ -64,25 +64,25 @@
     <div class="form-group col-sm-6" >
       <label for="nombre" class="col-sm-4 control-label">Nombre</label>
       <div class="col-sm-8">
-        <input type="text" class="form-control" id="nombre"  ng-model="cliente.nombre"  required>
+        <input type="text" class="form-control" id="nombre"  ng-model="cliente.nombre"  required  ng-required="true">
       </div>
     </div>
     <div class="form-group col-sm-6">
       <label for="calle" class="col-sm-4 control-label">Calle</label>
       <div class="col-sm-8">
-        <input type="text" class="form-control" id="calle" ng-model="cliente.calle" required>
+        <input type="text" class="form-control" id="calle" ng-model="cliente.calle" required  ng-required="true">
       </div>
     </div>
     <div class="form-group col-sm-6">
       <label for="colonia" class="col-sm-4 control-label">Colonia/Fracc.</label>
       <div class="col-sm-8">
-        <input type="text" class="form-control" id="colonia" ng-model="cliente.colonia"  required>
+        <input type="text" class="form-control" id="colonia" ng-model="cliente.colonia"  required  ng-required="true">
       </div>
     </div>
        <div class="form-group col-sm-6">
       <label for="ciudad" class="col-sm-4 control-label">Ciudad</label>
       <div class="col-sm-8">
-        <input type="text" class="form-control" id="ciudad" ng-model="cliente.ciudad" required>
+        <input type="text" class="form-control" id="ciudad" ng-model="cliente.ciudad" required  ng-required="true">
       </div>
     </div>
     <div class="form-group col-sm-6">
@@ -94,9 +94,46 @@
     <div class="form-group col-sm-6">
       <label for="anticipo" class="col-sm-4 control-label">Anticipo</label>
       <div class="col-sm-8">
-        <input type="text"  ng-pattern="/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/" pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$"  class="form-control numeric" id="anticipo" ng-model="cliente.anticipo" required >
+        <input type="text"  ng-pattern="/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/" pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$"  class="form-control numeric" id="anticipo" ng-model="cliente.anticipo" required  ng-required="true">
       </div>
     </div>
+   <div class="form-group col-sm-6">
+   <label for="anticipo" class="col-sm-4 control-label">Fecha de apartado</label>
+        <div class="col-md-8">
+            <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="cliente.fecha_apartado"  is-open="fecha_apartado" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" show-button-bar="false" current-text="Hoy" clear-text="Borrar" close-text="Cerrar" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event,'fecha_apartado')"><i class="fa fa-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+    </div>
+   
+
+   <div class="form-group col-sm-6">
+   <label for="anticipo" class="col-sm-4 control-label">Fecha de entrega</label>
+        <div class="col-md-8">
+            <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="cliente.fecha_entrega"  is-open="fecha_entrega" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" show-button-bar="false" current-text="Hoy" clear-text="Borrar" close-text="Cerrar" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event,'fecha_entrega')"><i class="fa fa-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+    </div>
+
+   <div class="form-group col-sm-6">
+   <label for="anticipo" class="col-sm-4 control-label">Fecha de devolución</label>
+        <div class="col-md-8">
+            <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="cliente.fecha_devolucion"  is-open="fecha_devolucion" min-date="minDate" max-date="'2020-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" show-button-bar="false" current-text="Hoy" clear-text="Borrar" close-text="Cerrar" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event,'fecha_devolucion')"><i class="fa fa-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+    </div>
+
     </fieldset>
     <fieldset>
     	<legend>Artículos Apartados</legend>
