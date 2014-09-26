@@ -56,16 +56,15 @@ h2 {
   margin: 20px 0;
   color: #666;
 }
-@border:3px;
-@azul:#1C9EFE;
+
 html{
-  border: @border solid @azul;
+
   -webkit-user-select: none;
 }
 body{
-  padding-top: 70px;
+ padding-top: 10px;
   font-family: "Lato";
-  background: #EEEFF2;
+  background: @background-body;
 }
 /**
  * Navigation
@@ -148,12 +147,15 @@ button,a,.btn {
       padding-left: 0;
     }
     -webkit-user-select: none;
-    background: #2B303E;
+    background: @sidebar;
     min-height: 800px;
     margin-top: -70px; padding-top: 70px;
      li.active{
-          background: #3B3F4D;
+          background: @sidebar-buttons2;
           border-left: 5px solid @azul;
+          a{
+            color: @sidebar-buttons-font3;
+          }
         }
     li{
         margin-bottom: 2px;
@@ -166,13 +168,13 @@ button,a,.btn {
           margin-right: 10px;
         }
         &:hover{
-          background: #3B3F4D;
+          background: @sidebar-buttons2;
             margin-left: 10px;
             border-left: 5px solid @azul;
         }
 
         a{
-          color:#989dac;
+          color:@sidebar-buttons-font2;
           with:100%;
           height: 100%;
           border-radius: 2px;
@@ -188,7 +190,7 @@ button,a,.btn {
           text-shadow: inherit;
 
           &:hover{
-            color:white;
+            color:@sidebar-buttons-font3;
             text-decoration: none;
 
 
@@ -199,14 +201,14 @@ button,a,.btn {
       border:0;
     }
       .panel-heading{
-        background: @navbar-inverse-bg;
+        background: @sidebar-buttons;
         border:0 !important;
         border-left: 5px solid red;
         margin: 0;
         border-radius: 5px;
         padding:0;
         a{
-          color:white;
+          color:@sidebar-buttons-font;
           font-size: 13px;
           display: block;
           box-sizing: border-box;
@@ -330,6 +332,21 @@ input{
   border-radius: 0 !important;
 }*/
 
-.modal-dialog{
+.modal-table .modal-dialog {
   width: 85%;
 }
+
+
+
+/* Fix for Bootstrap 3 with Angular UI Bootstrap */
+
+
+/* Custom dialog/modal headers */
+
+.dialog-header-error { background-color: #d2322d; }
+.dialog-header-wait { background-color: #428bca; }
+.dialog-header-notify { background-color: #eeeeee; }
+.dialog-header-confirm { background-color: #333333; }
+  .dialog-header-error span, .dialog-header-error h4,
+  .dialog-header-wait span, .dialog-header-wait h4,
+  .dialog-header-confirm span, .dialog-header-confirm h4 { color: #ffffff; }

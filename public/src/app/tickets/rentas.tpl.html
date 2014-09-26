@@ -10,15 +10,16 @@
 			font-size: 10px;
 		}
 	</style>
-<h1 style="text-align:center">Cattzo</h1>
+
 <div class="client">
+<div style="text-align:center"><img style="width: 100%;" src="http://localhost:3000/assets/logo.png"></div>
 <p>{{cliente.nombre}}</p>
 <p><strong>Calle:</strong> {{cliente.calle}}</p>
 <p><strong>Colonia:</strong> {{cliente.colonia}}</p>
 <p><strong>Municipio:</strong> {{cliente.ciudad}}</p>
 <p><strong>Teléfono:</strong> {{cliente.telefono}}</p>
 <p><strong>Anticipio:</strong> ${{cliente.anticipo}}</p>
-<p><strong>No. Ticket:</strong> 235931</p>
+<p><strong>No. Ticket:</strong> {{cliente.numTicket}}</p>
 </div>
 <h3 style="text-align:center">Artículos Rentados</h3>
 <table ng-show="articulos.length" class="table-ticket">

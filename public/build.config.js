@@ -66,10 +66,13 @@ module.exports = {
       'vendor/angular-ui-select/dist/select.min.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
       'vendor/angular-cookies/angular-cookies.min.js',
+      'vendor/angular-cookies/angular-cookies.min.js.map',
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-sanitize/angular-sanitize.min.js',
+      'vendor/angular-sanitize/angular-sanitize.min.js.map',
       'vendor/angular-ui-utils/modules/route/route.js',
       'vendor/angular-resource/angular-resource.min.js',
+      'vendor/angular-resource/angular-resource.min.js.map',
       'vendor/angular-ui-select/dist/select.min.css'
     ],
     css: [

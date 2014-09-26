@@ -23,6 +23,7 @@ angular.module('ngBoilerplate', [
   'ui.select',
   'ui.bootstrap',
   'ngResource',
+  'dialogs',
   'ngCookies'
 ])
 
@@ -42,7 +43,29 @@ angular.module('ngBoilerplate', [
     }
   });
 })
-
+ .factory('Tickets', function($resource) {
+    return $resource('/tickets/:id', {
+      id: '@id'
+    }, {
+      get: {
+        method: 'GET',
+        isArray: true
+      },
+      add: {
+        method: 'POST'
+      },
+      remove: {
+        method: 'DELETE'
+      },
+      update: {
+        method: 'POST'
+      },
+      search: {
+        method: 'GET',
+        isArray: true
+      }
+    });
+  })
 .factory('Prendas',function(){
   return  [{
     name: "sacos",
@@ -310,110 +333,6 @@ for(var i=0; i<Prendas.length; i++){
         $cookies.access = null;
         Window.close();
       };
-
-
-var es= {
-      "DATETIME_FORMATS": {
-        "AMPMS": [
-          "AM",
-          "PM"
-        ],
-        "DAY": [
-          "Domingo",
-          "Lunes",
-          "Martes",
-          "Miércoles",
-          "Jueves",
-          "Viernes",
-          "Sábado"
-        ],
-        "MONTH": [
-          "Enero",
-          "Febrero",
-          "Marzo",
-          "Abril",
-          "Mayo",
-          "Junio",
-          "Julio",
-          "Agosto",
-          "Septiembre",
-          "Octubre",
-          "Noviembre",
-          "Diciembre"
-        ],
-        "SHORTDAY": [
-          "Dom",
-          "Lun",
-          "Mar",
-          "Jue",
-          "Vie",
-          "Sab",
-          "Dom"
-        ],
-        "SHORTMONTH": [
-          "Ene",
-          "Feb",
-          "Mar",
-          "Abr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dic"
-        ],
-        "fullDate": "EEEE, MMMM d, y",
-        "longDate": "MMMM d, y",
-        "medium": "MMM d, y h:mm:ss a",
-        "mediumDate": "MMM d, y",
-        "mediumTime": "h:mm:ss a",
-        "short": "M/d/yy h:mm a",
-        "shortDate": "M/d/yyyy",
-        "shortTime": "h:mm a"
-      },
-      "NUMBER_FORMATS": {
-        "CURRENCY_SYM": "$",
-        "DECIMAL_SEP": ".",
-        "GROUP_SEP": ",",
-        "PATTERNS": [
-          {
-            "gSize": 3,
-            "lgSize": 3,
-            "macFrac": 0,
-            "maxFrac": 3,
-            "minFrac": 0,
-            "minInt": 1,
-            "negPre": "-",
-            "negSuf": "",
-            "posPre": "",
-            "posSuf": ""
-          },
-          {
-            "gSize": 3,
-            "lgSize": 3,
-            "macFrac": 0,
-            "maxFrac": 2,
-            "minFrac": 2,
-            "minInt": 1,
-            "negPre": "(\u00a4",
-            "negSuf": ")",
-            "posPre": "\u00a4",
-            "posSuf": ""
-          }
-        ]
-      },
-      "id": "es-mx",
-      "pluralCat": function (n) {
-        if (n == 1) {
-          return PLURAL_CATEGORY.ONE;
-        }
-        return PLURAL_CATEGORY.OTHER;
-      }
-    };
-    angular.copy(es, $locale);
-
     });
   })
 
