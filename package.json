@@ -15,7 +15,6 @@
   "dependencies": {
     "express": "~3.16.9",
     "sqlite3": "~2.2.7",
-    "sequelize": "~2.0.0-rc1",
-    "sequelize-sqlite": "~1.7.0"
+    "persist": "~0.2.7"
   }
 }

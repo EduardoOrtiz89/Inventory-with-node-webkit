@@ -232,10 +232,22 @@ angular.module('ngBoilerplate.apartados', [
   $scope.borrarArticulo = function($index) {
     $scope.articulos.splice($index, 1);
   };
+  $scope.formatDate=function(date){
+    var day=date.getDate(),
+    month=(parseInt(date.getMonth(),10)+1);
+    if(day<10){
+      day="0"+day;
+    }
+    if(month<10){
+      month="0"+month;
+    }
+    return day+"-"+month+"-"+date.getFullYear();
+
+  };
   $scope.imprimeTicket = function() {
     $scope.data = {};
     NumTicket.get(function(ticket) {
-      $scope.cliente.numTicket = ticket.numTicket;
+      $scope.cliente.id = ticket.numTicket;
       var ventimp = window.open('');
       var tpl = ($compile($templateCache.get('tickets/rentas.tpl.html'))($scope));
       ventimp.document.body.appendChild(tpl[0]);
@@ -243,6 +255,7 @@ angular.module('ngBoilerplate.apartados', [
       setTimeout(function() {
         ventimp.print();
         // ventimp.close();
+
         $dialogs.confirm('Ticket', '¿Desea guardar la renta del artículo?').result.then(function(btn) {
           Tickets.add({
             cliente: $scope.cliente,

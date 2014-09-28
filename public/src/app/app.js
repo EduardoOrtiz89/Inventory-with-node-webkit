@@ -52,7 +52,7 @@ angular.module('ngBoilerplate', [
         isArray: true
       },
       add: {
-        method: 'POST'
+        method: 'POST',isArray: true
       },
       remove: {
         method: 'DELETE'

@@ -24,23 +24,24 @@ CREATE TABLE "estilos" (
     "estilo" TEXT
 );
 
-DROP TABLE IF EXISTS "tipo_prenda";
+DROP TABLE IF EXISTS "tipo_prendas";
 CREATE TABLE "tipo_prenda" (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "name" TEXT UNIQUE,
     "descripcion" TEXT
 );
 
-INSERT INTO tipo_prenda(name,descripcion) values('sacos','Sacos');
-INSERT INTO tipo_prenda(name,descripcion) values('camisas','Camisas');
-INSERT INTO tipo_prenda(name,descripcion) values('pantalones','Pantalones');
-INSERT INTO tipo_prenda(name,descripcion) values('chalecos','Chalecos');
-INSERT INTO tipo_prenda(name,descripcion) values('togas','Togas');
-INSERT INTO tipo_prenda(name,descripcion) values('corbatas','Corbatas');
-INSERT INTO tipo_prenda(name,descripcion) values('gaznes','Gaznes');
-INSERT INTO tipo_prenda(name,descripcion) values('corbatines','Corbatines');
-INSERT INTO tipo_prenda(name,descripcion) values('monios','Moños');
-INSERT INTO tipo_prenda(name,descripcion) values('zapatos','Zapatos');
+INSERT INTO tipo_prendas(name,description) values('sacos','Sacos');
+INSERT INTO tipo_prendas(name,description) values('camisas','Camisas');
+INSERT INTO tipo_prendas(name,description) values('pantalones','Pantalones');
+INSERT INTO tipo_prendas(name,description) values('chalecos','Chalecos');
+INSERT INTO tipo_prendas(name,description) values('togas','Togas');
+INSERT INTO tipo_prendas(name,description) values('corbatas','Corbatas');
+INSERT INTO tipo_prendas(name,description) values('gaznes','Gaznes');
+INSERT INTO tipo_prendas(name,description) values('corbatines','Corbatines');
+INSERT INTO tipo_prendas(name,description) values('monios','Moños');
+INSERT INTO tipo_prendas(name,description) values('zapatos','Zapatos');
+
 
 DROP TABLE IF EXISTS "prendas";
 CREATE TABLE "prendas" (

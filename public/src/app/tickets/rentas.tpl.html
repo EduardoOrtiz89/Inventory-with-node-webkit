@@ -19,7 +19,10 @@
 <p><strong>Municipio:</strong> {{cliente.ciudad}}</p>
 <p><strong>Teléfono:</strong> {{cliente.telefono}}</p>
 <p><strong>Anticipio:</strong> ${{cliente.anticipo}}</p>
-<p><strong>No. Ticket:</strong> {{cliente.numTicket}}</p>
+<p><strong>Día de apartado:</strong> {{formatDate(cliente.fecha_apartado)}}</p>
+<p><strong>Día de entrega:</strong> {{formatDate(cliente.fecha_entrega)}}</p>
+<p><strong>Día de devolución:</strong> {{formatDate(cliente.fecha_devolucion)}}</p>
+<p><strong>No. Ticket:</strong> {{cliente.id}}</p>
 </div>
 <h3 style="text-align:center">Artículos Rentados</h3>
 <table ng-show="articulos.length" class="table-ticket">
@@ -39,7 +42,4 @@
   </tfoot>
 </table>
 <h3 style="text-align:center">Pendiente de pago ${{(total_desc-cliente.anticipo).toFixed(2)}}</h3>
-<h4>Día de apartado: {{cliente.fecha_apartado}}</h4>
-<h4>Día de entrega: {{cliente.fecha_entrega}}</h4>
-<h4>Día de devolución: {{cliente.fecha_devolucion}}</h4>
 </div>

@@ -17,8 +17,8 @@ angular.module( 'ngBoilerplate.usuarios', [
   });
 })
 
-.controller( 'usuariosCtrl', function usuariosController( $scope,usuarios,$location,TableSearch,FormFactory ){
- $scope.items=[];
+.controller( 'usuariosCtrl', function usuariosController( $scope,$location,TableSearch,FormFactory ){
+ /*$scope.items=[];
         var sortingOrder = 'talla';
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
@@ -34,7 +34,7 @@ angular.module( 'ngBoilerplate.usuarios', [
    FormFactory.init($scope,usuarios);
   $scope.init();
   $scope.title="Usuarios";
-
+*/
 })
 
 ;
