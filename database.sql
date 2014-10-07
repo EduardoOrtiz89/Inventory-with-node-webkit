@@ -62,27 +62,38 @@ CREATE TABLE "prendas" (
 
 
 DROP TABLE IF EXISTS "tickets";
-CREATE TABLE "tickets" (
-    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE tickets (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "nombre" TEXT,
     "calle" TEXT,
     "colonia" TEXT,
     "ciudad" TEXT,
     "telefono" TEXT,
     "anticipo" REAL,
-    "fecha_apartado" INTEGER,
-    "fecha_entrega" INTEGER,
-    "fecha_devolución" INTEGER
+    "fecha_apartado" TEXT,
+    "fecha_entrega" TEXT,
+    "fecha_devolucion" TEXT
+, "status" INTEGER  NOT NULL  DEFAULT (1) REFERENCES "status_tickets"("id") ON DELETE SET NULL  ON UPDATE SET NULL   )
 
-);
 
 DROP TABLE IF EXISTS "rentas";
-CREATE TABLE "rentas" (
+-- Describe RENTAS
+CREATE TABLE rentas (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-    "ticket_id" INTEGER,
+    "ticket_id" INTEGER REFERENCES "tickets"("id") ON DELETE SET NULL  ON UPDATE SET NULL,
     "prenda_id" INTEGER,
     "nombre" TEXT,
     "cantidad" INTEGER,
     "descuento" REAL,
-    "observaciones" TEXT
-);
+    "observaciones" TEXT)
+
+-- Describe STATUS_TICKETS
+CREATE TABLE "status_tickets" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT,
+    "description" TEXT
+)
+INSERT INTO "status_tickets"(id,name,description) VALUES(0,'cancelado','Cancelado');
+INSERT INTO "status_tickets"(id,name,description) VALUES(1,'apartado','Apartado');
+INSERT INTO "status_tickets"(id,name,description) VALUES(2,'entregado','Entregado al cliente');
+INSERT INTO "status_tickets"(id,name,description) VALUES(3,'devuelto','Devuelto a tienda');

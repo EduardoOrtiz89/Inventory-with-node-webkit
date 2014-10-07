@@ -1,16 +1,16 @@
 var
-  express = require('express'),
-  path = require('path'),
-  crypto = require('crypto'),
-  sqlite3 = require('sqlite3'),
-  crud = require('./server/crud.js'),
-  tickets = require('./server/tickets.js'),
-  //db = new sqlite3.Database('database.db'),
-  app = express(),
-  persist = require("persist"),
-  type = persist.type,
-  models = require('./server/models/index.js'),
-  tables = ["users", "sacos", "pantalones", "camisas", "chalecos", "togas", "corbatas", "gaznes", "corbatines", "monios", "zapatos", "colores", "estilos"],
+  express    = require('express'),
+  path       = require('path'),
+  crypto     = require('crypto'),
+  sqlite3    = require('sqlite3'),
+  crud       = require('./server/crud.js'),
+  tickets    = require('./server/tickets.js'),
+  //db       = new sqlite3.Database('database.db'),
+  app        = express(),
+  persist    = require("persist"),
+  type       = persist.type,
+  models     = require('./server/models/index.js'),
+  tables     = ["users", "sacos", "pantalones", "camisas", "chalecos", "togas", "corbatas", "gaznes", "corbatines", "monios", "zapatos", "colores", "estilos"],
   connection = null;
 persist.connect({
   driver: 'sqlite3',
@@ -29,7 +29,7 @@ app.configure(function() {
 
 
 for (var i = 0; i < tables.length; i++) {
-  crud.add(app, connection, tables[i],models);
+  crud.add(app, connection, tables[i], models);
 }
 tickets.init(app, connection, models);
 

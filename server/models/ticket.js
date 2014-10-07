@@ -1,7 +1,10 @@
 var persist = require("persist"),
 	type = persist.type,
 	Renta=require('./renta');
-module.exports = persist.define("Ticket", {
+
+	console.log(Renta.modelName="renta");
+	console.log(Renta);
+module.exports = Ticket= persist.define("Ticket", {
 	"nombre": {type: type.STRING},
 	"calle": {type: type.STRING},
 	"colonia": {type: type.STRING},
@@ -11,5 +14,7 @@ module.exports = persist.define("Ticket", {
 	"anticipo": {type: type.REAL},
 	"fecha_apartado": {type: type.DATETIME},
 	"fecha_entrega": {type: type.DATETIME},
-	"fecha_devolucion": {type: type.DATETIME}
+	"fecha_devolucion": {type: type.DATETIME},
+	"status": {type: type.INTEGER}
 });
+Ticket.hasMany(Renta,{name: "rentas"});

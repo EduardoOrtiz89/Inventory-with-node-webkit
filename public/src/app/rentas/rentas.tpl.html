@@ -1,3 +1,78 @@
-<div class="row">
-Rentasman
+<div >
+  <form class="form " ng-submit="guardaStatus()" name="form" role="form" class="col-sm-12">
+  <fieldset>
+  <legend>Estado de renta</legend>
+    <div class="form-group col-sm-4" >
+      <label for="id" class="col-sm-6 control-label">Número de ticket</label>
+      <div class="col-sm-6">
+        <input type="text"  ng-blur="consultaTicket()" class="form-control text-center" id="id"  ng-model="ticket.id"  required  ng-required="true">
+      </div>
+    </div>
+   <div class="btn-group col-sm-6 ">
+   <label class="btn btn-danger"  ng-model="tick.status" btn-radio="0">Cancelado</label>
+        <label class="btn btn-primary" ng-model="tick.status" btn-radio="1">Apartado</label>
+        <label class="btn btn-primary" ng-model="tick.status" btn-radio="2">Entregado al cliente</label>
+        <label class="btn btn-primary" ng-model="tick.status" btn-radio="3">Devuelto a tienda</label>
+    </div>
+    <div class="col-sm-2">
+    <button type="button" ng-click="guardaStatus()" class="btn btn-primary">Guardar</button>
+    </div>
+</fieldset>
+<p>{{error}}</p>
+<div ng-show="items.length">
+<div class="col-sm-6">
+	<div><strong>Nombre:</strong> {{tick.tnombre}}</div>
+	<div><strong>Calle:</strong> {{tick.calle}}</div>
+	<div><strong>Colonia:</strong> {{tick.colonia}}</div>
+	<div><strong>Ciudad:</strong> {{tick.ciudad}}</div>
+	<div><strong>Teléfono:</strong> {{tick.telefono}}</div>
+	</div>
+	<div class="col-sm-6">
+	<div><strong>Anticipo:</strong> {{tick.anticipo}}</div>
+	<div><strong>Estatus actual:</strong> {{tick.status_desc}}</div>
+	<div><strong>Fecha de apartado:</strong> {{formatDate(tick.fecha_apartado)}}</div>
+	<div><strong>Fecha de entrega:</strong> {{formatDate(tick.fecha_entrega)}}</div>
+	<div><strong>Fecha de devolución:</strong> {{formatDate(tick.fecha_devolucion)}}</div>
+	</div>
+</div>
+<table ng-show="items.length" class="table table-striped table-condensed table-hover table-ticket">
+  <thead>
+    <tr>
+
+      <th style="width:10%">Nombre</th>
+      <th style="width:10%">Descuento (%)</th>
+      <th style="width:10%">Cantidad</th>
+      <th>Descripción</th>
+      <th>Observaciones</th>
+      <th>Costo unitario</th>
+      <th>Subtotal</th>
+      <th>Subtotal con descuento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="articulo in items track by $index">
+      <td >{{articulo.nombre}}</td>
+      <td >{{articulo.descuento}}</td>
+      <td >{{articulo.cantidadElegida}}</td>
+      <td> {{articulo.completeDescription}}</td>
+      <td>{{articulo.observaciones}}</td>
+      <td style="text-align:right">{{articulo.costo_renta}}</td>
+      <td style="text-align:right">{{articulo.subtotal}}</td>
+      <td style="text-align:right">{{articulo.sub_desc}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Total</td>
+      <td style="text-align:right">{{total}}</td>
+      <td style="text-align:right"><strong>{{total_desc}}</strong></td>
+    </tr>
+  </tfoot>
+</table>
+</form>
 </div>

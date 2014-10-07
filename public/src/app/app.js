@@ -58,7 +58,7 @@ angular.module('ngBoilerplate', [
         method: 'DELETE'
       },
       update: {
-        method: 'POST'
+        method: 'PUT'
       },
       search: {
         method: 'GET',

@@ -1,6 +1,3 @@
-<div class="modal" id="errorModal" role="dialog" aria-Labelledby="errorModalLabel">
-  <div class="modal-dialog">
-    <div class="modal-content">
       <div class="modal-header dialog-header-error">
         <button type="button" class="close" ng-click="close()">
           &times;
@@ -12,12 +9,11 @@
         </h4>
       </div>
       <div class="modal-body text-danger" ng-bind-html-unsafe="msg">
+      {{msg}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-click="close()">
-          Close
+          Cerrar
         </button>
       </div>
-    </div>
-  </div>
-</div>
+  

@@ -11,12 +11,12 @@
 
   <script>
     function bodyOnLoad(){
-    //  var ngui = require('nw.gui');
+      var ngui = require('nw.gui');
 
     // Get the current window
-  //  var nwin = ngui.Window.get();
-//    nwin.show();
-  //  nwin.maximize();
+      var nwin = ngui.Window.get();
+      nwin.show();
+      nwin.maximize();
       require('./server.js');
       window.location.assign('http://localhost:3000/');
     }
@@ -27,7 +27,7 @@
 
 
           <script>
-  var path = './public/build';
+  var path = './public/build/';
   var fs = require('fs');
   fs.watch(path, function() {
     if (window.location){

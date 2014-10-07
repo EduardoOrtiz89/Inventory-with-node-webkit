@@ -254,12 +254,19 @@ angular.module('ngBoilerplate.apartados', [
       //ventimp.moveTo(4999,4999);
       setTimeout(function() {
         ventimp.print();
-        // ventimp.close();
+        ventimp.close();
 
         $dialogs.confirm('Ticket', '¿Desea guardar la renta del artículo?').result.then(function(btn) {
           Tickets.add({
             cliente: $scope.cliente,
             articulos: $scope.articulos
+          },function(res){
+            if(res[0].error){
+              dlg = $dialogs.error('Error '+res[0].msg);
+            }else{
+              dlg = $dialogs.notify('Ticket guardado','Ticket guardado con éxito con el número '+$scope.cliente.id+', si desea cancelarlo vaya a la sección de rentas');
+              console.log(dlg);
+            }
           });
         }, function(btn) {
 
