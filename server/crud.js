@@ -39,7 +39,10 @@ module.exports.add = function(app, db, tipoPrenda,models) {
       q += " where ";
       var ands = [];
       Object.keys(query).forEach(function(key) {
-        var obj=JSON.parse(query[key]);
+        var obj={};
+        try{
+          obj=JSON.parse(query[key]);
+        }catch(e){}
         if(obj.OR){
           var or=[];
             for(var i in obj.OR){
