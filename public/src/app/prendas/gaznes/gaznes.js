@@ -1,32 +1,33 @@
-angular.module( 'ngBoilerplate.zapatos', [
+angular.module( 'ngBoilerplate.gaznes', [
   'ui.router',
   'ngResource'
 ])
 
 
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'zapatos', {
-    url: '/zapatos',
+  $stateProvider.state( 'gaznes', {
+    url: '/gaznes',
     views: {
       "main": {
-        controller: 'zapatosCtrl',
-        templateUrl: 'zapatos/zapatos.tpl.html'
+        controller: 'gaznesCtrl',
+        templateUrl: 'prendas/corbatas/corbatas.tpl.html'
       }
     },
-    data:{ pageTitle: 'zapatos' }
+    data:{ pageTitle: 'gaznes' }
   });
 })
-.controller( 'zapatosCtrl', function zapatosController( $scope,tables,$location,TableSearch,FormFactory ){
+.controller( 'gaznesCtrl', function gaznesController( $scope,$location,TableSearch,FormFactory,colores,tables  ){
  $scope.items=[];
-        var sortingOrder = 'talla';
+        var sortingOrder = 'color';
+        $scope.colores=colores.get();
         $scope.sortingOrder = sortingOrder;
         $scope.headers=[
-               {
-                "class": "fa fa-sort",
-                "text": "Talla",
-                "sort_by":"talla"
-            },
 
+                {
+                "class": "fa fa-sort",
+                "text": "Color",
+                "sort_by":"color"
+            },
              {
                 "class": "fa fa-sort",
                 "text": "Cantidad",
@@ -39,9 +40,9 @@ angular.module( 'ngBoilerplate.zapatos', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,tables.zapatos);
+   FormFactory.init($scope,tables.gaznes);
   $scope.init();
-  $scope.title="Zapatos";
+  $scope.title="Gaznes";
 
 })
 

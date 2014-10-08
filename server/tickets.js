@@ -50,10 +50,13 @@ module.exports.init = function(app, connection, models, db) {
       res.send('error');
       return;
     }
-    var ticket = new Ticket(req.body.cliente);
+    var cliente=req.body.cliente;
+    cliente.borrado=0;
+    cliente.status=1;
+    var ticket = new Ticket(cliente);
     ticket.save(connection, function(err) {
       if (err) {
-        res.send(err);
+         res.send([{error:true,msg: err,body: ticket}]);
         return;
       }
       if (req.body.articulos) {

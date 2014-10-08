@@ -13,8 +13,8 @@ module.exports = persist.define("Prenda", {
 	"costo_nuevo": {type: type.REAL},
 	"costo_usado": {type: type.REAL},
 	"costo_renta": {type: type.REAL},
-	"renta": {type: type.BOOLEAN},
-	"venta": {type: type.BOOLEAN},
+	"funcion": {type: type.INTEGER},
+	"borrado": {type:type.BOOLEAN},
 	"tipo_prenda": {type: type.INTEGER}
 })
 .hasOne(Color,{

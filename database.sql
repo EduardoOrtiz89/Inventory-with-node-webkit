@@ -44,6 +44,7 @@ INSERT INTO tipo_prendas(name,description) values('zapatos','Zapatos');
 
 
 DROP TABLE IF EXISTS "prendas";
+
 CREATE TABLE "prendas" (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "codigo" TEXT UNIQUE,
@@ -55,10 +56,10 @@ CREATE TABLE "prendas" (
     "costo_nuevo" REAL,
     "costo_usado" REAL,
     "costo_renta" REAL,
-    "renta" INTEGER,
-    "venta" INTEGER,
-    "tipo_prenda" INTEGER REFERENCES "tipo_prenda"("id") ON DELETE SET NULL  ON UPDATE SET NULL,
-);
+    "funcion" INTEGER default 1, //si se puede vender, rentar o ambos 1,2,3
+    "tipo_prenda" INTEGER REFERENCES "tipo_prenda"("id") ON DELETE SET NULL  ON UPDATE SET NULL
+)
+
 
 
 DROP TABLE IF EXISTS "tickets";

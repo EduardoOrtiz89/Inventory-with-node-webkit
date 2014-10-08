@@ -11,7 +11,7 @@ angular.module( 'ngBoilerplate.pantalones', [
     views: {
       "main": {
         controller: 'pantalonesCtrl',
-        templateUrl: 'sacos/sacos.tpl.html'
+        templateUrl: 'prendas/sacos/sacos.tpl.html'
       }
     },
     data:{ pageTitle: 'Pantalones' }
@@ -49,6 +49,11 @@ angular.module( 'ngBoilerplate.pantalones', [
                 "class": "fa fa-sort",
                 "text": "Usados",
                 "sort_by":"usados"
+            },
+            {
+                "class": "fa fa-sort",
+                "text": "Disponibles",
+                "sort_by":"disponibles"
             }
         ];
    TableSearch.search($scope);

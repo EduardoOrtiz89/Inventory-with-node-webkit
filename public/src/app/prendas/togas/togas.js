@@ -10,7 +10,7 @@ angular.module( 'ngBoilerplate.togas', [
     views: {
       "main": {
         controller: 'togasCtrl',
-        templateUrl: 'togas/togas.tpl.html'
+        templateUrl: 'prendas/togas/togas.tpl.html'
       }
     },
     data:{ pageTitle: 'togas' }

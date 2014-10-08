@@ -1,27 +1,26 @@
-angular.module( 'ngBoilerplate.corbatas', [
+angular.module( 'ngBoilerplate.monios', [
   'ui.router',
   'ngResource'
 ])
 
 
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'corbatas', {
-    url: '/corbatas',
+  $stateProvider.state( 'monios', {
+    url: '/monios',
     views: {
       "main": {
-        controller: 'corbatasCtrl',
-        templateUrl: 'corbatas/corbatas.tpl.html'
+        controller: 'moniosCtrl',
+        templateUrl: 'prendas/corbatas/corbatas.tpl.html'
       }
     },
-    data:{ pageTitle: 'corbatas' }
+    data:{ pageTitle: 'Moños' }
   });
 })
-
-.controller( 'corbatasCtrl', function corbatasController( $scope,$location,TableSearch,FormFactory,colores,tables ){
+.controller( 'moniosCtrl', function moniosController( $scope,tables,$location,TableSearch,FormFactory,colores ){
  $scope.items=[];
         var sortingOrder = 'color';
-        $scope.colores=colores.get();
         $scope.sortingOrder = sortingOrder;
+        $scope.colores=colores.get(); 
         $scope.headers=[
 
                 {
@@ -41,9 +40,9 @@ angular.module( 'ngBoilerplate.corbatas', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,tables.corbatas);
+   FormFactory.init($scope,tables.monios);
   $scope.init();
-  $scope.title="Corbatas";
+  $scope.title="Moños";
 
 })
 

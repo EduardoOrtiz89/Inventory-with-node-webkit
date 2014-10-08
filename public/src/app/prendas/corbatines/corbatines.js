@@ -1,22 +1,23 @@
-angular.module( 'ngBoilerplate.gaznes', [
+angular.module( 'ngBoilerplate.corbatines', [
   'ui.router',
   'ngResource'
 ])
 
 
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'gaznes', {
-    url: '/gaznes',
+  $stateProvider.state( 'corbatines', {
+    url: '/corbatines',
     views: {
       "main": {
-        controller: 'gaznesCtrl',
-        templateUrl: 'corbatas/corbatas.tpl.html'
+        controller: 'corbatinesCtrl',
+        templateUrl: 'prendas/corbatas/corbatas.tpl.html'
       }
     },
-    data:{ pageTitle: 'gaznes' }
+    data:{ pageTitle: 'corbatines' }
   });
 })
-.controller( 'gaznesCtrl', function gaznesController( $scope,$location,TableSearch,FormFactory,colores,tables  ){
+
+.controller( 'corbatinesCtrl', function corbatinesController( $scope,$location,TableSearch,FormFactory,colores,tables ){
  $scope.items=[];
         var sortingOrder = 'color';
         $scope.colores=colores.get();
@@ -40,9 +41,9 @@ angular.module( 'ngBoilerplate.gaznes', [
             }
         ];
    TableSearch.search($scope);
-   FormFactory.init($scope,tables.gaznes);
+   FormFactory.init($scope,tables.corbatines);
   $scope.init();
-  $scope.title="Gaznes";
+  $scope.title="Corbatines";
 
 })
 

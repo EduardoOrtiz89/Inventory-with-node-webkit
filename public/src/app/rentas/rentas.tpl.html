@@ -2,20 +2,20 @@
   <form class="form " ng-submit="guardaStatus()" name="form" role="form" class="col-sm-12">
   <fieldset>
   <legend>Estado de renta</legend>
-    <div class="form-group col-sm-4" >
+    <div class="form-group col-sm-4 col-md-3 col-lg-4" >
       <label for="id" class="col-sm-6 control-label">Número de ticket</label>
       <div class="col-sm-6">
         <input type="text"  ng-blur="consultaTicket()" class="form-control text-center" id="id"  ng-model="ticket.id"  required  ng-required="true">
       </div>
     </div>
-   <div class="btn-group col-sm-6 ">
+   <div ng-show="items.length" class="btn-group col-sm-6 col-md-8 col-lg-6 ">
    <label class="btn btn-danger"  ng-model="tick.status" btn-radio="0">Cancelado</label>
         <label class="btn btn-primary" ng-model="tick.status" btn-radio="1">Apartado</label>
         <label class="btn btn-primary" ng-model="tick.status" btn-radio="2">Entregado al cliente</label>
         <label class="btn btn-primary" ng-model="tick.status" btn-radio="3">Devuelto a tienda</label>
     </div>
-    <div class="col-sm-2">
-    <button type="button" ng-click="guardaStatus()" class="btn btn-primary">Guardar</button>
+    <div class="col-sm-2 col-md-1 col-lg-2">
+    <button type="button"  ng-show="items.length" ng-click="guardaStatus()" class="btn btn-primary">Guardar</button>
     </div>
 </fieldset>
 <p>{{error}}</p>
@@ -26,6 +26,7 @@
 	<div><strong>Colonia:</strong> {{tick.colonia}}</div>
 	<div><strong>Ciudad:</strong> {{tick.ciudad}}</div>
 	<div><strong>Teléfono:</strong> {{tick.telefono}}</div>
+  <div><strong>Pendiente de pago:</strong> {{tick.status===3? 0: total_desc-tick.anticipo}}</div>
 	</div>
 	<div class="col-sm-6">
 	<div><strong>Anticipo:</strong> {{tick.anticipo}}</div>

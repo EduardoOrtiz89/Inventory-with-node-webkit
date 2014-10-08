@@ -15,6 +15,7 @@ module.exports = Ticket= persist.define("Ticket", {
 	"fecha_apartado": {type: type.DATETIME},
 	"fecha_entrega": {type: type.DATETIME},
 	"fecha_devolucion": {type: type.DATETIME},
+	"borrado": {type:type.BOOLEAN},
 	"status": {type: type.INTEGER}
 });
 Ticket.hasMany(Renta,{name: "rentas"});

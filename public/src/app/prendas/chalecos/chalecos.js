@@ -10,7 +10,7 @@ angular.module( 'ngBoilerplate.chalecos', [
     views: {
       "main": {
         controller: 'chalecosCtrl',
-        templateUrl: 'sacos/sacos.tpl.html'
+        templateUrl: 'prendas/sacos/sacos.tpl.html'
       }
     },
     data:{ pageTitle: 'chalecos' }
@@ -53,6 +53,11 @@ angular.module( 'ngBoilerplate.chalecos', [
                 "class": "fa fa-sort",
                 "text": "Usados",
                 "sort_by":"usados"
+            },
+              {
+                "class": "fa fa-sort",
+                "text": "Disponibles",
+                "sort_by":"disponibles"
             }
         ];
    TableSearch.search($scope);

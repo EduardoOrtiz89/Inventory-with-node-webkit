@@ -1,6 +1,7 @@
 angular.module('ngBoilerplate.apartados', [
   'ui.router',
   'ngResource',
+  'util.datepicker',
   'ui.select'
 ])
 
@@ -155,7 +156,7 @@ angular.module('ngBoilerplate.apartados', [
   $scope.cantidad = 1;
 
   $scope.columns.push("disponibles");
-  tables[prenda.name].get(function(data) {
+  tables[prenda.name].get({ funcion: {OR: [1,3]} ,borrado:0},function(data) {
     $scope.items = data;
     $scope.search();
     articulos.forEach(function(art) {
@@ -198,7 +199,7 @@ angular.module('ngBoilerplate.apartados', [
 })
 
 .controller('apartadosCtrl', function apartadosController($scope, NumTicket, $dialogs, $window, $templateCache, $compile, $cookies, $log, $filter, $modal, apartados,
-  $location, tables, Prendas, Tickets) {
+  $location, tables, Prendas, Tickets,DatePicker) {
 
   $scope.articulos = [];
   $scope.agregarArticulo = function() {
@@ -267,6 +268,8 @@ angular.module('ngBoilerplate.apartados', [
               dlg = $dialogs.notify('Ticket guardado','Ticket guardado con éxito con el número '+$scope.cliente.id+', si desea cancelarlo vaya a la sección de rentas');
               console.log(dlg);
             }
+              $scope.articulos=[];
+              $scope.cliente={};
           });
         }, function(btn) {
 
@@ -312,34 +315,12 @@ angular.module('ngBoilerplate.apartados', [
   $scope.cliente.ciudad = "Guadalupe";
   $scope.cliente.telefono = "4921466019";
   $scope.cliente.anticipo = "100";
-  $scope.open = function($event, opened) {
-    $event.preventDefault();
-    $event.stopPropagation();
+  DatePicker.init($scope);
+  $scope.cliente.fecha_apartado = new Date();
+  $scope.cliente.fecha_devolucion = new Date();
+  $scope.cliente.fecha_entrega = new Date();
 
-    $scope[opened] = true;
-  };
-  $scope.initDate = new Date();
-  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'shortDate'];
-  $scope.format = $scope.formats[2];
-  $scope.minDate = new Date();
 
-  $scope.today = function() {
-    if (!$scope.cliente) {
-      $scope.cliente = {};
-    }
-    $scope.cliente.fecha_apartado = new Date();
-    $scope.cliente.fecha_devolucion = new Date();
-    $scope.cliente.fecha_apartado = new Date();
-
-  };
-  $scope.today();
-  $scope.clear = function() {
-    $scope.dt = null;
-  };
-  $scope.dateOptions = {
-    formatYear: 'yy',
-    startingDay: 1
-  };
 
 
 

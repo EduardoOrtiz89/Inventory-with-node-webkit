@@ -53,28 +53,35 @@
 <img style="width: 100%;" src="assets/logo.png">
 </div>
 <hr>
-<div>
+
   <accordion >
-    <accordion-group heading="Rentas" is-open="false">
+    <accordion-group heading="Rentas" close-others="true" is-open="false">
           <ul  role="menu">
             <li ui-sref-active="active"><a  ui-sref="apartados"><i class="fa fa-tags"></i> Apartados</a></li>
             <li ui-sref-active="active"><a ui-sref="rentas"><i class="fa fa-mail-reply"></i> Rentas</a></li>
           </ul>
     </accordion-group>
-  </accordion>
-</div>
+ 
 
-<div>
-  <accordion >
+    <accordion-group heading="Reportes de rentas" is-open="false">
+          <ul  role="menu">
+            <li ui-sref-active="active"><a  ui-sref="reportes_rentas"><i class="fa fa-file-text-o"></i> Histórico de rentas</a></li>
+            <li ui-sref-active="active"><a ui-sref="rentas"><i class="fa fa-file-text-o"></i> Disponibilidad</a></li>
+            <li ui-sref-active="active"><a ui-sref="reportes_rentas"><i class="fa fa-file-text-o"></i> Apartados</a></li>
+            <li ui-sref-active="active"><a ui-sref="reportes_rentas"><i class="fa fa-file-text-o"></i> Entregas</a></li>
+            <li ui-sref-active="active"><a ui-sref="reportes_rentas"><i class="fa fa-file-text-o"></i> Retardos</a></li>
+          </ul>
+    </accordion-group>
+
+
     <accordion-group heading="Ventas" is-open="false">
         <li ui-sref-active="active"><a  ui-sref="ventas"><i class="flaticon-coat2"></i> Registrar Venta</a></li>
     </accordion-group>
-  </accordion>
-</div>
 
 
-<div>
-  <accordion >
+
+
+
     <accordion-group heading="Prendas" is-open="false" >
             <ul  role="menu">
             <li ui-sref-active="active"><a  ui-sref="sacos"><i class="flaticon-coat2"></i> Sacos</a></li>
@@ -89,13 +96,8 @@
               <li ui-sref-active="active"><a ui-sref="zapatos"><i class="flaticon-sportive57"></i> Zapatos</a></li>
           </ul>
     </accordion-group>
-  </accordion>
-</div>
 
 
-
-<div>
-  <accordion >
     <accordion-group heading="Administrar" is-open="false" >
             <ul  role="menu">
             <li ui-sref-active="active"><a  ui-sref="usuarios"><i class="fa fa-users"></i> Usuarios</a></li>
@@ -106,7 +108,7 @@
           </ul>
     </accordion-group>
   </accordion>
-</div>
+
 
 
 

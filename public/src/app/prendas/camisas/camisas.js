@@ -10,7 +10,7 @@ angular.module( 'ngBoilerplate.camisas', [
     views: {
       "main": {
         controller: 'camisasCtrl',
-        templateUrl: 'camisas/camisas.tpl.html'
+        templateUrl: 'prendas/camisas/camisas.tpl.html'
       }
     },
     data:{ pageTitle: 'camisas' }
@@ -41,6 +41,11 @@ angular.module( 'ngBoilerplate.camisas', [
                 "class": "fa fa-sort",
                 "text": "Usados",
                 "sort_by":"usados"
+            },
+            {
+                "class": "fa fa-sort",
+                "text": "Disponibles",
+                "sort_by":"disponibles"
             }
         ];
   TableSearch.search($scope);
