@@ -18,7 +18,7 @@
         </div>
 
           <div class="content-table">
-          <table class="table table-striped table-condensed table-hover">
+          <table class="table table-bordered table-condensed table-hover">
           <thead>
           <tr>
             <th  ng-repeat="item in headers" ><a ng-click="sort_by(item)"><i class="{{item.class}}"></i></a> {{item.text}}</th>
@@ -26,7 +26,7 @@
           </tr>
           </thead>
             <tfoot>
-                            <td colspan="6">
+                            <td colspan="8">
                                 <div class="pull-right">
                                     <ul class="pagination">
                                         <li ng-class="{disabled: currentPage == 0}">
@@ -151,7 +151,7 @@
         <button type="submit" ng-show="articulos.length" class="btn btn-primary">Imprimir Ticket</button>
       </div>
 
-<table ng-show="articulos.length" class="table table-striped table-condensed table-hover table-ticket">
+<table ng-show="articulos.length" class="table table-bordered table-condensed table-hover table-ticket">
   <thead>
     <tr>
       <th></th>
@@ -180,13 +180,7 @@
   </tbody>
   <tfoot>
     <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td>Total</td>
+      <td colspan="7" >Total</td>
       <td style="text-align:right">{{total}}</td>
       <td style="text-align:right">{{total_desc}}</td>
     </tr>

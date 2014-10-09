@@ -2,7 +2,6 @@
   <form class="form " ng-submit="filtrar()" name="form" role="form" class="col-sm-12">
   <fieldset>
   <legend>Histórico de rentas</legend>
-
    <div class="form-group col-sm-6">
    <label for="anticipo" class="col-sm-4 control-label">Fecha de inicial</label>
         <div class="col-md-8">
@@ -14,7 +13,6 @@
             </p>
         </div>
     </div>
-
    <div class="form-group col-sm-6">
    <label for="anticipo" class="col-sm-4 control-label">Fecha final</label>
         <div class="col-md-8">
@@ -26,24 +24,10 @@
             </p>
         </div>
     </div>
-
- <div class="form-group col-sm-6">
- <label for="tipo_prenda" class="col-sm-4 control-label">Tipo de prenda</label>
- <div class="col-sm-8">
-          <ui-select   name="tipo" ng-model="reporte.tipo_prenda">
-           <ui-select-match placeholder="Tipo de artículo">{{$select.selected.description}}</ui-select-match>
-            <ui-select-choices repeat="item in prendas | filter: $select.search">
-        <small>{{item.description}}</small>
-        </ui-select-choices>
-          </ui-select>
-          </div>
-        </div>
-
-
     <div class="col-sm-12">
 <button type="submit" class="btn btn-primary">Mostrar</button>
 </div>
-<table ng-show="items.length" class="table table-striped table-condensed table-hover table-ticket">
+<table ng-show="items.length" class="table table-condensed table-cursor table-bordered table-hover">
   <thead>
     <tr>
     <th>No. de ticket</th>
@@ -52,18 +36,20 @@
       <th >Fecha de entrega</th>
       <th >Fecha de devolución</th>
       <th style="width:10%">Artículos</th>
+       <th style="width:10%">Estatus</th>
       <th style="width:10%">Importe</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in items track by $index">
+    <tr  ng-repeat="item in items track by $index" ng-click="getTicket(item)">
       <td>{{item.id}}</td>
       <td>{{item.nombre}}</td>
       <td>{{formatDate(item.fecha_apartado)}}</td>
       <td>{{formatDate(item.fecha_entrega)}}</td>
       <td>{{formatDate(item.fecha_devolucion)}}</td>
       <td>{{item.articulos}}</td>
-      <td>{{item.total}}</td>
+      <td>{{item.status}}</td>
+      <td>{{item.total.toFixed(2)}}</td>
     </tr>
   </tbody>
 </table>

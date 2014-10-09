@@ -91,7 +91,7 @@
 </div>
 
 	<div class="content-table">
-	<table class="table table-striped table-condensed table-hover">
+	<table class="table table-bordered table-condensed table-hover">
 	<thead>
 	<tr>
 		<th  ng-repeat="item in headers"><a ng-click="sort_by(item)"><i class="{{item.class}}"></i></a> {{item.text}}</th>
@@ -100,7 +100,7 @@
 	</tr>
 	</thead>
 	  <tfoot>
-                    <td colspan="6">
+                    <td colspan="7">
                         <div class="pull-right">
                             <ul class="pagination">
                                 <li ng-class="{disabled: currentPage == 0}">

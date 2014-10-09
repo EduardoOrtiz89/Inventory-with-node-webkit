@@ -32,17 +32,29 @@ angular.module( 'ngBoilerplate.rentas', [
     },
     data:{ pageTitle: 'Rentas' }
   });
+
+
+  $stateProvider.state( 'rentas_ticket', {
+    url: '/rentas/:ticketId',
+    views: {
+      "main": {
+        controller: 'RentasCtrl',
+        templateUrl: 'rentas/rentas.tpl.html'
+      }
+    },
+    data:{ pageTitle: 'Rentas' }
+  });
 })
 
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'RentasCtrl', function RentasController( $scope,Tickets, $dialogs ) {
+.controller( 'RentasCtrl', function RentasController( $scope,$window,Tickets, $dialogs,$stateParams ) {
 
 
 var prendasCodigo = ["sacos", "pantalones", "chalecos"];
   var prendasEstilo = ["sacos", "pantalones", "chalecos"];
-  var prendasColor = ["sacos", "pantalones", "chalecos", "camisas", "togas", "corbatas", "gaznes", "corbatines", "monios", "zapatos"];
+  var prendasColor = ["sacos", "pantalones", "chalecos", "camisas", "togas", "corbatas", "gaznes", "corbatines", "monios"];
   var prendasCuello = [];
   var prendasTalla = ["sacos", "pantalones", "chalecos", "camisas", "togas", "zapatos"];
   var prendasCantidad = ["togas", "corbatas", "corbatines", "gaznes", "monios", "zapatos"];
@@ -112,6 +124,15 @@ var prendasCodigo = ["sacos", "pantalones", "chalecos"];
 
     });
   };
+ if($stateParams.ticketId){
+  $scope.ticket={};
+  $scope.ticket.id=$stateParams.ticketId;
+  $scope.consultaTicket();
+  $scope.history=true;
+  $scope.historyBack=function(){
+    $window.history.back();
+  };
+ }
 
 })
 

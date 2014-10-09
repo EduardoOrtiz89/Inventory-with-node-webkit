@@ -58,12 +58,12 @@ angular.module('ngBoilerplate.apartados', [
   $scope.sortingOrder = sortingOrder;
   var prendasCodigo = ["sacos", "pantalones", "chalecos"];
   var prendasEstilo = ["sacos", "pantalones", "chalecos"];
-  var prendasColor = ["sacos", "pantalones", "chalecos", "camisas", "togas", "corbatas", "gaznes", "corbatines", "monios", "zapatos"];
+  var prendasColor = ["sacos", "pantalones", "chalecos", "camisas", "togas", "corbatas", "gaznes", "corbatines", "monios"];
   var prendasCuello = [];
   var prendasTalla = ["sacos", "pantalones", "chalecos", "camisas", "togas", "zapatos"];
   var prendasCantidad = ["togas", "corbatas", "corbatines", "gaznes", "monios", "zapatos"];
   $scope.headers = [];
-  $scope.columns = [];
+  $scope.columns = []; 
   var getDescription = function(item) {
     var desc = prenda.description;
 

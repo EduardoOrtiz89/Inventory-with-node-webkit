@@ -23,7 +23,7 @@ module.exports.add = function(app, db, tipoPrenda,models) {
       stmt = null;
     var result = [];
     var noUsados = ["togas", "corbatas", "corbatines", "gaznes", "monios", "zapatos"];
-    var disponibles = "  nuevos+usados  -sum(rentas.cantidad) as disponibles";
+    var disponibles = "  ifnull(nuevos+usados  -sum(rentas.cantidad),nuevos+usados) as disponibles";
     if (tipoPrenda !== "colores" && tipoPrenda !== "estilos") {
       tableName="prendas";
       q = "select " + tableName + ".*,estilos.estilo as estilo_desc, colores.color as color_desc, colores.id as color, estilos.id as estilo, " + disponibles + " from " + tableName + " left join estilos on estilos.id=" + tableName + ".estilo left join colores on colores.id=" + tableName + ".color";
@@ -70,7 +70,7 @@ module.exports.add = function(app, db, tipoPrenda,models) {
 
     }
     if (tipoPrenda !== "colores" && tipoPrenda !== "estilos") {
-        q+="  and (status =1 or status=2) group by prendas.id";
+        q+="  and (status =1 or status=2 or status is null) group by prendas.id";
     }
 //    res.send([q]); return;
     db.runSqlEach(q, params, function(err, rows) {
@@ -86,6 +86,26 @@ module.exports.add = function(app, db, tipoPrenda,models) {
 
   app.post('/' + tipoPrenda, function(req, res) {
     var item = req.body;
+    item.borrado=0;
+    if(!item.funcion){
+      item.funcion=1;
+    }
+    if(!item.nuevos){
+      item.nuevos=0;
+    }
+    if(!item.usados){
+      itm.usados=0;
+    }
+    if(!item.costo_usado){
+      item.costo_usado=0;
+    }
+    if(!item.costo_nuevo){
+      item.costo_nuevo=0;
+    }
+    if(!item.costo_renta){
+      item.costo_renta=0;
+    }
+
     models.Tipo_prenda.where('name = ?', tipoPrenda).first(db, function(err, tipo) {
          var Model=null;
          if(err){res.send(err); return;}
@@ -103,7 +123,6 @@ module.exports.add = function(app, db, tipoPrenda,models) {
          delete item.id;
          delete item.disponibles;
           if (id && id !== 0) { //UPDATE
-             item.borrado=0;
              Model.update(db,id,item,function(err){
                 if(err){res.send(err); return;}
                 res.send(item);
@@ -116,7 +135,8 @@ module.exports.add = function(app, db, tipoPrenda,models) {
               });
           }
     });
-  });
+    }
+  );
 
   /**DELETE**/
 

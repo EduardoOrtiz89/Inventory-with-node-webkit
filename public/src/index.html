@@ -1,69 +1,32 @@
 <!DOCTYPE html>
 <html ng-app="ngBoilerplate" ng-controller="AppCtrl">
-<head>
-  <title ng-bind="pageTitle"></title>
-
-  <!-- social media tags -->
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- font awesome from BootstrapCDN -->
-  <link href="assets/font-awesome.min.css" rel="stylesheet">
-
-  <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
-  <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
-
-  <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
-  <script type="text/javascript" src="<%= file %>"></script><% }); %>
-</head>
-<body>
-
-
-  <div class="container">
-
-
-  <!--  <div class="navbar navbar-inverse navbar-fixed-top"  >
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" ng-init="menuCollapsed = true"
-        ng-click="menuCollapsed = ! menuCollapsed">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <div class="navbar-brand">
-        
+  <head>
+    <title ng-bind="pageTitle"></title>
+    <!-- social media tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- font awesome from BootstrapCDN -->
+    <link href="assets/font-awesome.min.css" rel="stylesheet">
+    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script><% }); %>
+  </head>
+  <body>
+    <div class="container">
+    </div>
+    <div ng-if="access" class="sidebar col-md-3 col-lg-2" style="">
+      <div>
+        <img style="width: 100%;" src="assets/logo.png">
       </div>
-    </div>
-    <div class="collapse navbar-collapse" collapse="menuCollapsed">
-
-      <ul class="nav navbar-nav navbar-right">
-        <li><a style="cursor:pointer"  ng-click="windowMinimize()"><i class="fa fa-minus"></i></a></li>
-        <li><a  style="cursor:pointer" ng-click="windowToggleFullscreen()"><i class="fa fa-square-o"></i></a></li>
-        <li id="close-window"><a  style="cursor:pointer" ng-click="windowClose()"><i class="fa fa-times"></i></a></li>
-      </ul>
-
-
-    </div>
-  </div> -->
-</div>
-<div ng-if="access" class="sidebar col-md-3 col-lg-2" style="">
-<div>
-<img style="width: 100%;" src="assets/logo.png">
-</div>
-<hr>
-
-  <accordion >
-    <accordion-group heading="Rentas" close-others="true" is-open="false">
+      <hr>
+      <accordion >
+        <accordion-group heading="Rentas" close-others="true" is-open="false">
           <ul  role="menu">
             <li ui-sref-active="active"><a  ui-sref="apartados"><i class="fa fa-tags"></i> Apartados</a></li>
             <li ui-sref-active="active"><a ui-sref="rentas"><i class="fa fa-mail-reply"></i> Rentas</a></li>
           </ul>
-    </accordion-group>
- 
-
-    <accordion-group heading="Reportes de rentas" is-open="false">
+        </accordion-group>
+        <accordion-group heading="Reportes de rentas" is-open="false">
           <ul  role="menu">
             <li ui-sref-active="active"><a  ui-sref="reportes_rentas"><i class="fa fa-file-text"></i> Histórico de rentas</a></li>
             <li ui-sref-active="active"><a ui-sref="rentas"><i class="fa fa-file-text"></i> Disponibilidad</a></li>
@@ -71,19 +34,12 @@
             <li ui-sref-active="active"><a ui-sref="reportes_rentas"><i class="fa fa-file-text"></i> Entregas</a></li>
             <li ui-sref-active="active"><a ui-sref="reportes_rentas"><i class="fa fa-file-text"></i> Retardos</a></li>
           </ul>
-    </accordion-group>
-
-
-    <accordion-group heading="Ventas" is-open="false">
-        <li ui-sref-active="active"><a  ui-sref="ventas"><i class="flaticon-coat2"></i> Registrar Venta</a></li>
-    </accordion-group>
-
-
-
-
-
-    <accordion-group heading="Prendas" is-open="false" >
-            <ul  role="menu">
+        </accordion-group>
+        <accordion-group heading="Ventas" is-open="false">
+          <li ui-sref-active="active"><a  ui-sref="ventas"><i class="flaticon-coat2"></i> Registrar Venta</a></li>
+        </accordion-group>
+        <accordion-group heading="Prendas" is-open="false" >
+          <ul  role="menu">
             <li ui-sref-active="active"><a  ui-sref="sacos"><i class="flaticon-coat2"></i> Sacos</a></li>
             <li ui-sref-active="active"><a ui-sref="camisas"><i class="flaticon-tshirt"></i> Camisas</a></li>
             <li ui-sref-active="active"><a ui-sref="pantalones"><i class="flaticon-long35"></i> Pantalones</a></li>
@@ -93,34 +49,22 @@
             <li ui-sref-active="active"><a ui-sref="gaznes"><i class="flaticon-scarf"></i> Gaznes</a></li>
             <li ui-sref-active="active"><a ui-sref="corbatines"><i class="flaticon-tie3"></i> Corbatines</a></li>
             <li ui-sref-active="active"><a ui-sref="monios"><i class="flaticon-ribbon20"></i> Moños</a></li>
-              <li ui-sref-active="active"><a ui-sref="zapatos"><i class="flaticon-sportive57"></i> Zapatos</a></li>
+            <li ui-sref-active="active"><a ui-sref="zapatos"><i class="flaticon-sportive57"></i> Zapatos</a></li>
           </ul>
-    </accordion-group>
-
-
-    <accordion-group heading="Administrar" is-open="false" >
-            <ul  role="menu">
+        </accordion-group>
+        <accordion-group heading="Administrar" is-open="false" >
+          <ul  role="menu">
             <li ui-sref-active="active"><a  ui-sref="usuarios"><i class="fa fa-users"></i> Usuarios</a></li>
             <li ui-sref-active="active"><a ui-sref="colores"><i class="fa fa-paint-brush"></i> Colores</a></li>
             <li ui-sref-active="active"><a ui-sref="estilos"><i class="fa fa-adjust"></i> Estilos</a></li>
             <li ui-sref-active="active"><a ui-sref="pantalones"><i class="fa fa-ticket"></i> Tickets</a></li>
             <li ui-sref-active="active"><a ui-sref="pantalones"><i class="fa fa-money"></i> Costos</a></li>
           </ul>
-    </accordion-group>
-  </accordion>
-
-
-
-
-
-</div>
-<div class="col-md-9 col-lg-10" ui-view="main" style="padding-left: 30px;"></div>
-
-<footer class="footer">
-
-</footer>
-
-
-
-</body>
+        </accordion-group>
+      </accordion>
+    </div>
+    <div class="col-md-9 col-lg-10" ui-view="main" style="padding-left: 30px;"></div>
+    <footer class="footer">
+    </footer>
+  </body>
 </html>
