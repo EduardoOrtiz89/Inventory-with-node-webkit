@@ -5,7 +5,7 @@ angular.module('ngBoilerplate.reportes_rentas', [
 ])
   .config(function config($stateProvider) {
     $stateProvider.state('reportes_rentas', {
-      url: '/reportes-rentas',
+      url: '/reportes/rentas',
       views: {
         "main": {
           controller: 'reportesRentasCtrl',

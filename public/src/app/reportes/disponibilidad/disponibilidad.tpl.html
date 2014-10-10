@@ -1,0 +1,49 @@
+<form> 
+	<div class="form-group">
+		<div class="col-sm-3">
+			<ui-select   name="tipo"  ng-model="prenda.tipoPrenda">
+			<ui-select-match placeholder="Tipo de prenda">{{$select.selected.description}}</ui-select-match>
+			<ui-select-choices repeat="item in prendas | filter: $select.search">
+			<small>{{item.description}}</small>
+			</ui-select-choices>
+			</ui-select>
+		</div>
+			<button type="button" ng-click="changeTable()" class="btn btn-default"><i class="fa fa-search"></i> Filtrar</button>
+	</div>
+</form>
+<div class="input-group col-sm-12" style="padding-top:20px">
+          <span class="input-group-addon">
+          <i style="font-size: 20px;" class="fa fa-search"></i></span>
+          <input class="form-control" ng-model="$parent.query" ng-change="search()" id="search"  type="text" >
+        </div>
+<table class="table table-bordered table-condensed table-hover table-cursor" >
+	<thead>
+		<tr>
+			<th  ng-repeat="item in headers" ><a ng-click="sort_by(item)"><i class="{{item.class}}"></i></a> {{item.text}}</th>
+		</tr>
+	</thead>
+	<tfoot>
+	<td colspan="8">
+		<div class="pull-right">
+			<ul class="pagination">
+				<li ng-class="{disabled: currentPage == 0}">
+					<a href ng-click="prevPage()">« Anterior</a>
+				</li>
+				<li ng-repeat="n in range(pagedItems.length)"
+					ng-class="{active: n == currentPage}"
+					ng-click="setPage()">
+					<a href ng-bind="n + 1">1</a>
+				</li>
+				<li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+					<a href ng-click="nextPage()">Siguiente »</a>
+				</li>
+			</ul>
+		</div>
+	</td>
+	</tfoot>
+	<tbody>
+		<tr  ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
+			<td ng-repeat="column in columns">{{item[column]}}</td>
+		</tr>
+	</tbody>
+</table>

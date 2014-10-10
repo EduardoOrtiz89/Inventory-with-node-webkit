@@ -19,6 +19,7 @@ angular.module('ngBoilerplate', [
   'ngBoilerplate.colores',
   'ngBoilerplate.usuarios',
   'ngBoilerplate.reportes_rentas',
+  'ngBoilerplate.reporte_disponibilidad',
   'util.resources',
   'util.forms',
   'ui.router',
@@ -27,6 +28,7 @@ angular.module('ngBoilerplate', [
   'ui.bootstrap',
   'ngResource',
   'dialogs',
+  'ui.calendar',
   'ngCookies'
 ])
 
