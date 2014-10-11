@@ -10,7 +10,7 @@ angular.module( 'ngBoilerplate.colores', [
     views: {
       "main": {
         controller: 'coloresCtrl',
-        templateUrl: 'colores/colores.tpl.html'
+        templateUrl: 'catalogos/colores/colores.tpl.html'
       }
     },
     data:{ pageTitle: 'colores' }

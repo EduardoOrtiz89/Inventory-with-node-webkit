@@ -10,7 +10,7 @@ angular.module( 'ngBoilerplate.estilos', [
     views: {
       "main": {
         controller: 'estilosCtrl',
-        templateUrl: 'estilos/estilos.tpl.html'
+        templateUrl: 'catalogos/estilos/estilos.tpl.html'
       }
     },
     data:{ pageTitle: 'estilos' }

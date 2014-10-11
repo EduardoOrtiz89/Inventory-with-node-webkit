@@ -20,6 +20,7 @@ angular.module('ngBoilerplate', [
   'ngBoilerplate.usuarios',
   'ngBoilerplate.reportes_rentas',
   'ngBoilerplate.reporte_disponibilidad',
+  'ngBoilerplate.administrar_tickets',
   'util.resources',
   'util.forms',
   'ui.router',
