@@ -23,6 +23,16 @@ angular.module( 'util.resources', [
       }
     });
   })
+.factory('TicketsPrendas',function($resource){
+      return $resource('/tickets-prendas/:id', {
+      id: '@id'
+    }, {
+      get: {
+        method: 'GET',
+        isArray: true
+      }
+    });
+})
 .factory('Prendas',function(){
   return  [{
     name: "sacos",

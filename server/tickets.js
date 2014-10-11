@@ -17,6 +17,17 @@ module.exports.init = function(app, connection, models, db) {
         });
       });
   });
+
+  app.get('/tickets-prendas/:id',function(req,res){
+    var idPrenda=req.params.id;
+     connection.runSqlAll(' select tickets.*,  rentas.*, tickets.nombre as nombre_ticket from tickets left join rentas on rentas.ticket_id=tickets.id where prenda_id=?',[idPrenda],function(err,rentas){
+        if(err){
+          res.send(err);
+        }else{
+          res.send(rentas);
+        }
+     });
+  });
   app.get('/tickets/:id', function(req, res) {
     var id = req.params.id;
     connection.runSqlAll(

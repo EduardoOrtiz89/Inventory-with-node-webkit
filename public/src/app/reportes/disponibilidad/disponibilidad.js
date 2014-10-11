@@ -31,161 +31,56 @@ angular.module('ngBoilerplate.reporte_disponibilidad', [
 			}
 		});
 	})
-	.factory('ReportesCache', ['$cacheFactory',
+	.factory('ReportesCacheDisp', ['$cacheFactory',
 		function($cacheFactory) {
-			return $cacheFactory('reportes');
+			return $cacheFactory('reportes-disp');
 		}
 	])
-	.controller('reportesDisponibilidadPrendaCtrl',function($scope){
-
-		var date = new Date();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear();
-		/* event source that pulls from google.com */
-		$scope.eventSource = {
-			url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
-			className: 'gcal-event', // an option!
-			currentTimezone: 'America/Chicago' // an option!
-		};
-		/* event source that contains custom events on the scope */
-		$scope.events = [{
-			title: 'All Day Event',
-			start: new Date(y, m, 1)
-		}, {
-			title: 'Long Event',
-			start: new Date(y, m, d - 5),
-			end: new Date(y, m, d - 2)
-		}, {
-			id: 999,
-			title: 'Repeating Event',
-			start: new Date(y, m, d - 3, 16, 0),
-			allDay: false
-		}, {
-			id: 999,
-			title: 'Repeating Event',
-			start: new Date(y, m, d + 4, 16, 0),
-			allDay: false
-		}, {
-			title: 'Birthday Party',
-			start: new Date(y, m, d + 1, 19, 0),
-			end: new Date(y, m, d + 1, 22, 30),
-			allDay: false
-		}, {
-			title: 'Click for Google',
-			start: new Date(y, m, 28),
-			end: new Date(y, m, 29),
-			url: 'http://google.com/'
-		}];
-		/* event source that calls a function on every view switch */
-		$scope.eventsF = function(start, end, callback) {
-			var s = new Date(start).getTime() / 1000;
-			var e = new Date(end).getTime() / 1000;
-			var m = new Date(start).getMonth();
-			var events = [{
-				title: 'Feed Me ' + m,
-				start: s + (50000),
-				end: s + (100000),
-				allDay: false,
-				className: ['customFeed']
-			}];
-			callback(events);
-		};
-
-		$scope.calEventsExt = {
-			color: '#f00',
-			textColor: 'yellow',
-			events: [{
-				type: 'party',
-				title: 'Lunch',
-				start: new Date(y, m, d, 12, 0),
-				end: new Date(y, m, d, 14, 0),
-				allDay: false
-			}, {
-				type: 'party',
-				title: 'Lunch 2',
-				start: new Date(y, m, d, 12, 0),
-				end: new Date(y, m, d, 14, 0),
-				allDay: false
-			}, {
-				type: 'party',
-				title: 'Click for Google',
-				start: new Date(y, m, 28),
-				end: new Date(y, m, 29),
-				url: 'http://google.com/'
-			}]
-		};
-		/* alert on eventClick */
-		$scope.alertEventOnClick = function(date, allDay, jsEvent, view) {
-			$scope.alertMessage = ('Day Clicked ' + date);
-		};
-		/* alert on Drop */
-		$scope.alertOnDrop = function(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
-			$scope.alertMessage = ('Event Droped to make dayDelta ' + dayDelta);
-		};
-		/* alert on Resize */
-		$scope.alertOnResize = function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view) {
-			$scope.alertMessage = ('Event Resized to make dayDelta ' + minuteDelta);
-		};
-		/* add and removes an event source of choice */
-		$scope.addRemoveEventSource = function(sources, source) {
-			var canAdd = 0;
-			angular.forEach(sources, function(value, key) {
-				if (sources[key] === source) {
-					sources.splice(key, 1);
-					canAdd = 1;
-				}
-			});
-			if (canAdd === 0) {
-				sources.push(source);
+	.controller('reportesDisponibilidadPrendaCtrl', function($scope, $window,TicketsPrendas, $stateParams,$location) {
+		$scope.events=[];
+		TicketsPrendas.get({
+			id: $stateParams.id
+		}, function(rentas) {
+			for (var i in rentas) {
+				$scope.events.push({
+					id: rentas[i].ticket_id,
+					title: rentas[i].nombre_ticket,
+					start: new Date(rentas[i].fecha_entrega),
+					end: new Date(rentas[i].fecha_devolucion),
+					allDay: true
+				});
 			}
+		});
+		$scope.historyBack=function(){
+			$window.history.back();
 		};
-		/* add custom event*/
-		$scope.addEvent = function() {
-			$scope.events.push({
-				title: 'Open Sesame',
-				start: new Date(y, m, 28),
-				end: new Date(y, m, 29),
-				className: ['openSesame']
-			});
+		$scope.mostrarTicket = function(renta, allDay, jsEvent, view) {
+			$location.path('/rentas/' + renta.id);
 		};
-		/* remove event */
-		$scope.remove = function(index) {
-			$scope.events.splice(index, 1);
+		$scope.nuevaRenta = function(date, allDay, jsEvent, view) {
+			$location.path('/apartados/' + date.getTime());
 		};
-		/* Change View */
-		$scope.changeView = function(view, calendar) {
-			calendar.fullCalendar('changeView', view);
-		};
-		/* Change View */
-		$scope.renderCalender = function(calendar) {
-			calendar.fullCalendar('render');
-		};
-		/* config object */
 		$scope.uiConfig = {
 			calendar: {
 				height: 450,
 				editable: true,
+				dayNames : ['Domingo','Lunes', 'Martes','Miércoles','Jueves','Viernes','Sábado'],
+				dayNamesShort :['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
+				buttonText: {'today': 'Hoy'},
 				header: {
 					left: 'title',
 					center: '',
 					right: 'today prev,next'
 				},
-				dayClick: $scope.alertEventOnClick,
-				eventDrop: $scope.alertOnDrop,
-				eventResize: $scope.alertOnResize
+				eventClick: $scope.mostrarTicket,
+				dayClick: $scope.nuevaRenta
 			}
 		};
-		/* event sources array*/
-		$scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
-		$scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
-
-
-
-
+		$scope.eventSources2 = [$scope.events];
 	})
-	.controller('reportesDisponibilidadCtrl', function reportesDisponibilidadCtrl($scope,tables,TableSearch,DatePicker, Reportes, Dates, $location, ReportesCache, Prendas) {
-		$scope.prenda={};
+	.controller('reportesDisponibilidadCtrl', function reportesDisponibilidadCtrl($scope, tables, TableSearch, DatePicker, Reportes, Dates, $location, ReportesCache, Prendas,ReportesCacheDisp) {
+		$scope.prenda = {};
+		var cache=ReportesCacheDisp.get('reportes-disp');
 		$scope.changeTable = function() {
 			if (!$scope.prenda || !$scope.prenda.tipoPrenda) {
 				return;
@@ -201,26 +96,6 @@ angular.module('ngBoilerplate.reporte_disponibilidad', [
 			var prendasCantidad = ["togas", "corbatas", "corbatines", "gaznes", "monios", "zapatos"];
 			$scope.headers = [];
 			$scope.columns = [];
-			var getDescription = function(item) {
-				var desc = prenda.description;
-
-				if (prendasCodigo.indexOf(prenda.name) !== -1) {
-					desc += " " + item.codigo;
-				}
-				if (prendasEstilo.indexOf(prenda.name) !== -1) {
-					desc += " estilo " + item.estilo_desc;
-				}
-				if (prendasColor.indexOf(prenda.name) !== -1) {
-					desc += " c. " + item.color_desc;
-				}
-				if (prendasCuello.indexOf(prenda.name) !== -1) {
-					desc += " cuello " + item.cuello;
-				}
-				if (prendasTalla.indexOf(prenda.name) !== -1) {
-					desc += " t. " + item.talla;
-				}
-				return desc;
-			};
 			if (prendasCodigo.indexOf(prenda.name) !== -1) {
 				$scope.headers.push({
 					"class": "fa fa-sort",
@@ -295,25 +170,23 @@ angular.module('ngBoilerplate.reporte_disponibilidad', [
 			$scope.columns.push("disponibles");
 			tables[prenda.name].get({
 				funcion: {
-					OR: [1, 3]
+					OR: [1, 3] //Renta o ambos
 				},
 				borrado: 0
 			}, function(data) {
 				$scope.items = data;
 				$scope.search();
-				articulos.forEach(function(art) {
-					if (prenda.name === art.prenda) {
-						data.forEach(function(item) {
-							if (item.id === art.id) {
-								item.disponibles = item.disponibles - art.cantidadElegida;
-							}
-						});
-					}
-				});
 			});
 		};
 		TableSearch.search($scope);
-
+		$scope.verPrenda = function(item) {
+			ReportesCacheDisp.put('reportes-disp',{prenda: $scope.prenda});
+			$location.path('/reportes/disponibilidad/' + item.id);
+		};
+		if(cache){
+			$scope.prenda=cache.prenda;
+			$scope.changeTable();
+		}
 		$scope.prendas = Prendas;
 
 	})

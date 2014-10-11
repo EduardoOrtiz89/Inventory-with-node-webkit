@@ -53,6 +53,7 @@ angular.module('ngBoilerplate', [
     return gui.Window.get();
   })
   .controller('AppCtrl', function AppCtrl($scope, $locale, $location, Window, $cookies, $filter) {
+
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       if (angular.isDefined(toState.data.pageTitle)) {
         $scope.pageTitle = toState.data.pageTitle;

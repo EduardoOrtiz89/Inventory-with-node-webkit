@@ -42,7 +42,7 @@
 	</td>
 	</tfoot>
 	<tbody>
-		<tr  ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse">
+		<tr  ng-repeat="item in pagedItems[currentPage] | orderBy:sortingOrder:reverse" ng-click="verPrenda(item)">
 			<td ng-repeat="column in columns">{{item[column]}}</td>
 		</tr>
 	</tbody>

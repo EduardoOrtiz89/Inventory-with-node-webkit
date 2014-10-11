@@ -19,6 +19,18 @@ angular.module('ngBoilerplate.apartados', [
       pageTitle: 'apartados'
     }
   });
+    $stateProvider.state('apartados_fechai', {
+    url: '/apartados/:fechai',
+    views: {
+      "main": {
+        controller: 'apartadosCtrl',
+        templateUrl: 'apartados/apartados.tpl.html'
+      }
+    },
+    data: {
+      pageTitle: 'apartados'
+    }
+  });
 })
   .factory('NumTicket', function($resource) {
     return $resource('/num-ticket', {}, {
@@ -51,8 +63,7 @@ angular.module('ngBoilerplate.apartados', [
     });
   })
 
-.controller('modalController', function($scope, $compile, $filter, $modalInstance, tables, FormFactory, TableSearch, prenda, articulos) {
-
+.controller('modalController', function($scope, $compile, $filter, $modalInstance, tables, FormFactory, TableSearch, prenda, articulos,$stateParams) {
 
   var sortingOrder = 'codigo';
   $scope.sortingOrder = sortingOrder;
@@ -199,7 +210,7 @@ angular.module('ngBoilerplate.apartados', [
 })
 
 .controller('apartadosCtrl', function apartadosController($scope, NumTicket, $dialogs, $window, $templateCache, $compile, $cookies, $log, $filter, $modal, apartados,
-  $location, tables, Prendas, Tickets,DatePicker) {
+  $location, tables, Prendas, Tickets,DatePicker,$stateParams) {
 
   $scope.articulos = [];
   $scope.agregarArticulo = function() {
@@ -320,6 +331,17 @@ angular.module('ngBoilerplate.apartados', [
   $scope.cliente.fecha_devolucion = new Date();
   $scope.cliente.fecha_entrega = new Date();
 
+ if($stateParams.fechai){
+  var time=new Date();
+  time.setTime($stateParams.fechai);
+  $scope.cliente.fecha_apartado=time;
+  $scope.cliente.fecha_devolucion=time;
+  $scope.cliente.fecha_entrega=time;
+  $scope.history=true;
+  $scope.historyBack=function(){
+    $window.history.back();
+  };
+ }
 
 
 
