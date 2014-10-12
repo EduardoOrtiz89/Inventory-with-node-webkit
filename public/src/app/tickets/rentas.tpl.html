@@ -12,7 +12,10 @@
 	</style>
 
 <div class="client">
-<div style="text-align:center"><img style="width: 100%;" src="http://localhost:3000/assets/logo.png"></div>
+<div style="text-align:center"><img style="width: 100%;" src="http://localhost:3000/assets/logo.png">
+<p>{{settings.direccion}}</p>
+<p>{{settings.telefono}}</p>
+</div>
 <p>{{cliente.nombre}}</p>
 <p><strong>Calle:</strong> {{cliente.calle}}</p>
 <p><strong>Colonia:</strong> {{cliente.colonia}}</p>
@@ -42,4 +45,5 @@
   </tfoot>
 </table>
 <h3 style="text-align:center">Pendiente de pago ${{(total_desc-cliente.anticipo).toFixed(2)}}</h3>
+<p style="text-align:center; font-size: 8px">{{settings.footer}}</p>
 </div>

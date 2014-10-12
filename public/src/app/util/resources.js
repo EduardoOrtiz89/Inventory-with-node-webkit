@@ -23,6 +23,44 @@ angular.module( 'util.resources', [
       }
     });
   })
+.factory('Usuarios', function($resource) {
+    return $resource('/usuarios', {
+    }, {
+      get: {
+        method: 'GET',
+        isArray: true
+      },
+      add: {
+        method: 'POST'
+      },
+      remove: {
+        method: 'DELETE'
+      },
+      update: {
+        method: 'PUT'
+      },
+      search: {
+        method: 'GET',
+        isArray: true
+      }
+    });
+  })
+.factory('SettingsGet',function($resource){
+   return $resource('/settings-get', {}, {
+      get: {
+        method: 'POST',
+        isArray: true
+      }
+    });
+})
+.factory('SettingsPut',function($resource){
+   return $resource('/settings-put', {}, {
+      put: {
+        method: 'POST',
+        isArray: true
+      }
+    });
+})
 .factory('TicketsPrendas',function($resource){
       return $resource('/tickets-prendas/:id', {
       id: '@id'

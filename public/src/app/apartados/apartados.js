@@ -210,7 +210,16 @@ angular.module('ngBoilerplate.apartados', [
 })
 
 .controller('apartadosCtrl', function apartadosController($scope, NumTicket, $dialogs, $window, $templateCache, $compile, $cookies, $log, $filter, $modal, apartados,
-  $location, tables, Prendas, Tickets,DatePicker,$stateParams) {
+  $location, tables, Prendas, Tickets,DatePicker,$stateParams,SettingsGet) {
+
+    SettingsGet.get({keys:["telefono", "direccion","footer", "recargos"]},function(result){
+      $scope.settings={};
+      if(result){
+        for(var i=0; i<result.length; i++){
+          $scope.settings[result[i][0].key]=result[i][0].value;
+        }
+      }
+    });
 
   $scope.articulos = [];
   $scope.agregarArticulo = function() {
@@ -266,7 +275,7 @@ angular.module('ngBoilerplate.apartados', [
       //ventimp.moveTo(4999,4999);
       setTimeout(function() {
         ventimp.print();
-        ventimp.close();
+        //ventimp.close();
 
         $dialogs.confirm('Ticket', '¿Desea guardar la renta del artículo?').result.then(function(btn) {
           Tickets.add({
@@ -277,7 +286,6 @@ angular.module('ngBoilerplate.apartados', [
               dlg = $dialogs.error('Error '+res[0].msg);
             }else{
               dlg = $dialogs.notify('Ticket guardado','Ticket guardado con éxito con el número '+$scope.cliente.id+', si desea cancelarlo vaya a la sección de rentas');
-              console.log(dlg);
             }
               $scope.articulos=[];
               $scope.cliente={};

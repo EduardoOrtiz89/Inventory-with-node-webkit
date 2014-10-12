@@ -6,6 +6,8 @@ var
   crud       = require('./server/crud.js'),
   tickets    = require('./server/tickets.js'),
   reportes    = require('./server/reportes.js'),
+  settings    = require('./server/settings.js'),
+  usuarios    = require('./server/usuarios.js'),
   //db       = new sqlite3.Database('database.db'),
   app        = express(),
   persist    = require("persist"),
@@ -34,7 +36,8 @@ for (var i = 0; i < tables.length; i++) {
 }
 tickets.init(app, connection, models);
 reportes.init(app, connection, models);
-
+usuarios.init(app, connection, models);
+settings.init(app, connection, persist);
 
 app.post('/login', function(req, res) {
   //res.send(JSON.stringify(req.body)); return;

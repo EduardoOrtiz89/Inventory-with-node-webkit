@@ -1,9 +1,6 @@
 var persist = require("persist"),
 	type = persist.type,
 	Renta=require('./renta');
-
-	console.log(Renta.modelName="renta");
-	console.log(Renta);
 module.exports = Ticket= persist.define("Ticket", {
 	"nombre": {type: type.STRING},
 	"calle": {type: type.STRING},

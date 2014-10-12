@@ -1,1 +1,31 @@
-tickets.tpl.html
+<form action="" ng-submit="saveSettings()">
+<legend>Formato de tickets</legend>
+      <div class="form-group col-sm-6" >
+      <label for="nombre" class="col-sm-4 control-label">Teléfono</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id=""  ng-model="settings.telefono">
+      </div>
+    </div>
+      <div class="form-group col-sm-6" >
+      <label for="nombre" class="col-sm-4 control-label">Dirección</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id=""  ng-model="settings.direccion">
+      </div>
+    </div>
+      <div class="form-group col-sm-6" >
+      <label for="nombre" class="col-sm-4 control-label">Costo de recargos por día</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id=""  ng-model="settings.recargos">
+      </div>
+    </div>
+
+        <div class="form-group col-sm-12" >
+      <label for="nombre" class="col-sm-4 control-label">Texto al final del ticket</label>
+      <div class="col-sm-12">
+        <textarea class="form-control" id=""  ng-model="settings.footer"></textarea>
+      </div>
+    </div>
+    <div class="form-group col-sm-1">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+</form>
