@@ -8,14 +8,15 @@
         <input type="text"  ng-blur="consultaTicket()" class="form-control text-center" id="id"  ng-model="ticket.id"  required  ng-required="true">
       </div>
     </div>
-   <div ng-show="items.length" class="btn-group col-sm-6 col-md-8 col-lg-6 ">
-   <label class="btn btn-danger"  ng-model="tick.status" btn-radio="0">Cancelado</label>
-        <label class="btn btn-primary" ng-model="tick.status" btn-radio="1">Apartado</label>
-        <label class="btn btn-primary" ng-model="tick.status" btn-radio="2">Entregado al cliente</label>
-        <label class="btn btn-primary" ng-model="tick.status" btn-radio="3">Devuelto a tienda</label>
+   <div ng-show="items.length" class="btn-group col-sm-6 col-md-8 col-lg-6 " >
+   <label class="btn btn-danger btn-status"  ng-model="tick.status" btn-radio="0">Cancelado</label>
+        <label class="btn btn-primary btn-status" ng-model="tick.status" btn-radio="1">Apartado</label>
+        <label class="btn btn-primary btn-status" ng-model="tick.status" btn-radio="2">Entregado al cliente</label>
+        <label class="btn btn-primary btn-status" ng-model="tick.status" btn-radio="3">Devuelto a tienda</label>
     </div>
     <div class="col-sm-2 col-md-1 col-lg-2">
-    <button type="button"  ng-show="items.length" ng-click="guardaStatus()" class="btn btn-primary">Guardar</button>
+      <button type="button"  ng-show="items.length" ng-click="guardaStatus()" class="btn btn-primary btn-status">Guardar</button>
+      <button type="button" ng-show="items.length" ng-click="print()" class="btn btn-primary btn-status"><i class="fa fa-print"></i></button>
     </div>
 </fieldset>
 <p>{{error}}</p>

@@ -328,17 +328,20 @@ angular.module('ngBoilerplate.apartados', [
 
   $scope.prendas = Prendas;
   $scope.cliente = {};
+  /*
+  DATOS DE PRUEBA
   $scope.cliente.nombre = "Eduardo Ortiz Alvarado";
   $scope.cliente.calle = "5 de mayo no. 81";
   $scope.cliente.colonia = "La Victoria";
   $scope.cliente.ciudad = "Guadalupe";
   $scope.cliente.telefono = "4921466019";
   $scope.cliente.anticipo = "100";
-  DatePicker.init($scope);
-  $scope.cliente.fecha_apartado = new Date();
+  
+ */
+ DatePicker.init($scope);
+ $scope.cliente.fecha_apartado = new Date();
   $scope.cliente.fecha_devolucion = new Date();
   $scope.cliente.fecha_entrega = new Date();
-
  if($stateParams.fechai){
   var time=new Date();
   time.setTime($stateParams.fechai);
