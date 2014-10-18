@@ -9,7 +9,8 @@ var Renta=persist.define("renta", {
 		"cantidad": {type: type.INTEGER},
 		"descuento": {type: type.REAL},
 		"ticket_id": {type: type.INTEGER},
-		"prenda_id": {type: type.INTEGER}
+		"prenda_id": {type: type.INTEGER},
+		"costo": {type: type.REAL}
 });
 Renta.modelName="rentas";
 

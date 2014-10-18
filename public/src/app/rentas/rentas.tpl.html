@@ -40,7 +40,7 @@
 <table ng-show="items.length" class="table table-bordered table-condensed table-hover table-ticket">
   <thead>
     <tr>
-
+      <th></th>
       <th style="width:10%">Nombre</th>
       <th style="width:10%">Descuento (%)</th>
       <th style="width:10%">Cantidad</th>
@@ -53,6 +53,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="articulo in items track by $index">
+     <td >{{$index+1}}</td>
       <td >{{articulo.nombre}}</td>
       <td >{{articulo.descuento}}</td>
       <td >{{articulo.cantidadElegida}}</td>
@@ -65,7 +66,7 @@
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="6">Total</td>
+      <td colspan="7">Total</td>
       <td style="text-align:right">{{total}}</td>
       <td style="text-align:right"><strong>{{total_desc}}</strong></td>
     </tr>

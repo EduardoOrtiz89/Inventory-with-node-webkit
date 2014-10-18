@@ -25,8 +25,16 @@ angular.module( 'ngBoilerplate.rentas', [
     data:{ pageTitle: 'Rentas' }
   });
 })
-.controller( 'RentasCtrl', function RentasController( $scope,$window, $compile,$templateCache,Tickets, $dialogs,$stateParams ) {
+.controller( 'RentasCtrl', function RentasController( $scope,$window, SettingsGet,$compile,$templateCache,Tickets, $dialogs,$stateParams ) {
 
+    SettingsGet.get({keys:["telefono", "direccion","footer", "recargos"]},function(result){
+      $scope.settings={};
+      if(result){
+        for(var i=0; i<result.length; i++){
+          $scope.settings[result[i][0].key]=result[i][0].value;
+        }
+      }
+    });
 
 var prendasCodigo = ["sacos", "pantalones", "chalecos"];
   var prendasEstilo = ["sacos", "pantalones", "chalecos"];

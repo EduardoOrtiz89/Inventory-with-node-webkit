@@ -29,8 +29,9 @@
 </div>
 <h3 style="text-align:center">Artículos Rentados</h3>
 <table ng-show="articulos.length" class="table-ticket">
-  <tbody>
+	  <tbody>
     <tr ng-repeat="articulo in articulos track by $index">
+			<td><strong>{{$index+1}}</strong></td>
       <td>{{articulo.cantidadElegida}}</td>
       <td>{{articulo.completeDescription}} {{articulo.observaciones}} {{articulo.nombre}}</td>
       <td style="text-align: right">{{articulo.sub_desc}}</td>
@@ -38,7 +39,8 @@
   </tbody>
   <tfoot>
     <tr>
-      <td>
+      <td></td>
+      <td></td>
       <td><strong>Total</strong></td>
       <td>{{total_desc}}</td>
     </tr>

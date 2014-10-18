@@ -31,7 +31,7 @@ module.exports.init = function(app, connection, models, db) {
   app.get('/tickets/:id', function(req, res) {
     var id = req.params.id;
     connection.runSqlAll(
-      ['select  tickets.*, tickets.id as ticket_id, tickets.nombre as tnombre,prendas.* , rentas.*, rentas.nombre as srnombre, rentas.cantidad as cantidadElegida,tipo_prendas.description as tpdescription, tipo_prendas.name as tpnombre, colores.color as color_desc, estilos.estilo as estilo_desc,status_tickets.description as status_desc',
+      ['select  tickets.*, tickets.id as ticket_id, tickets.nombre as tnombre,prendas.* , rentas.*, rentas.nombre as srnombre, rentas.cantidad as cantidadElegida,tipo_prendas.description as tpdescription, tipo_prendas.name as tpnombre, colores.color as color_desc, estilos.estilo as estilo_desc,status_tickets.description as status_desc, rentas.costo as costo_renta',
         'from tickets',
         'left join rentas on rentas.ticket_id=tickets.id',
         'left join prendas on prendas.id=rentas.prenda_id',
@@ -80,6 +80,7 @@ module.exports.init = function(app, connection, models, db) {
             nombre: art[i].nombre,
             cantidad: art[i].cantidadElegida,
             descuento: art[i].descuento,
+            costo: art[i].costo_renta,
             observaciones: art[i].observaciones
           });
           saves.push(renta.save);

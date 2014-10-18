@@ -37,7 +37,7 @@
        <div class="form-group col-sm-6">
    <label for="anticipo" class="col-sm-4 control-label">Estatus</label>
         <div class="col-md-8">
-          <select ng-model="reporte.status" class="form-control" name="status" >
+            <select ng-model="reporte.status" class="form-control" name="status" >
             <option value="-1">Todos</option>
             <option value="0">Cancelado</option>
             <option value="1">Apartado</option>
@@ -48,10 +48,14 @@
     </div>
     <div class="col-sm-12">
 <button type="submit" class="btn btn-primary">Mostrar</button>
+<button type="button" ng-show="items.length" ng-click="print()" class="btn btn-primary"><i class="fa fa-print"></i></button>
 </div>
-<table ng-show="items.length" class="table table-condensed table-cursor table-bordered table-hover">
+<hr>
+<div class="col-sm-12" style="height: 20px;"></div>
+<table style="margin-top: 20px;" ng-show="items.length" class="table table-condensed table-cursor table-bordered table-hover">
   <thead>
     <tr >
+    <th></th>
     <th>No. de ticket</th>
       <th >Nombre</th>
       <th >Fecha de apartado</th>
@@ -64,20 +68,20 @@
     </tr>
   </thead>
   <tbody>
-    <tr   ng-repeat="item in items track by $index" ng-click="getTicket(item)" ng-class="getColor(item)">
+    <tr ng-repeat="item in items track by $index" ng-class="getColor(item)">
+      <td class="text-center"><input type="checkbox" name="arts[]"ng-model="$parent.arts[item.id]"></td>
       <td>{{item.id}}</td>
-      <td>{{item.nombre}}</td>
-      <td>{{formatDate(item.fecha_apartado)}}</td>
-      <td>{{formatDate(item.fecha_entrega)}}</td>
-      <td>{{formatDate(item.fecha_devolucion)}}</td>
-      <td>{{item.articulos}}</td>
-      <td>{{item.status}}</td>
-      <td>{{item.anticipo}}</td>
-      <td class="text-right">{{item.total.toFixed(2)}}</td>
+      <td ng-click="getTicket(item)" >{{item.nombre}}</td>
+      <td ng-click="getTicket(item)" >{{formatDate(item.fecha_apartado)}}</td>
+      <td ng-click="getTicket(item)" >{{formatDate(item.fecha_entrega)}}</td>
+      <td ng-click="getTicket(item)" >{{formatDate(item.fecha_devolucion)}}</td>
+      <td ng-click="getTicket(item)" >{{item.articulos}}</td>
+      <td ng-click="getTicket(item)" >{{item.status}}</td>
+      <td ng-click="getTicket(item)" >{{item.anticipo}}</td>
+      <td ng-click="getTicket(item)"  class="text-right">{{item.total.toFixed(2)}}</td>
     </tr>
   </tbody>
 </table>
-
     </div>
   </form>
 </div>
