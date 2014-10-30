@@ -14,10 +14,12 @@ var
   type       = persist.type,
   models     = require('./server/models/index.js'),
   tables     = ["users", "sacos", "pantalones", "camisas", "chalecos", "togas", "corbatas", "gaznes", "corbatines", "monios", "zapatos", "colores", "estilos"],
-  connection = null;
+  connection = null,
+  execPath = path.dirname( process.execPath );
 persist.connect({
   driver: 'sqlite3',
-  filename: 'database.db',
+  filename: execPath+'/database.db',
+  //filename: 'database.db',
   trace: true
 }, function(err, conn) {
   connection = conn;
@@ -26,7 +28,7 @@ app.configure(function() {
   app.set('port', process.env.PORT || 3000);
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
-  app.use(express.static(path.join(__dirname, 'public/build')));
+  app.use(express.static(path.join(__dirname, 'public/bin')));
 });
 
 
@@ -34,22 +36,22 @@ app.configure(function() {
 for (var i = 0; i < tables.length; i++) {
   crud.add(app, connection, tables[i], models);
 }
-tickets.init(app, connection, models);
+tickets.init(app, connection, models,persist);
 reportes.init(app, connection, models);
 usuarios.init(app, connection, models);
 settings.init(app, connection, persist);
 
 app.post('/login', function(req, res) {
   //res.send(JSON.stringify(req.body)); return;
-  db.users.find({
-    username: req.body.username,
-    password: req.body.password
-  }, function(err, result) {
-    if (result && result[0] && result[0].username) {
-      res.send(result[0]._id);
-    } else {
-      res.send('{"response":false}');
+   connection.runSqlAll('select * from usuarios where nombre=? and password=? and borrado=0',[req.body.username,req.body.password], function(err, result) {
+    if(err){
+      res.send(err);return;
     }
+    if(result[0]){
+      res.send(result[0]);
+      return;  
+    }
+    res.send('{"response": "invalid"}');
   });
 });
 app.get('/api', function(req, res) {

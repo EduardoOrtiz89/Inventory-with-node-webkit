@@ -1,0 +1,47 @@
+<div class="ticket" style="">
+	<style>
+	body{
+		text-transform: uppercase;
+	}
+		.ticket td{
+			font-size: 9px;
+		}
+		.client{
+			font-size: 10px;
+		}
+	</style>
+
+<div class="client">
+<div style="text-align:center"><img style="width: 100%;" src="http://localhost:3000/assets/logo.png">
+<p>{{settings.direccion}}</p>
+<p>{{settings.telefono}}</p>
+</div>
+<p>{{cliente.nombre}}</p>
+<p><strong>Calle:</strong> {{cliente.calle}}</p>
+<p><strong>Colonia:</strong> {{cliente.colonia}}</p>
+<p><strong>Municipio:</strong> {{cliente.ciudad}}</p>
+<p><strong>Teléfono:</strong> {{cliente.telefono}}</p>
+<p><strong>No. Ticket:</strong> {{cliente.id}}</p>
+</div>
+<h3 style="text-align:center">Artículos</h3>
+<table ng-show="articulos.length" class="table-ticket">
+	  <tbody>
+    <tr ng-repeat="articulo in articulos track by $index">
+			<td><strong>{{$index+1}}</strong></td>
+      <td>{{articulo.cantidadElegida}}</td>
+      <td>{{articulo.completeDescription}} {{articulo.observaciones}} {{articulo.nombre}}</td>
+      <td style="text-align: right">{{articulo.sub_desc}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td><strong>Total</strong></td>
+      <td>{{total_desc}}</td>
+    </tr>
+  </tfoot>
+</table>
+<h3 style="text-align:center">Total a pagar ${{(total_desc)}}</h3>
+<p style="text-align:center; font-size: 8px">{{settings.footer}}</p>
+</div>

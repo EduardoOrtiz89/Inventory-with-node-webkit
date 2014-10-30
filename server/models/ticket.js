@@ -6,7 +6,6 @@ module.exports = Ticket= persist.define("Ticket", {
 	"calle": {type: type.STRING},
 	"colonia": {type: type.STRING},
 	"ciudad": {type: type.STRING},
-	"ciudad": {type: type.STRING},
 	"telefono": {type: type.STRING},
 	"anticipo": {type: type.REAL},
 	"fecha_apartado": {type: type.DATETIME},

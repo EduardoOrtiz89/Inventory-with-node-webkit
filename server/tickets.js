@@ -1,11 +1,55 @@
 'use strict';
-module.exports.init = function(app, connection, models, db) {
+module.exports.init = function(app, connection, models, db,persist) {
   var Ticket = models.Ticket,
     Renta = models.Renta;
+
+  app.post('/disponibilidad',function(req,res){
+   var sql=['select prendas.*,estilos.estilo as estilo_desc,', 
+           'colores.color as color_desc,',
+           'colores.id as color,',
+           'estilos.id as estilo,',
+           'prendas.id as id,',
+           'nuevos+usados -',
+            'ifnull((',
+              'select  sum(rentas.cantidad) ',
+              'from rentas ',
+              'left join tickets on tickets.id=ticket_id',
+              'where prenda_id=prendas.id',
+              'and ( fecha_entrega < ?  and fecha_devolucion > ?) ',
+              '),0)  as disponibles',
+           'from prendas',
+           'left join estilos on estilos.id=prendas.estilo ',
+           'left join colores on colores.id=prendas.color ',
+           'left join tipo_prendas on tipo_prendas.id =prendas.tipo_prenda',
+           'where  prendas.borrado = 0 and  tipo_prendas.name = ?',
+           'and (funcion = ? or funcion =3)',
+           ].join(" ");
+           connection.runSqlAll(sql, [req.body.fecha_devolucion_cliente,req.body.fecha_entrega_cliente,req.body.tipo_prenda,req.body.funcion],
+                function (err, result) {
+                    if(err){res.send(err); return;}
+                    res.send(result);
+                });
+
+  });
+
 
   app.get('/num-ticket', function(req, res) {
     var ret = false;
     connection.runSqlEach('select seq+1 as nextvalue from sqlite_sequence where name=?', ['tickets'],
+      function each(err, result) {
+        ret = result.nextvalue;
+      }, function complete() {
+        if (!ret) {
+          ret = 1;
+        }
+        res.send({
+          numTicket: ret
+        });
+      });
+  });
+    app.get('/num-ticket-ventas', function(req, res) {
+    var ret = false;
+    connection.runSqlEach('select seq+1 as nextvalue from sqlite_sequence where name=?', ['tickets_ventas'],
       function each(err, result) {
         ret = result.nextvalue;
       }, function complete() {
@@ -48,12 +92,40 @@ module.exports.init = function(app, connection, models, db) {
         }
       });
   });
+  app.get('/tickets-ventas/:id', function(req, res) {
+    var id = req.params.id;
+    connection.runSqlAll(
+      ['select  tickets_ventas.*, tickets_ventas.id as ticket_id, tickets_ventas.nombre as tnombre,prendas.* , ventas.*, ventas.nombre as srnombre, ventas.cantidad as cantidadElegida,tipo_prendas.description as tpdescription, tipo_prendas.name as tpnombre, colores.color as color_desc, estilos.estilo as estilo_desc, ventas.costo as costo_renta, tickets_ventas.borrado as borrado',
+        'from tickets_ventas',
+        'left join ventas on ventas.ticket_id=tickets_ventas.id',
+        'left join prendas on prendas.id=ventas.prenda_id',
+        'left join tipo_prendas on tipo_prendas.id=prendas.tipo_prenda',
+        'left join colores on colores.id=prendas.color',
+        'left join estilos on estilos.id=prendas.estilo',
+        'where tickets_ventas.id=?'
+      ].join(" "), [id], function(err, prenda) {
+        if(err){
+          res.send(err);
+        }else{
+          res.send(prenda);
+        }
+      });
+  });
   app.put('/tickets/:id',function(req,res){
     var id =req.params.id,
     status=req.body.status;
      Ticket.update(connection,parseInt(id,10),{"status":status},function(err){
        if(err){ res.send({error:true,msg: err}); return ;}
        res.send({"id": id, "status": status});
+     });
+  });
+
+   app.put('/tickets-ventas/:id',function(req,res){
+    var id =req.params.id,
+    borrado=req.body.borrado;
+      connection.runSql('update tickets_ventas set borrado=? where id=?',[borrado,parseInt(id,10)],function(err){
+       if(err){ res.send({error:true,msg: err}); return ;}
+       res.send({"id": id, "borrado": borrado});
      });
   });
   app.post('/tickets', function(req, res) {
@@ -95,48 +167,72 @@ module.exports.init = function(app, connection, models, db) {
       }
     });
   });
-};
+
+
 
 /*
+
 {
-  'cliente': {
-    'nombre': 'Eduardo Ortiz Alvarado',
-    'calle': '5 de mayo no. 81',
-    'colonia': 'La Victoria',
-    'ciudad': 'Guadalupe',
-    'telefono': '4921466019',
-    'anticipo': '100',
-    'fecha_apartado': '2014-09-27T05:29:39.733Z',
-    'fecha_devolucion': '2014-09-27T05:29:39.733Z',
-    'fecha_entrega': '2014-09-09T05:00:00.000Z',
-    'numTicket': 1
-  },
-  'articulos': [
-    {
-      'id': 9,
-      'codigo': 'ASDF',
-      'estilo': 8,
-      'color': 27,
-      'talla': '1',
-      'nuevos': 31,
-      'usados': 3,
-      'costo_nuevo': 23,
-      'costo_usado': 2,
-      'costo_renta': '12.00',
-      'renta': null,
-      'venta': null,
-      'tipo_prenda': 1,
-      'estilo_desc': 'Ipsum',
-      'color_desc': 'Rosa',
-      'disponibles': 3,
-      'cantidadElegida': 1,
-      'tipoPrenda': 'Sacos',
-      'prenda': 'sacos',
-      'completeDescription': 'Sacos ASDF estilo Ipsum c. Rosa t. 1',
-      'subtotal': '12.00',
-      'descuento': 0,
-      'sub_desc': '12.00'
-    }
-  ]
+  "nombre": "asd",
+  "calle": "asd",
+  "ciudad": "asd",
+  "colonia": "asd",
+  "telefono": "123",
+  "id": 1,
+  "borrado": 0,
+  "status": 1
+  -- Describe TICKETS_VENTAS
+CREATE TABLE tickets_ventas(
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "nombre" TEXT,
+    "calle" TEXT,
+    "colonia" TEXT,
+    "ciudad" TEXT,
+    "telefono" TEXT,
+    "fecha_venta" TEXT,
+    "borrado"  INTEGER default 0  )
+
 }
 */
+
+ app.post('/tickets-ventas', function(req, res) {
+    if (!req.body.cliente) {
+      res.send('error');
+      return;
+    }
+
+
+    var cliente=req.body.cliente,
+    today=new Date().toISOString();
+
+    cliente.borrado=0;
+    cliente.status=1;
+    connection.runSql("Insert  into tickets_ventas(id,nombre,calle,ciudad,colonia,telefono,borrado,fecha_venta) values(?,?,?,?,?,?,?,?)", [
+        cliente.id,cliente.nombre,cliente.calle,cliente.ciudad,cliente.colonia,cliente.relefono,0,today
+      ], function(err, results) {
+         if (err) {
+         res.send([{error:true,msg: JSON.stringify(err),body: JSON.stringify(cliente)}]);
+        return;
+      }
+      if (req.body.articulos) {
+        var art = req.body.articulos;
+        var saves = [];
+        for (var i = 0; i < art.length; i++) {
+          saves.push(db.runSql('insert into ventas(ticket_id,prenda_id,nombre,cantidad,descuento,nuevo,observaciones,costo) values(?,?,?,?,?,?,?,?)',[
+            cliente.id,art[i].prenda_id,art[i].nombre,art[i].cantidad,art[i].descuento,art[i].nuevo,art[i].observaciones,art[i].costo
+            ]));
+        }
+        connection.chain(saves, function(err, results) {
+          if (err) {
+            res.send([{error:true,msg: err}]);
+            return;
+          }
+          res.send(results);
+        });
+      }
+    });
+  });
+
+
+
+};

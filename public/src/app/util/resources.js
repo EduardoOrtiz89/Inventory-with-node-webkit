@@ -23,6 +23,29 @@ angular.module( 'util.resources', [
       }
     });
   })
+.factory('TicketsVentas', function($resource) {
+    return $resource('/tickets-ventas/:id', {
+      id: '@id'
+    }, {
+      get: {
+        method: 'GET',
+        isArray: true
+      },
+      add: {
+        method: 'POST',isArray: true
+      },
+      remove: {
+        method: 'DELETE'
+      },
+      update: {
+        method: 'PUT'
+      },
+      search: {
+        method: 'GET',
+        isArray: true
+      }
+    });
+  })
 .factory('Usuarios', function($resource) {
     return $resource('/usuarios', {
     }, {

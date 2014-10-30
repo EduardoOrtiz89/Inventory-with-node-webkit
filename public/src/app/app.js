@@ -21,6 +21,7 @@ angular.module('ngBoilerplate', [
   'ngBoilerplate.reportes_rentas',
   'ngBoilerplate.reporte_disponibilidad',
   'ngBoilerplate.administrar_tickets',
+  'ngBoilerplate.tickets_ventas',
   'util.resources',
   'util.forms',
   'ui.router',
@@ -39,7 +40,7 @@ angular.module('ngBoilerplate', [
 })
 
 .run(function run($cookies, $location, $rootScope) {
-  $cookies.access = 1;
+  //$cookies.access = 1;
   if (!$cookies.access) {
     $location.path('/login');
   }
@@ -53,7 +54,7 @@ angular.module('ngBoilerplate', [
     var gui = require('nw.gui');
     return gui.Window.get();
   })
-  .controller('AppCtrl', function AppCtrl($scope, $locale, $location, Window, $cookies, $filter) {
+  .controller('AppCtrl', ['$scope', '$locale', '$location', 'Window', '$cookies', '$filter',  function AppCtrl($scope, $locale, $location, Window, $cookies, $filter) {
 
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       if (angular.isDefined(toState.data.pageTitle)) {
@@ -67,10 +68,10 @@ angular.module('ngBoilerplate', [
       $scope.windowToggleFullscreen = function() {
         Window.toggleFullscreen();
       };
-
+      $scope.tipo_usuario=$cookies.access;
       $scope.windowClose = function() {
         $cookies.access = null;
         Window.close();
       };
     });
-  });
+  }]);

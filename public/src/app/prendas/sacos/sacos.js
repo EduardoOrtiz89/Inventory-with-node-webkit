@@ -50,11 +50,6 @@ angular.module( 'ngBoilerplate.sacos', [
                 "class": "fa fa-sort",
                 "text": "Usados",
                 "sort_by":"usados"
-            },
-              {
-                "class": "fa fa-sort",
-                "text": "Disponibles",
-                "sort_by":"disponibles"
             }
         ];
    TableSearch.search($scope);

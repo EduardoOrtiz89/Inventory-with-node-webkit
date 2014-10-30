@@ -1,4 +1,4 @@
-  <script type="text/ng-template" id="myModalContent.html">
+  <script type="text/ng-template" id="myModalContentVentas.html">
         <div class="modal-header modal-table">
             <h3 class="modal-title">Seleccione prenda</h3>
         </div>
@@ -10,6 +10,11 @@
             <input type="number" ng-model="$parent.cantidad" name="cantidad" id="cantidad" class="form-control text-right">
           </div>
           </div>
+
+          <div class="btn-group">
+        <label class="btn btn-default" ng-model="radio.nuevaPrenda" btn-radio="true" uncheckable>Nuevos</label>
+        <label class="btn btn-default" ng-model="radio.nuevaPrenda" btn-radio="false" uncheckable>Usados</label>
+      </div>
         <div class="input-group col-sm-12" style="padding-top:20px">
           <span class="input-group-addon">
           <i style="font-size: 20px;" class="fa fa-search"></i></span>
@@ -131,7 +136,7 @@
       <td >{{articulo.cantidadElegida}}</td>
       <td> {{articulo.completeDescription}}</td>
       <td><textarea class="form-control " ng-model="articulo.observaciones"></textarea></td>
-      <td style="text-align:right">{{articulo.costo_renta}}</td>
+      <td style="text-align:right">{{articulo.costo}}</td>
       <td style="text-align:right">{{articulo.subtotal}}</td>
       <td style="text-align:right">{{articulo.sub_desc}}</td>
     </tr>

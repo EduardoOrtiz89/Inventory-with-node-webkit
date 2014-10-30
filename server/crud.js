@@ -75,7 +75,7 @@ module.exports.add = function(app, db, tipoPrenda, models) {
     if (tipoPrenda !== "colores" && tipoPrenda !== "estilos") {
       q += "  and (status =1 or status=2 or status is null) group by prendas.id";
     }
-    //    res.send([q]); return;
+    // res.send([q]); return;
     db.runSqlEach(q, params, function(err, rows) {
       result.push(rows);
     }, function complete() {

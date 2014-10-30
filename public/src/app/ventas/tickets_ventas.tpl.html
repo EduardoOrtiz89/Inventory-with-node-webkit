@@ -9,10 +9,8 @@
       </div>
     </div>
    <div ng-show="items.length" class="btn-group col-sm-6 col-md-8 col-lg-6 " >
-   <label ng-if="tipo_usuario==='1'" class="btn btn-danger btn-status"  ng-model="tick.status" btn-radio="0">Cancelado</label>
-        <label class="btn btn-primary btn-status" ng-model="tick.status" btn-radio="1">Apartado</label>
-        <label class="btn btn-primary btn-status" ng-model="tick.status" btn-radio="2">Entregado al cliente</label>
-        <label class="btn btn-primary btn-status" ng-model="tick.status" btn-radio="3">Devuelto a tienda</label>
+   <label ng-if="tipo_usuario==='1'" class="btn btn-danger btn-status"  ng-model="tick.borrado" btn-radio="1">Cancelado</label>
+        <label class="btn btn-primary btn-status" ng-model="tick.borrado" btn-radio="0">Vendido</label>
     </div>
     <div class="col-sm-2 col-md-1 col-lg-2">
       <button type="button"  ng-show="items.length" ng-click="guardaStatus()" class="btn btn-primary btn-status">Guardar</button>
@@ -27,14 +25,9 @@
 	<div><strong>Colonia:</strong> {{tick.colonia}}</div>
 	<div><strong>Ciudad:</strong> {{tick.ciudad}}</div>
 	<div><strong>Teléfono:</strong> {{tick.telefono}}</div>
-  <div><strong>Pendiente de pago:</strong> {{tick.status===3? 0: total_desc-tick.anticipo}}</div>
+  <div><strong>Fecha de compra:</strong> {{formatDate(tick.fecha_venta)}}</div>
 	</div>
 	<div class="col-sm-6">
-	<div><strong>Anticipo:</strong> {{tick.anticipo}}</div>
-	<div><strong>Estatus actual:</strong> {{tick.status_desc}}</div>
-	<div><strong>Fecha de apartado:</strong> {{formatDate(tick.fecha_apartado)}}</div>
-	<div><strong>Fecha de entrega:</strong> {{formatDate(tick.fecha_entrega)}}</div>
-	<div><strong>Fecha de devolución:</strong> {{formatDate(tick.fecha_devolucion)}}</div>
 	</div>
 </div>
 <table ng-show="items.length" class="table table-bordered table-condensed table-hover table-ticket">
@@ -44,6 +37,7 @@
       <th style="width:10%">Nombre</th>
       <th style="width:10%">Descuento (%)</th>
       <th style="width:10%">Cantidad</th>
+      <th>Estado</th>
       <th>Descripción</th>
       <th>Observaciones</th>
       <th>Costo unitario</th>
@@ -57,6 +51,7 @@
       <td >{{articulo.nombre}}</td>
       <td >{{articulo.descuento}}</td>
       <td >{{articulo.cantidadElegida}}</td>
+      <td >{{articulo.nuevo===0?"Usado":"Nuevo"}}</td>
       <td> {{articulo.completeDescription}}</td>
       <td>{{articulo.observaciones}}</td>
       <td style="text-align:right">{{articulo.costo_renta}}</td>
@@ -66,7 +61,7 @@
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="7">Total</td>
+      <td colspan="8">Total</td>
       <td style="text-align:right">{{total}}</td>
       <td style="text-align:right"><strong>{{total_desc}}</strong></td>
     </tr>

@@ -63,7 +63,7 @@ angular.module('ngBoilerplate.apartados', [
     });
   })
 
-.controller('modalController', function($scope, $compile, $filter, $modalInstance, tables, FormFactory, TableSearch, prenda, articulos,$stateParams) {
+.controller('modalController', function($scope, $http,$compile, $filter, $modalInstance, tables, FormFactory, TableSearch, prenda, articulos,$stateParams,fecha_entrega_cliente,fecha_devolucion_cliente) {
 
   var sortingOrder = 'codigo';
   $scope.sortingOrder = sortingOrder;
@@ -167,8 +167,14 @@ angular.module('ngBoilerplate.apartados', [
   $scope.cantidad = 1;
 
   $scope.columns.push("disponibles");
-  tables[prenda.name].get({ funcion: {OR: [1,3]} ,borrado:0},function(data) {
+  $http.post('/disponibilidad',{
+    fecha_entrega_cliente: fecha_entrega_cliente,
+    fecha_devolucion_cliente:fecha_devolucion_cliente,
+    tipo_prenda:prenda.name,
+    funcion:1
+  }).success(function(data) {
     $scope.items = data;
+    console.log($scope.items);
     $scope.search();
     articulos.forEach(function(art) {
       if (prenda.name === art.prenda) {
@@ -223,7 +229,7 @@ angular.module('ngBoilerplate.apartados', [
 
   $scope.articulos = [];
   $scope.agregarArticulo = function() {
-    if (!$scope.articulo.tipoPrenda) {
+    if (!$scope.articulo.tipoPrenda ) {
       return;
     }
     var modalInstance = $modal.open({
@@ -237,6 +243,12 @@ angular.module('ngBoilerplate.apartados', [
         },
         articulos: function() {
           return $scope.articulos;
+        },
+        fecha_entrega_cliente:function(){
+          return $scope.cliente.fecha_entrega;
+        },
+        fecha_devolucion_cliente:function(){
+          return $scope.cliente.fecha_devolucion;
         }
 
       }
@@ -272,10 +284,10 @@ angular.module('ngBoilerplate.apartados', [
       var ventimp = window.open('');
       var tpl = ($compile($templateCache.get('tickets/rentas.tpl.html'))($scope));
       ventimp.document.body.appendChild(tpl[0]);
-      //ventimp.moveTo(4999,4999);
+      ventimp.moveTo(4999,4999);
       setTimeout(function() {
         ventimp.print();
-        //ventimp.close();
+        ventimp.close();
 
         $dialogs.confirm('Ticket', '¿Desea guardar la renta del artículo?').result.then(function(btn) {
           Tickets.add({

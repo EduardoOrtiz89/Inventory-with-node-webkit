@@ -98,3 +98,24 @@ INSERT INTO "status_tickets"(id,name,description) VALUES(0,'cancelado','Cancelad
 INSERT INTO "status_tickets"(id,name,description) VALUES(1,'apartado','Apartado');
 INSERT INTO "status_tickets"(id,name,description) VALUES(2,'entregado','Entregado al cliente');
 INSERT INTO "status_tickets"(id,name,description) VALUES(3,'devuelto','Devuelto a tienda');
+
+
+
+select prendas.*,estilos.estilo as estilo_desc, 
+colores.color as color_desc, 
+colores.id as color,
+ estilos.id as estilo,
+ tickets.*,
+ rentas.*,
+ ifnull(sum(rentas.cantidad),nuevos+usados) as disponibles
+--ifnull(nuevos+usados  -sum(rentas.cantidad),nuevos+usados) as disponibles 
+ from prendas
+ left join estilos on estilos.id=prendas.estilo 
+ left join colores on colores.id=prendas.color 
+ left join tipo_prendas on tipo_prendas.id =prendas.tipo_prenda
+ left join rentas on prenda_id=prendas.id 
+ left join tickets on ticket_id=tickets.id 
+ where  prendas.borrado = '0' and  tipo_prendas.name = 'sacos' 
+-- and (status =1 or status=2 or status is null)
+and ( fecha_entrega >  '2014-11-22T20:34:08.022Z' or fecha_devolucion <  '2014-11-18T10:34:08.022Z' or fecha_entrega is null)
+ group by prendas.id 

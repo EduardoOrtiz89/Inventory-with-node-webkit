@@ -160,14 +160,10 @@ angular.module('ngBoilerplate.reporte_disponibilidad', [
 				});
 				$scope.columns.push("usados");
 			}
-			$scope.headers.push({
-				"class": "fa fa-sort",
-				"text": "Disponibles",
-				"sort_by": "disponibles"
-			});
+			
 			$scope.cantidad = 1;
 
-			$scope.columns.push("disponibles");
+			
 			tables[prenda.name].get({
 				funcion: {
 					OR: [1, 3] //Renta o ambos

@@ -1,31 +1,31 @@
-angular.module( 'ngBoilerplate.rentas', [
+angular.module( 'ngBoilerplate.tickets_ventas', [
   'ui.router'
 ])
 .config(function config( $stateProvider ) {
-  $stateProvider.state( 'rentas', {
-    url: '/rentas',
+  $stateProvider.state( 'tickets_ventas', {
+    url: '/tickets_ventas',
     views: {
       "main": {
-        controller: 'RentasCtrl',
-        templateUrl: 'rentas/rentas.tpl.html'
+        controller: 'TicketsVentasCtrl',
+        templateUrl: 'ventas/tickets_ventas.tpl.html'
       }
     },
-    data:{ pageTitle: 'Rentas' }
+    data:{ pageTitle: 'Tickets de Ventas' }
   });
 
 
-  $stateProvider.state( 'rentas_ticket', {
-    url: '/rentas/:ticketId',
+  $stateProvider.state( 'tickets_ventas_id', {
+    url: '/rentas-ticket/:ticketId',
     views: {
       "main": {
-        controller: 'RentasCtrl',
-        templateUrl: 'rentas/rentas.tpl.html'
+        controller: 'TicketsVentasCtrl',
+        templateUrl: 'ventas/tickets_ventas.tpl.html'
       }
     },
-    data:{ pageTitle: 'Rentas' }
+    data:{ pageTitle: 'Tickets de Ventas' }
   });
 })
-.controller( 'RentasCtrl', function RentasController( $scope,$window, SettingsGet,$compile,$templateCache,Tickets, $dialogs,$stateParams ) {
+.controller( 'TicketsVentasCtrl', function RentasController( $scope,$window, SettingsGet,$compile,$templateCache,TicketsVentas, $dialogs,$stateParams ) {
 
     SettingsGet.get({keys:["telefono", "direccion","footer", "recargos"]},function(result){
       $scope.settings={};
@@ -55,9 +55,9 @@ var prendasCodigo = ["sacos", "pantalones", "chalecos"];
 
   };
   $scope.guardaStatus=function(){
-    var msg=$scope.tick.status===0?"¿Desea cancelar este ticket?": '¿Desea cambiar el estatus de este ticket? ';
+    var msg=$scope.tick.borrado===1?"¿Desea cancelar este ticket?": '¿Desea cambiar el estatus de este ticket? ';
     $dialogs.confirm('Ticket',msg).result.then(function(btn) {
-        Tickets.update({id: $scope.tick.ticket_id,status:$scope.tick.status },function(){
+        TicketsVentas.update({id: $scope.tick.ticket_id,borrado:$scope.tick.borrado },function(){
            $scope.tick=null;
            $scope.items=[];
            $scope.ticket.id="";
@@ -102,7 +102,7 @@ var prendasCodigo = ["sacos", "pantalones", "chalecos"];
 
   $scope.consultaTicket=function(){
 
-    Tickets.get({id:$scope.ticket.id},function(result){
+    TicketsVentas.get({id:$scope.ticket.id},function(result){
       $scope.items=result;
       $scope.tick=result[0];
       $scope.total=0;

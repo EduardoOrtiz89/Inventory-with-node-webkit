@@ -48,10 +48,9 @@ angular.module( 'ngBoilerplate.login', [
 		$location.path("/rentas");
 	}
 	$scope.login=function(){
-		var pass=require('crypto').createHash('sha1').update($scope.user.password).digest("hex");
-		LoginDB.doLogin({username: $scope.user.username,password: pass},function(data){
-			if(data.response!==false){
-				$cookies.access="1";
+		LoginDB.doLogin({username: $scope.user.username,password: $scope.user.password},function(data){
+			if(data.nombre){
+				$cookies.access=data.tipo_usuario;
 				$location.path("/rentas");
 			}else{
 				$scope.message="Usuario/Contraseña no coinciden";
