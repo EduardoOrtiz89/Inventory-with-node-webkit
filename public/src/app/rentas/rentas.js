@@ -25,7 +25,10 @@ angular.module( 'ngBoilerplate.rentas', [
     data:{ pageTitle: 'Rentas' }
   });
 })
-.controller( 'RentasCtrl', function RentasController( $scope,$window, SettingsGet,$compile,$templateCache,Tickets, $dialogs,$stateParams ) {
+.controller( 'RentasCtrl', function RentasController( $scope,$window, SettingsGet,$compile,$templateCache,Tickets, $dialogs,$stateParams,PagosRentas ) {
+
+
+    
 
     SettingsGet.get({keys:["telefono", "direccion","footer", "recargos"]},function(result){
       $scope.settings={};
@@ -99,7 +102,29 @@ var prendasCodigo = ["sacos", "pantalones", "chalecos"];
       },1000);
   };
 
-
+  $scope.agregarPago=function(){
+    
+    if($scope.txtPago){
+      if($scope.total_desc-$scope.tick.anticipo-$scope.totalPagos-$scope.txtPago<-0.01){
+        alert("La cantidad es mayor al total a pagar");
+        return;
+      }
+      var pago=$scope.txtPago;
+      $scope.txtPago="";
+      PagosRentas.add({ticket_id:$scope.ticket.id, monto:pago},function(res){
+          if(res){
+            $scope.consultaTicket();
+          }
+      });
+    }
+  };
+  $scope.eliminarPago=function(item){
+     $dialogs.confirm('Pagos',"¿Está seguro que desea eliminar este pago?").result.then(function(btn) {
+        PagosRentas.remove({_id:item.id},function(){
+          $scope.consultaTicket();  
+        });
+    });
+  };
   $scope.consultaTicket=function(){
 
     Tickets.get({id:$scope.ticket.id},function(result){
@@ -117,6 +142,16 @@ var prendasCodigo = ["sacos", "pantalones", "chalecos"];
        $scope.total_desc+=parseFloat($scope.items[i].sub_desc);
       }
       $scope.total_desc=$scope.total_desc.toFixed(2);
+
+      PagosRentas.get({id: $scope.ticket.id},function(res){
+        if(res){
+            $scope.totalPagos=0;
+            $scope.pagosRentas=res;
+            for(var i=0; i<res.length; i++){
+              $scope.totalPagos+=res[i].monto;
+            }
+        }
+      });
 
     });
   };

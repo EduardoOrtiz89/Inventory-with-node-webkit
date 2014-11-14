@@ -1,76 +1,109 @@
 <div >
   <form class="form " ng-submit="guardaStatus()" name="form" role="form" class="col-sm-12">
-  <fieldset>
-  <legend><button type="button" ng-click="historyBack()" class="btn btn-primary btn-circle back-button" ng-show="history"><i class="fa fa-arrow-circle-o-left"></i></button> Estado de renta</legend>
-    <div class="form-group col-sm-4 col-md-3 col-lg-4" >
-      <label for="id" class="col-sm-6 control-label">Número de ticket</label>
-      <div class="col-sm-6">
-        <input type="text"  ng-blur="consultaTicket()" class="form-control text-center" id="id"  ng-model="ticket.id"  required  ng-required="true">
+    <fieldset>
+      <legend><button type="button" ng-click="historyBack()" class="btn btn-primary btn-circle back-button" ng-show="history"><i class="fa fa-arrow-circle-o-left"></i></button> Estado de renta</legend>
+      <div class="form-group col-sm-4 col-md-3 col-lg-4" >
+        <label for="id" class="col-sm-6 control-label">Número de ticket</label>
+        <div class="col-sm-6">
+          <input type="text"  ng-blur="consultaTicket()" class="form-control text-center" id="id"  ng-model="ticket.id"  required  ng-required="true">
+        </div>
       </div>
-    </div>
-   <div ng-show="items.length" class="btn-group col-sm-6 col-md-8 col-lg-6 " >
-   <label ng-if="tipo_usuario==='1'" class="btn btn-danger btn-status"  ng-model="tick.status" btn-radio="0">Cancelado</label>
+      <div ng-show="items.length" class="btn-group col-sm-6 col-md-8 col-lg-6 " >
+        <label ng-if="tipo_usuario==='1'" class="btn btn-danger btn-status"  ng-model="tick.status" btn-radio="0">Cancelado</label>
         <label class="btn btn-primary btn-status" ng-model="tick.status" btn-radio="1">Apartado</label>
         <label class="btn btn-primary btn-status" ng-model="tick.status" btn-radio="2">Entregado al cliente</label>
         <label class="btn btn-primary btn-status" ng-model="tick.status" btn-radio="3">Devuelto a tienda</label>
+      </div>
+      <div class="col-sm-2 col-md-1 col-lg-2">
+        <button type="button"  ng-show="items.length" ng-click="guardaStatus()" class="btn btn-primary btn-status">Guardar</button>
+        <button type="button" ng-show="items.length" ng-click="print()" class="btn btn-primary btn-status"><i class="fa fa-print"></i></button>
+      </div>
+    </fieldset>
+    <p>{{error}}</p>
+    <div ng-show="items.length">
+      <div class="col-sm-6">
+        <div><strong>Nombre:</strong> {{tick.tnombre}}</div>
+        <div><strong>Calle:</strong> {{tick.calle}}</div>
+        <div><strong>Colonia:</strong> {{tick.colonia}}</div>
+        <div><strong>Ciudad:</strong> {{tick.ciudad}}</div>
+        <div><strong>Teléfono:</strong> {{tick.telefono}}</div>
+        <div><strong>Pendiente de pago:</strong> {{tick.status===3? 0: (total_desc-tick.anticipo-totalPagos).toFixed(2)}}</div>
+      </div>
+      <div class="col-sm-6">
+        <div><strong>Anticipo:</strong> {{tick.anticipo}}</div>
+        <div><strong>Estatus actual:</strong> {{tick.status_desc}}</div>
+        <div><strong>Fecha de apartado:</strong> {{formatDate(tick.fecha_apartado)}}</div>
+        <div><strong>Fecha de entrega:</strong> {{formatDate(tick.fecha_entrega)}}</div>
+        <div><strong>Fecha de devolución:</strong> {{formatDate(tick.fecha_devolucion)}}</div>
+      </div>
     </div>
-    <div class="col-sm-2 col-md-1 col-lg-2">
-      <button type="button"  ng-show="items.length" ng-click="guardaStatus()" class="btn btn-primary btn-status">Guardar</button>
-      <button type="button" ng-show="items.length" ng-click="print()" class="btn btn-primary btn-status"><i class="fa fa-print"></i></button>
-    </div>
-</fieldset>
-<p>{{error}}</p>
-<div ng-show="items.length">
-<div class="col-sm-6">
-	<div><strong>Nombre:</strong> {{tick.tnombre}}</div>
-	<div><strong>Calle:</strong> {{tick.calle}}</div>
-	<div><strong>Colonia:</strong> {{tick.colonia}}</div>
-	<div><strong>Ciudad:</strong> {{tick.ciudad}}</div>
-	<div><strong>Teléfono:</strong> {{tick.telefono}}</div>
-  <div><strong>Pendiente de pago:</strong> {{tick.status===3? 0: total_desc-tick.anticipo}}</div>
-	</div>
-	<div class="col-sm-6">
-	<div><strong>Anticipo:</strong> {{tick.anticipo}}</div>
-	<div><strong>Estatus actual:</strong> {{tick.status_desc}}</div>
-	<div><strong>Fecha de apartado:</strong> {{formatDate(tick.fecha_apartado)}}</div>
-	<div><strong>Fecha de entrega:</strong> {{formatDate(tick.fecha_entrega)}}</div>
-	<div><strong>Fecha de devolución:</strong> {{formatDate(tick.fecha_devolucion)}}</div>
-	</div>
-</div>
-<table ng-show="items.length" class="table table-bordered table-condensed table-hover table-ticket">
-  <thead>
-    <tr>
-      <th></th>
-      <th style="width:10%">Nombre</th>
-      <th style="width:10%">Descuento (%)</th>
-      <th style="width:10%">Cantidad</th>
-      <th>Descripción</th>
-      <th>Observaciones</th>
-      <th>Costo unitario</th>
-      <th>Subtotal</th>
-      <th>Subtotal con descuento</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="articulo in items track by $index">
-     <td >{{$index+1}}</td>
-      <td >{{articulo.nombre}}</td>
-      <td >{{articulo.descuento}}</td>
-      <td >{{articulo.cantidadElegida}}</td>
-      <td> {{articulo.completeDescription}}</td>
-      <td>{{articulo.observaciones}}</td>
-      <td style="text-align:right">{{articulo.costo_renta}}</td>
-      <td style="text-align:right">{{articulo.subtotal}}</td>
-      <td style="text-align:right">{{articulo.sub_desc}}</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr>
-      <td colspan="7">Total</td>
-      <td style="text-align:right">{{total}}</td>
-      <td style="text-align:right"><strong>{{total_desc}}</strong></td>
-    </tr>
-  </tfoot>
-</table>
-</form>
+    <table ng-show="items.length" class="table table-bordered table-condensed table-hover table-ticket">
+      <thead>
+        <tr>
+          <th></th>
+          <th style="width:10%">Nombre</th>
+          <th style="width:10%">Descuento (%)</th>
+          <th style="width:10%">Cantidad</th>
+          <th>Descripción</th>
+          <th>Observaciones</th>
+          <th>Costo unitario</th>
+          <th>Subtotal</th>
+          <th>Subtotal con descuento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="articulo in items track by $index">
+          <td >{{$index+1}}</td>
+          <td >{{articulo.nombre}}</td>
+          <td >{{articulo.descuento}}</td>
+          <td >{{articulo.cantidadElegida}}</td>
+          <td> {{articulo.completeDescription}}</td>
+          <td>{{articulo.observaciones}}</td>
+          <td style="text-align:right">{{articulo.costo_renta}}</td>
+          <td style="text-align:right">{{articulo.subtotal}}</td>
+          <td style="text-align:right">{{articulo.sub_desc}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="7">Total</td>
+        <td style="text-align:right">{{total}}</td>
+        <td style="text-align:right"><strong>{{total_desc}}</strong></td>
+      </tr>
+      </tfoot>
+    </table>
+  </form>
+  <div ng-show="items.length">
+    <form ng-submit="agregarPago()">
+      <div class="col-md-3"  >
+        <input type="text" class="form-control"  ng-pattern="/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/"   pattern="^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$"  ng-model="txtPago">
+      </div>
+      <div class="col-md-2" >
+        <button type="submit" class="btn btn-default">Agregar pago</button>
+      </div>
+    </form>
+  </div>
+  <div class="content-table col-md-12" ng-show="pagosRentas">
+    <table class="table table-bordered table-condensed table-hover" style="width: 50%;">
+      <thead>
+        <tr>
+          <th style="width: 200px;">Fecha</th>
+          <th>Monto</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="pago in pagosRentas">
+          <td style="text-align:center">{{formatDate(pago.fecha)}}</td>
+          <td style="text-align:right;">{{pago.monto.toFixed(2)}}</td>
+          <td  class="text-center" style="width:30px;"><button ng-click="eliminarPago(pago)" class="btn btn-danger edit-button"><i class="fa fa-trash-o edit-button"></i></button></td>
+        </tr> 
+        <tr style="background: #aaa;">
+          <td>Total</td> 
+          <td style="text-align:right;">{{totalPagos.toFixed(2)}}</td>
+          <td ></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

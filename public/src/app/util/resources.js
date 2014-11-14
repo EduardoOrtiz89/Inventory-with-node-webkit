@@ -194,6 +194,22 @@ for(var i=0; i<Prendas.length; i++){
         isArray: true
       }
     });
+})
+.factory('PagosRentas',function($resource){
+  return $resource('/pagos-rentas/:id',{
+       id: '@_id'
+     }, {
+      get: {
+        method: 'POST',
+        isArray: true
+      },
+      add: {
+         method: 'PUT'
+       },
+       remove: {
+         method: 'DELETE'
+       }
+    });
 });
 
 

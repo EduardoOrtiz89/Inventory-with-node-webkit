@@ -3,6 +3,38 @@ module.exports.init = function(app, connection, models, db,persist) {
   var Ticket = models.Ticket,
     Renta = models.Renta;
 
+  app.post('/pagos-rentas',function(req,res){
+    var id=req.body.id,
+         sql=["select pagos_rentas.* from pagos_rentas",
+              "left join tickets on tickets.id=pagos_rentas.ticket_id",
+              "where tickets.id=?"];
+
+    connection.runSqlAll(sql.join(" "), [id],
+        function (err, result) {
+            if(err){res.send(err); return;}
+            res.send(result);
+        });
+  });
+
+  app.put('/pagos-rentas',function(req,res){
+     var item = req.body;
+    connection.runSql("INSERT into pagos_rentas(fecha,ticket_id,monto) values(?,?,?)", [new Date().toISOString(),item.ticket_id,item.monto], function(err, result) {
+            if (err) {
+              res.send(err);
+              return;
+            }
+            res.send(item);
+          });
+  });
+  app.delete('/pagos-rentas',function(req,res){
+     var sql='delete from  pagos_rentas where id=?'
+    var _id = req.query._id;
+    connection.runSql(sql, [
+      _id
+    ], function(err, r) {
+      res.send(_id);
+    });
+  });
   app.post('/disponibilidad',function(req,res){
    var sql=['select prendas.*,estilos.estilo as estilo_desc,', 
            'colores.color as color_desc,',
