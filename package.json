@@ -4,7 +4,7 @@
   "window": {
     "title": "Catzzo",
     "position": null,
-    "toolbar": false,
+    "toolbar": true,
     "frame": true,
     "fullscreen": false,
     "resizable": true,

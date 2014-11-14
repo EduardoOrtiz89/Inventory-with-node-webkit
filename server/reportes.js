@@ -33,4 +33,44 @@ var sql=["select tickets.*, sum((prendas.costo_renta*rentas.cantidad)-(prendas.c
       	res.send(result);
       });
   });
+
+
+
+
+app.post('/reportes-ventas', function(req, res) {
+ var item = req.body;
+
+			 var sql=[
+			 "select tickets_ventas.*, ",
+			 "count(ventas.id) as articulos",
+			 "from  tickets_ventas",
+			 "left join ventas on ventas.ticket_id=tickets_ventas.id ",
+			 "left join prendas on ventas.prenda_id=prendas.id ",
+			 "left join tipo_prendas on tipo_prendas.id=prendas.tipo_prenda ",
+			 "where  ",
+			 "fecha_venta  between ? and ? ",
+			 "and  tickets_ventas.borrado="+item.status,
+			 "group by tickets_ventas.id order by fecha_venta desc "
+
+			 ];
+		    var fi=item.fecha_inicial,
+			    ff=item.fecha_final,
+				params=[fi,ff];
+			if(!item.status||item.status==="-1"){
+				sql[8]="";
+			}
+			//res.send(sql.join(" ")); return;
+    connection.runSqlAll(sql.join(" "),params,
+      function(err, result) {
+      	if(err){ res.send([{error:true,msg:JSON.stringify(err)}]); return;}
+      	res.send(result);
+      });
+  });
+
+
+
+
+ 
+
+
 };

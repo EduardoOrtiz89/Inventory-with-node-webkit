@@ -15,7 +15,7 @@ angular.module( 'ngBoilerplate.tickets_ventas', [
 
 
   $stateProvider.state( 'tickets_ventas_id', {
-    url: '/rentas-ticket/:ticketId',
+    url: '/tickets_ventas/:ticketId',
     views: {
       "main": {
         controller: 'TicketsVentasCtrl',
@@ -90,7 +90,7 @@ var prendasCodigo = ["sacos", "pantalones", "chalecos"];
     $scope.articulos=$scope.items;
       $scope.cliente.id = $scope.ticket.id;
       var ventimp = window.open('');
-      var tpl = ($compile($templateCache.get('tickets/rentas.tpl.html'))($scope));
+      var tpl = ($compile($templateCache.get('tickets/ventas.tpl.html'))($scope));
       ventimp.document.body.appendChild(tpl[0]);
       ventimp.moveTo(4999,4999);
       setTimeout(function() {

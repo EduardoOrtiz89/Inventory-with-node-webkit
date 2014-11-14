@@ -19,6 +19,11 @@
       nwin.maximize();
       require('./server.js');
       window.location.assign('http://localhost:3000/');
+      nwin.on('close', function() {
+        server.close();
+        process.kill(0);
+        this.close(true);
+      });
     }
   </script>
 </head>

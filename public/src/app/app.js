@@ -22,6 +22,7 @@ angular.module('ngBoilerplate', [
   'ngBoilerplate.reporte_disponibilidad',
   'ngBoilerplate.administrar_tickets',
   'ngBoilerplate.tickets_ventas',
+  'ngBoilerplate.reportes_ventas',
   'util.resources',
   'util.forms',
   'ui.router',

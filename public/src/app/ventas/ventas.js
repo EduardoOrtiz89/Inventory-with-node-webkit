@@ -62,7 +62,7 @@ angular.module('ngBoilerplate.ventas', [
     });
   })
 
-.controller('modalControllerVentas', function($scope, $http, $compile, $filter, $modalInstance, tables, FormFactory, TableSearch, prenda, articulos,$stateParams) {
+.controller('modalControllerVentas', ['$scope', '$http', '$compile', '$filter', '$modalInstance', 'tables', 'FormFactory', 'TableSearch', 'prenda', 'articulos','$stateParams',function($scope, $http, $compile, $filter, $modalInstance, tables, FormFactory, TableSearch, prenda, articulos,$stateParams) {
   $scope.radio={};
   $scope.radio.nuevaPrenda=true;
   var sortingOrder = 'codigo';
@@ -253,9 +253,10 @@ angular.module('ngBoilerplate.ventas', [
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
-})
+}])
 
-.controller('ventasCtrl', function ventasController($scope, NumTicketVentas, $dialogs, $window, $templateCache, $compile, $cookies, $log, $filter, $modal, apartados,
+.controller('ventasCtrl', ['$scope', 'NumTicketVentas', '$dialogs', '$window', '$templateCache', '$compile', '$cookies', '$log', '$filter', '$modal', 'apartados',
+  '$location', 'tables', 'Prendas', 'TicketsVentas','$stateParams','SettingsGet',function ventasController($scope, NumTicketVentas, $dialogs, $window, $templateCache, $compile, $cookies, $log, $filter, $modal, apartados,
   $location, tables, Prendas, TicketsVentas,$stateParams,SettingsGet) {
 
     SettingsGet.get({keys:["telefono", "direccion","footer", "recargos"]},function(result){
@@ -382,6 +383,6 @@ angular.module('ngBoilerplate.ventas', [
   };
 
 
-})
+}])
 
 ;

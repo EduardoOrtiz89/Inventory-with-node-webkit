@@ -16,10 +16,13 @@ var
   tables     = ["users", "sacos", "pantalones", "camisas", "chalecos", "togas", "corbatas", "gaznes", "corbatines", "monios", "zapatos", "colores", "estilos"],
   connection = null,
   execPath = path.dirname( process.execPath );
+
+
+
 persist.connect({
   driver: 'sqlite3',
-  filename: execPath+'/database.db',
-  //filename: 'database.db',
+  //filename: execPath+'/database.db',
+  filename: 'database.db',
   trace: true
 }, function(err, conn) {
   connection = conn;
@@ -28,7 +31,7 @@ app.configure(function() {
   app.set('port', process.env.PORT || 3000);
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
-  app.use(express.static(path.join(__dirname, 'public/bin')));
+  app.use(express.static(path.join(__dirname, 'public/build')));
 });
 
 
@@ -58,5 +61,9 @@ app.get('/api', function(req, res) {
   res.send('API is running');
 });
 
-app.listen(app.get('port'));
+var server=app.listen(app.get('port'));
+
+
+
 console.log('Server listening on port ' + app.get('port'));
+

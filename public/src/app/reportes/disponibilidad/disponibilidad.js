@@ -5,7 +5,7 @@ angular.module('ngBoilerplate.reporte_disponibilidad', [
 	'util.datepicker',
 	'ui.calendar'
 ])
-	.config(function config($stateProvider) {
+	.config(['$stateProvider',function config($stateProvider) {
 		$stateProvider.state('reporte_disponibilidad', {
 			url: '/reportes/disponibilidad',
 			views: {
@@ -30,13 +30,13 @@ angular.module('ngBoilerplate.reporte_disponibilidad', [
 				pageTitle: 'Reportes de disponibilidad'
 			}
 		});
-	})
+	}])
 	.factory('ReportesCacheDisp', ['$cacheFactory',
 		function($cacheFactory) {
 			return $cacheFactory('reportes-disp');
 		}
 	])
-	.controller('reportesDisponibilidadPrendaCtrl', function($scope, $window,TicketsPrendas, $stateParams,$location) {
+	.controller('reportesDisponibilidadPrendaCtrl', ["$scope", "$window","TicketsPrendas", "$stateParams","$location",function($scope, $window,TicketsPrendas, $stateParams,$location) {
 		$scope.events=[];
 		TicketsPrendas.get({
 			id: $stateParams.id
@@ -77,8 +77,8 @@ angular.module('ngBoilerplate.reporte_disponibilidad', [
 			}
 		};
 		$scope.eventSources2 = [$scope.events];
-	})
-	.controller('reportesDisponibilidadCtrl', function reportesDisponibilidadCtrl($scope, tables, TableSearch, DatePicker, Reportes, Dates, $location, ReportesCache, Prendas,ReportesCacheDisp) {
+	}])
+	.controller('reportesDisponibilidadCtrl', ["$scope", "tables", "TableSearch", "DatePicker", "Reportes", "Dates","$location", "ReportesCache", "Prendas","ReportesCacheDisp", function reportesDisponibilidadCtrl($scope, tables, TableSearch, DatePicker, Reportes, Dates, $location, ReportesCache, Prendas,ReportesCacheDisp) {
 		$scope.prenda = {};
 		var cache=ReportesCacheDisp.get('reportes-disp');
 		$scope.changeTable = function() {
@@ -185,6 +185,6 @@ angular.module('ngBoilerplate.reporte_disponibilidad', [
 		}
 		$scope.prendas = Prendas;
 
-	})
+	}])
 
 ;

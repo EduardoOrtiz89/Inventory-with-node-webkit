@@ -186,6 +186,14 @@ for(var i=0; i<Prendas.length; i++){
         isArray: true
       }
     });
-  });
+  })
+.factory('ReportesVentas',function($resource){
+  return $resource('/reportes-ventas',{}, {
+      show: {
+        method: 'POST',
+        isArray: true
+      }
+    });
+});
 
 
