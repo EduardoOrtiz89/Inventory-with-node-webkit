@@ -27,7 +27,7 @@
         <div><strong>Colonia:</strong> {{tick.colonia}}</div>
         <div><strong>Ciudad:</strong> {{tick.ciudad}}</div>
         <div><strong>Teléfono:</strong> {{tick.telefono}}</div>
-        <div><strong>Pendiente de pago:</strong> {{tick.status===3? 0: (total_desc-tick.anticipo-totalPagos).toFixed(2)}}</div>
+        <div><strong>Pendiente de pago:</strong> {{tick.status===3? 0: (PendientePago).toFixed(2)}}</div>
       </div>
       <div class="col-sm-6">
         <div><strong>Anticipo:</strong> {{tick.anticipo}}</div>

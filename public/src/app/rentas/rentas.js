@@ -89,6 +89,8 @@ var prendasCodigo = ["sacos", "pantalones", "chalecos"];
   };
 
   $scope.print=function(){
+  
+
     $scope.cliente=$scope.tick;
     $scope.articulos=$scope.items;
       $scope.cliente.id = $scope.ticket.id;
@@ -114,6 +116,7 @@ var prendasCodigo = ["sacos", "pantalones", "chalecos"];
       PagosRentas.add({ticket_id:$scope.ticket.id, monto:pago},function(res){
           if(res){
             $scope.consultaTicket();
+         
           }
       });
     }
@@ -122,6 +125,7 @@ var prendasCodigo = ["sacos", "pantalones", "chalecos"];
      $dialogs.confirm('Pagos',"¿Está seguro que desea eliminar este pago?").result.then(function(btn) {
         PagosRentas.remove({_id:item.id},function(){
           $scope.consultaTicket();  
+
         });
     });
   };
@@ -150,6 +154,9 @@ var prendasCodigo = ["sacos", "pantalones", "chalecos"];
             for(var i=0; i<res.length; i++){
               $scope.totalPagos+=res[i].monto;
             }
+
+            $scope.PendientePago=$scope.total_desc-$scope.tick.anticipo-$scope.totalPagos;
+            
         }
       });
 

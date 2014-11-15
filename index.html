@@ -29,16 +29,5 @@
 </head>
 <body onload="bodyOnLoad()">
 <div class="loading"></div>
-
-
-          <script>
-  var path = './public/build/';
-  var fs = require('fs');
-  fs.watch(path, function() {
-    if (window.location){
-      window.location.reload();
-    }
-  });
-</script>
 </body>
 </html>
